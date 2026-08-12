@@ -3,21 +3,21 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     */
     public function run(): void
     {
-        // User::factory(10)->create();
-
+        // Usuario de desarrollo. La contrasena por defecto de UserFactory es
+        // "password"; se cambia cuando se implemente RF-35 y RF-36.
         User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+            'name' => 'Coordinador de Prueba',
+            'email' => 'coordinador@sjc.edu.co',
+        ]);
+
+        $this->call([
+            AcademicoSeeder::class,
         ]);
     }
 }
