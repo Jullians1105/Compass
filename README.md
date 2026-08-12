@@ -66,15 +66,16 @@ Las instituciones educativas generan gran cantidad de datos académicos que est�
 
 ```yaml
 Backend:
-  - Laravel 11.x (PHP framework)
-  - PHP 8.x+ (lenguaje de programación)
-  - Composer (gestor de dependencias)
+  - Laravel 12.x (PHP framework)
+  - PHP 8.2+ (lenguaje de programación)
+  - Composer 2.x (gestor de dependencias)
 
 Frontend:
   - JavaScript (ES6+)
-  - Bootstrap 5 (UI/UX - diseño responsivo)
-  - Chart.js / D3.js (visualizaciones de datos)
-  - HTML5 / CSS3
+  - Bootstrap 5.3 (UI/UX - diseño responsivo)
+  - Chart.js 4.x (visualizaciones de datos)
+  - Vite (compilación de assets)
+  - HTML5 / SCSS
 
 Database:
   - MySQL 8.0+ (base de datos relacional)
@@ -97,6 +98,15 @@ Metodología:
 ```
 
 > **Nota:** Stack confirmado en propuesta de grado. Sujeto a ajustes según validación del tutor.
+
+> ⚠️ **Cambio de versión (2026-08-11):** La propuesta indicaba Laravel 11.x, pero esa rama llegó
+> al fin de su soporte de seguridad y Composer bloquea su instalación por vulnerabilidades sin
+> parchear. El proyecto usa **Laravel 12.x**, que instala limpio y mantiene compatibilidad con
+> PHP 8.2. Ver `docs/estadoProyecto.md` para el detalle.
+>
+> ⚠️ **Pendiente de resolver:** `docs/estadoProyecto.md` declara en su sección "Aprendizajes y
+> cambios" un stack distinto (Node.js + React + PostgreSQL). El equipo debe corregir el documento
+> que quede desactualizado antes de arrancar el Sprint 1.
 
 ---
 

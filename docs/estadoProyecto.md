@@ -387,9 +387,31 @@
 
 ---
 
-#### [Fecha aquí] - [Tu nombre]
+#### [2026-08-11] - Mateo Antonio Chica Parra
 
-> Agregar tus cambios del día aquí. Usa el formato de arriba.
+- ✅ Completado: Scaffold inicial de Laravel en el repositorio (antes solo había docs)
+- ✅ Completado: Entorno local Windows funcionando — PHP 8.2.12 (XAMPP), Composer 2.10.2, MySQL 9.4, Node 24
+- ✅ Completado: BD `compass_dev` creada (utf8mb4) y migraciones base ejecutadas
+- ✅ Completado: Bootstrap 5.3.8 + Chart.js 4.5.1 integrados vía Vite, compilando desde `resources/css/app.scss`
+- ✅ Completado: Landing de verificación en `/` que confirma Laravel + PHP + MySQL + Bootstrap + Chart.js
+- 🚫 Bloqueador: **Contradicción de stack en la documentación** (severidad: Alta)
+  - `README.md` declara Laravel / PHP / MySQL / Blade
+  - Este documento (sección "Aprendizajes y cambios") declara Node.js + React + PostgreSQL como
+    "stack confirmado", y la tabla de decisiones arquitectónicas lista React y PostgreSQL como
+    aprobados por el tutor
+  - Se avanzó con **Laravel + MySQL** por ser lo que declara el README, la descripción del repo y
+    la estructura de carpetas de `NORMAS_DESARROLLO.md`. **Falta que el equipo corrija el documento
+    que quede desactualizado antes del Sprint 1.**
+- 🚫 Bloqueador: **Laravel 11 no es instalable** (severidad: Media)
+  - Composer 2.10 bloquea todas las versiones 11.x (hasta 11.55.0) por advisories de seguridad sin
+    parchear: el soporte de seguridad de Laravel 11 terminó y las vulnerabilidades no se corrigen.
+  - Se instaló **Laravel 12.66.0**, que resuelve limpio ("No security vulnerability advisories found")
+    y es compatible con PHP 8.2. Hay que actualizar el `README.md` que dice "Laravel 11.x".
+  - Relevante para RNF-4 (OWASP Top 10) y para el manejo de datos de menores (Ley 1581).
+- ⏳ Próximo: RF-35 (login) y RF-36 (roles y permisos) para arrancar Sprint 1
+- ⏳ Próximo: Definir el esquema ER en migraciones (coordinar con Thomas)
+- 💡 Aprendizaje: PHP 8.2.12 de XAMPP es de octubre 2023 y le faltan ~2 años de parches. Funciona
+  para Laravel 12, pero conviene actualizarlo antes de pensar en el despliegue a AWS.
 
 ---
 
