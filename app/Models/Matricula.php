@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Support\Promedios;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -67,7 +68,7 @@ class Matricula extends Model
             ->with('evaluacion')
             ->get();
 
-        return self::ponderar(
+        return Promedios::ponderar(
             $notas->map(fn ($c) => [(float) $c->nota, (float) $c->evaluacion->porcentaje])
         );
     }
@@ -97,25 +98,6 @@ class Matricula extends Model
             }
         }
 
-        return self::ponderar($componentes);
-    }
-
-    /**
-     * Promedio ponderado de pares [valor, peso]. Null si no hay componentes o
-     * si los pesos suman cero (evita una division por cero silenciosa).
-     */
-    private static function ponderar($componentes): ?float
-    {
-        if ($componentes->isEmpty()) {
-            return null;
-        }
-
-        $peso = $componentes->sum(fn ($c) => $c[1]);
-
-        if ($peso <= 0) {
-            return null;
-        }
-
-        return round($componentes->sum(fn ($c) => $c[0] * $c[1]) / $peso, 2);
+        return Promedios::ponderar($componentes);
     }
 }

@@ -24,3 +24,4 @@ yarn-error.log
 
 # Configuracion personal de Claude por integrante (ver docs/NORMAS_DESARROLLO.md)
 /.claude
+node_modules

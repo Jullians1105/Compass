@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
     ];
 
     /**
@@ -44,5 +45,17 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    /**
+     * RF-05: control de acceso por rol. Solo 'admin' por ahora tiene un
+     * significado especial en la app; el resto de roles (docente,
+     * coordinador...) todavia no restringen nada porque solo existe la
+     * consulta de calificaciones (RF-14), que cualquier usuario autenticado
+     * puede ver.
+     */
+    public function esAdmin(): bool
+    {
+        return $this->role === 'admin';
     }
 }

@@ -60,7 +60,7 @@ class AcademicoSeeder extends Seeder
         // de anio. Si se sembraran los 4, no habria forma de probar la vista
         // de "periodo en curso" ni el calculo de definitiva parcial.
         $evaluaciones = $this->crearEvaluaciones($asignaciones, $periodos->take(2));
-        $this->calificar($matriculas, $evaluaciones);
+        $this->calificar($matriculas, $evaluaciones, $asignaciones->pluck('curso_id', 'id'));
 
         $this->command->newLine();
         $this->command->info('Datos de prueba generados:');
@@ -167,23 +167,27 @@ class AcademicoSeeder extends Seeder
         ]));
     }
 
+    /**
+     * Un solo curso por grado (9°, 10°, 11°): el colegio piloto no tiene
+     * paralelos. 'seccion' sigue existiendo en el esquema (una fila necesita
+     * algo ahi por el UNIQUE de la migracion), pero no se le pega al nombre
+     * visible porque no hay "10°A" y "10°B" entre los que distinguir.
+     */
     private function crearCursos(AnioLectivo $anio, $grados, $docentes)
     {
         $cursos = collect();
         $i = 0;
 
         foreach ($grados as $grado) {
-            foreach (['A', 'B'] as $seccion) {
-                $cursos->push(Curso::create([
-                    'anio_lectivo_id' => $anio->id,
-                    'grado_id' => $grado->id,
-                    'seccion' => $seccion,
-                    'nombre' => $grado->nombre . $seccion,
-                    'director_id' => $docentes[$i % $docentes->count()]->id,
-                    'cupo' => 35,
-                ]));
-                $i++;
-            }
+            $cursos->push(Curso::create([
+                'anio_lectivo_id' => $anio->id,
+                'grado_id' => $grado->id,
+                'seccion' => 'Unica',
+                'nombre' => $grado->nombre,
+                'director_id' => $docentes[$i % $docentes->count()]->id,
+                'cupo' => 35,
+            ]));
+            $i++;
         }
 
         return $cursos;
@@ -279,8 +283,12 @@ class AcademicoSeeder extends Seeder
      * Se usa insert() por lotes en vez de create() por rendimiento: son miles
      * de filas. Eso salta el guard del modelo, asi que el generador acota la
      * nota al rango 0-5 antes de insertar.
+     *
+     * @param \Illuminate\Support\Collection $cursoPorAsignacion Mapa asignacion_id => curso_id,
+     *   ya en memoria desde crearAsignaciones(). Evita acceder a $evaluacion->asignacion por
+     *   fila (360 consultas sueltas) solo para saber a que curso pertenece.
      */
-    private function calificar($matriculas, $evaluaciones): void
+    private function calificar($matriculas, $evaluaciones, $cursoPorAsignacion): void
     {
         // Perfiles: [nota base, dispersion]. La distribucion busca parecerse a
         // un colegio real: la mayoria en basico/alto y una minoria en riesgo.
@@ -299,7 +307,7 @@ class AcademicoSeeder extends Seeder
 
         // Las evaluaciones se agrupan por curso para saber cuales le
         // corresponden a cada estudiante segun donde este matriculado.
-        $evaluacionesPorCurso = $evaluaciones->groupBy(fn ($e) => $e->asignacion->curso_id);
+        $evaluacionesPorCurso = $evaluaciones->groupBy(fn ($e) => $cursoPorAsignacion[$e->asignacion_id]);
 
         $filas = [];
         $ahora = now();

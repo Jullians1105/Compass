@@ -72,8 +72,8 @@ class EstudianteFactory extends Factory
             // La mayoria con consentimiento firmado, pero no todos: hace falta
             // que existan casos sin consentimiento para probar que el EWS los
             // excluye correctamente.
-            'consentimiento_datos' => fake()->boolean(85),
-            'fecha_consentimiento' => fake()->dateTimeBetween('-1 year', 'now'),
+            'consentimiento_datos' => $consentimiento = fake()->boolean(85),
+            'fecha_consentimiento' => $consentimiento ? fake()->dateTimeBetween('-1 year', 'now') : null,
             'activo' => true,
         ];
     }

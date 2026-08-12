@@ -33,7 +33,7 @@ Las instituciones educativas generan gran cantidad de datos académicos que est�
 
 ## ✨ Características principales
 
-### 📌 7 Módulos funcionales
+### 📌 9 Módulos funcionales
 
 | Módulo | Descripción | Usuarios |
 |---|---|---|
@@ -44,6 +44,8 @@ Las instituciones educativas generan gran cantidad de datos académicos que est�
 | **Reportes de Período** | Consolidación automática de desempeño | Coordinadores |
 | **Sistema de Alertas Tempranas (EWS)** | Detección predictiva de riesgo académico | Coordinadores, Docentes |
 | **Portal de Acudientes** | Visualización del progreso estudiantil | Padres/Tutores |
+| **Gestión de Matrículas** | Registro de matrículas, cursos y estudiantes en mora | Coordinadores, Administrativos |
+| **Dashboard Financiero** | KPIs de pagos, mensualidades y mora (objetivo 6 de la tesis) | Administrativos, Coordinadores |
 
 ### 🔍 Indicadores clave de riesgo (KPIs)
 
@@ -104,9 +106,9 @@ Metodología:
 > parchear. El proyecto usa **Laravel 12.x**, que instala limpio y mantiene compatibilidad con
 > PHP 8.2. Ver `docs/estadoProyecto.md` para el detalle.
 >
-> ⚠️ **Pendiente de resolver:** `docs/estadoProyecto.md` declara en su sección "Aprendizajes y
-> cambios" un stack distinto (Node.js + React + PostgreSQL). El equipo debe corregir el documento
-> que quede desactualizado antes de arrancar el Sprint 1.
+> ✅ **Resuelto (2026-08-12):** `docs/estadoProyecto.md` declaraba en su sección "Aprendizajes y
+> cambios" un stack distinto (Node.js + React + PostgreSQL), texto de plantilla que nunca aplicó
+> al proyecto. Ya se corrigió para reflejar el stack real.
 
 ---
 

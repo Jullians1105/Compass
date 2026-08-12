@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 /**
@@ -48,6 +49,15 @@ return new class extends Migration
             // notas duplicadas por doble clic en el formulario.
             $table->unique(['matricula_id', 'evaluacion_id'], 'calificaciones_unica');
         });
+
+        // Respaldo a nivel de BD del rango 0-5: el guard del modelo (Calificacion::booted)
+        // se salta con cualquier insercion masiva (Calificacion::insert(), el propio
+        // AcademicoSeeder, y la futura importacion CSV de RF-21). Sin esto, una nota de 50
+        // se cuela en silencio y corrompe promedios y la clasificacion de riesgo (RF-29).
+        DB::statement(
+            'ALTER TABLE calificaciones ADD CONSTRAINT chk_calificaciones_nota_rango '
+            . 'CHECK (nota BETWEEN 0 AND 5)'
+        );
     }
 
     public function down(): void

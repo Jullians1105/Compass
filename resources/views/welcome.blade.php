@@ -13,36 +13,7 @@
         </div>
     </div>
 
-    {{-- Verificacion del stack: si estas tarjetas se ven con estilo, Bootstrap 5
-         compilo bien. Si el grafico de abajo se dibuja, Chart.js tambien. --}}
     <div class="row g-3 mb-4">
-        <div class="col-md-4">
-            <div class="card h-100">
-                <div class="card-body">
-                    <h2 class="h6 text-body-secondary">Laravel</h2>
-                    <p class="h4 mb-0">{{ app()->version() }}</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card h-100">
-                <div class="card-body">
-                    <h2 class="h6 text-body-secondary">PHP</h2>
-                    <p class="h4 mb-0">{{ PHP_VERSION }}</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card h-100">
-                <div class="card-body">
-                    <h2 class="h6 text-body-secondary">Base de datos</h2>
-                    <p class="h4 mb-0">{{ $baseDatos }}</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row g-3">
         <div class="col-lg-7">
             <div class="card h-100">
                 <div class="card-header">Modulos funcionales</div>
@@ -70,6 +41,15 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    {{-- Verificacion del stack, al final y discreta: no es informacion que le
+         importe a alguien que solo quiere ver los modulos. Si estos valores
+         se leen, Bootstrap 5 y la conexion a BD compilaron/funcionan bien. --}}
+    <div class="d-flex flex-wrap gap-4 text-body-secondary small border-top pt-3">
+        <span>Laravel <strong class="text-body">{{ app()->version() }}</strong></span>
+        <span>PHP <strong class="text-body">{{ PHP_VERSION }}</strong></span>
+        <span>Base de datos <strong class="text-body">{{ $baseDatos }}</strong></span>
     </div>
 
     <script type="module">

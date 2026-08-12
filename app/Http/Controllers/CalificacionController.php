@@ -7,15 +7,16 @@ use App\Models\Curso;
 use App\Models\EscalaDesempeno;
 use App\Models\Evaluacion;
 use App\Models\Periodo;
+use App\Support\Promedios;
 use Illuminate\Http\Request;
 
 /**
  * Modulo de gestion de calificaciones.
  *
- * Por ahora solo la consulta (RF-14). El registro y la edicion (RF-13) van
- * despues, cuando exista autenticacion (RF-01) y control de acceso por rol
- * (RF-05) para saber que docente califica y validar que solo toque sus
- * propias asignaciones.
+ * Por ahora solo la consulta (RF-14), protegida por el middleware 'auth'
+ * (RF-01). El registro y la edicion (RF-13) van despues: falta filtrar por
+ * rol (RF-05) para que un docente solo pueda calificar sus propias
+ * asignaciones, ademas del FormRequest de validacion.
  */
 class CalificacionController extends Controller
 {
@@ -84,12 +85,12 @@ class CalificacionController extends Controller
                         (float) $mapaEvaluaciones->get($c->evaluacion_id)->porcentaje,
                     ]);
 
-                $porPeriodo[$periodo->id] = $this->ponderar($componentes);
+                $porPeriodo[$periodo->id] = Promedios::ponderar($componentes);
             }
 
             // Definitiva = promedio ponderado de las notas de periodo por el
             // peso de cada periodo, contando solo los periodos ya calificados.
-            $definitiva = $this->ponderar(
+            $definitiva = Promedios::ponderar(
                 $periodos
                     ->filter(fn ($p) => $porPeriodo[$p->id] !== null)
                     ->map(fn ($p) => [$porPeriodo[$p->id], (float) $p->porcentaje])
@@ -115,6 +116,20 @@ class CalificacionController extends Controller
             'total' => $filas->where('desempeno.id', $e->id)->count(),
         ]);
 
+        // Estadisticas del "bento" superior. Solo sobre filas con definitiva:
+        // un curso a mitad de periodo 1 no deberia mostrar un 0% de aprobados
+        // por los estudiantes que aun no tienen ninguna nota.
+        $conNota = $filas->filter(fn ($f) => $f['definitiva'] !== null);
+
+        $estadisticas = [
+            'promedio' => $conNota->isNotEmpty() ? round($conNota->avg('definitiva'), 2) : null,
+            'porcentajeAprobados' => $conNota->isNotEmpty()
+                ? round($conNota->filter(fn ($f) => $f['desempeno']?->aprueba)->count() / $conNota->count() * 100)
+                : null,
+            'mejor' => $conNota->sortByDesc('definitiva')->first(),
+            'peor' => $conNota->sortBy('definitiva')->first(),
+        ];
+
         return view('calificaciones.index', compact(
             'cursos',
             'curso',
@@ -124,26 +139,8 @@ class CalificacionController extends Controller
             'escalas',
             'filas',
             'distribucion',
-            'evaluacionesPorPeriodo'
+            'evaluacionesPorPeriodo',
+            'estadisticas'
         ));
-    }
-
-    /**
-     * Promedio ponderado de pares [valor, peso]. Null si no hay componentes o
-     * si los pesos suman cero, para no dividir por cero en silencio.
-     */
-    private function ponderar($componentes): ?float
-    {
-        if ($componentes->isEmpty()) {
-            return null;
-        }
-
-        $peso = $componentes->sum(fn ($c) => $c[1]);
-
-        if ($peso <= 0) {
-            return null;
-        }
-
-        return round($componentes->sum(fn ($c) => $c[0] * $c[1]) / $peso, 2);
     }
 }

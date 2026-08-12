@@ -7,45 +7,103 @@
 
     <title>@yield('titulo', config('app.name'))</title>
 
+    {{-- Tipografia e iconos del prototipo de Stitch (docs/prototipos/DesarrolloStitch.txt).
+         Un unico request de Google Fonts; el resto del diseño (colores, radios,
+         layout) vive en app.scss para no depender de Tailwind. --}}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+
     {{-- Vite compila resources/css/app.scss (Bootstrap 5) y resources/js/app.js (Chart.js) --}}
     @vite(['resources/css/app.scss', 'resources/js/app.js'])
 </head>
-<body class="bg-body-tertiary">
+<body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <div class="container">
-            <a class="navbar-brand fw-semibold" href="{{ url('/') }}">
-                Compass
+    <div class="compass-shell d-flex">
+        {{-- Fondo oscuro detras del sidebar en movil, para cerrarlo tocando afuera. --}}
+        <div class="compass-sidebar-backdrop" id="sidebarBackdrop"></div>
+
+        <aside class="compass-sidebar d-flex flex-column p-3" id="sidebar">
+            <a href="{{ url('/') }}" class="text-decoration-none px-2 mb-4 mt-1">
+                <h1 class="h5 fw-bold mb-0">Compass</h1>
+                <p class="compass-sidebar-muted small mb-0">Gestion academica + BI</p>
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navPrincipal" aria-controls="navPrincipal"
-                    aria-expanded="false" aria-label="Alternar navegacion">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navPrincipal">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link @if (request()->routeIs('inicio')) active @endif"
-                           href="{{ route('inicio') }}">Inicio</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link @if (request()->routeIs('calificaciones.*')) active @endif"
-                           href="{{ route('calificaciones.index') }}">Calificaciones</a>
-                    </li>
-                </ul>
+
+            <nav class="nav flex-column">
+                <a class="nav-link d-flex align-items-center gap-2 py-2 px-2 @if (request()->routeIs('inicio')) active @endif"
+                   href="{{ route('inicio') }}">
+                    <span class="material-symbols-outlined">dashboard</span>
+                    Inicio
+                </a>
+                @foreach (\App\Support\Modulos::todos() as $modulo)
+                    @if ($modulo['ruta'])
+                        <a class="nav-link d-flex align-items-center gap-2 py-2 px-2 @if (request()->routeIs($modulo['ruta'] . '*')) active @endif"
+                           href="{{ route($modulo['ruta']) }}">
+                            <span class="material-symbols-outlined">{{ $modulo['icono'] }}</span>
+                            {{ $modulo['nombre'] }}
+                        </a>
+                    @else
+                        <span class="nav-link disabled d-flex align-items-center gap-2 py-2 px-2">
+                            <span class="material-symbols-outlined">{{ $modulo['icono'] }}</span>
+                            {{ $modulo['nombre'] }}
+                        </span>
+                    @endif
+                @endforeach
+            </nav>
+
+            <div class="compass-sidebar-divider mt-auto pt-3 px-2">
+                <p class="mb-1 small">
+                    {{ auth()->user()->name }}
+                    <span class="compass-sidebar-muted d-block text-capitalize">{{ auth()->user()->role }}</span>
+                </p>
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit" class="btn btn-sm btn-outline-light w-100 d-flex align-items-center justify-content-center gap-2">
+                        <span class="material-symbols-outlined" style="font-size: 1rem;">logout</span>
+                        Cerrar sesion
+                    </button>
+                </form>
             </div>
-        </div>
-    </nav>
+        </aside>
 
-    <main class="container py-4">
-        @yield('contenido')
-    </main>
+        <div class="flex-grow-1 d-flex flex-column" style="min-width: 0;">
+            <header class="bg-white border-bottom px-3 px-md-4 py-3 d-flex align-items-center gap-3">
+                <button type="button" class="btn btn-outline-secondary d-md-none p-1" id="sidebarToggle" aria-label="Abrir menu">
+                    <span class="material-symbols-outlined d-block">menu</span>
+                </button>
+                <h2 class="h6 text-body-secondary mb-0 text-truncate">@yield('titulo', config('app.name'))</h2>
+            </header>
 
-    <footer class="border-top py-3 mt-5">
-        <div class="container text-center text-body-secondary small">
-            Compass &mdash; Universidad Manuela Beltran | Ingenieria de Software
+            <main class="container-fluid p-3 p-md-4 flex-grow-1">
+                @yield('contenido')
+            </main>
+
+            <footer class="border-top py-3">
+                <div class="text-center text-body-secondary small px-3">
+                    Compass &mdash; Universidad Manuela Beltran | Ingenieria de Software
+                </div>
+            </footer>
         </div>
-    </footer>
+    </div>
+
+    <script>
+        // Sidebar deslizable en movil: nada de esto corre en escritorio
+        // (el boton esta oculto con d-md-none), asi que no interfiere.
+        const sidebar = document.getElementById('sidebar');
+        const backdrop = document.getElementById('sidebarBackdrop');
+        const toggle = document.getElementById('sidebarToggle');
+
+        const cerrarSidebar = () => {
+            sidebar.classList.remove('show');
+            backdrop.classList.remove('show');
+        };
+
+        toggle?.addEventListener('click', () => {
+            sidebar.classList.toggle('show');
+            backdrop.classList.toggle('show');
+        });
+
+        backdrop.addEventListener('click', cerrarSidebar);
+    </script>
 
 </body>
 </html>

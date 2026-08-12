@@ -1,6 +1,6 @@
 # 📊 Estado del Proyecto Compass
 
-**Última actualización:** [Fecha y hora]  
+**Última actualización:** 2026-08-12  
 **Frecuencia de actualización:** Diaria (fin de día) + Fin de sprint  
 **Responsable de compilar:** Jullians Mauricio Amado Gutiérrez
 
@@ -24,10 +24,10 @@
 
 | Métrica | Valor | Comentario |
 |---------|-------|-----------|
-| **Fase actual** | Diseño | Prototipos en Sitch, BD en diseño |
-| **Progreso general** | 15% | Propuesta aprobada, arquitectura definida |
-| **Módulos iniciados** | 0/7 | Sin desarrollo aún (próximo sprint) |
-| **RF completados** | 0/46 | Listos para sprint 1 |
+| **Fase actual** | Desarrollo Sprint 1 | Calificaciones (consulta) y autenticación funcionando en local |
+| **Progreso general** | 30% | Modulo 1 (Calificaciones) y auth/roles basicos construidos |
+| **Módulos iniciados** | 1/9 | Gestión de Calificaciones (consulta, RF-14). Ver README para los 9 módulos reales |
+| **RF completados** | 3/46 (RF-01, RF-05, RF-14) | Falta registro/edición (RF-13) y el resto de RF-02 a RF-08 |
 | **RNF completados** | 0/12 | Por validar en testing |
 | **Riesgos activos** | 1 | Stack confirmado, pero entorno no 100% validado |
 | **Bloqueadores** | 0 | Ninguno crítico en este momento |
@@ -48,6 +48,14 @@
 ---
 
 ## 📋 Requisitos funcionales (RF) - Estado
+
+> ⚠️ **La numeración de este checklist es la vieja (incorrecta).** Ver README.md
+> para la numeración real contra la tesis (RF-01 a RF-08 = Autenticación/roles,
+> RF-13/RF-14 = Calificaciones, etc.). Este checklist no se reescribió todavía
+> porque no tenemos en el repo el texto exacto de la tesis para RF-02 a RF-12 y
+> RF-15 a RF-46 — reescribirlo a ciegas seria inventar requisitos. Lo que sigue
+> sirve solo como conteo aproximado de avance, no como fuente de verdad de que
+> es cada RF.
 
 **Total: 46 RF**  
 **Completados: 0 (0%)**  
@@ -259,7 +267,8 @@
 ### Cambios tecnológicos confirmados
 
 **Sprint Diseño (Actual):**
-- ✅ Stack confirmado: Node.js + React + PostgreSQL
+- ✅ Stack confirmado: PHP + Laravel + MySQL + Bootstrap + Chart.js + AWS (ver
+  registro del 2026-08-11: la tesis no menciona Node.js, React ni PostgreSQL)
 - ✅ Herramientas: Sitch para UI, GitHub para versionamiento
 - ✅ Metodología: Scrum con sprints de 2 semanas
 - ✅ Documentación: README + NORMAS_DESARROLLO.md + estadoProyecto.md
@@ -276,8 +285,8 @@
 |----------|-----------|-------|----------|
 | Modelo dimensional para DW | Optimizado para análisis educativo | Sep 2025 | ✅ Tutor |
 | Sistema de alertas con reglas transparentes | Cumple requisito ético de no "caja negra" | Sep 2025 | ✅ Tutor |
-| PostgreSQL en lugar de MongoDB | Datos estructurados, integridad referencial importante | Sep 2025 | ✅ Tutor |
-| React para frontend | Componentes reutilizables, comunidad activa | Sep 2025 | ✅ Tutor |
+| MySQL como motor relacional | Especificado en la tesis; datos estructurados, integridad referencial importante | Sep 2025 | ✅ Tutor |
+| Laravel Blade para frontend | Especificado en la tesis; evita duplicar lógica de validación en un SPA separado | Sep 2025 | ✅ Tutor |
 
 ### Lecciones aprendidas
 
@@ -447,6 +456,32 @@
 - ⏳ Próximo: Ajustar el diseño de la vista de calificaciones al prototipo de Stitch
 - 💡 Aprendizaje: PHP 8.2.12 de XAMPP es de octubre 2023 y le faltan ~2 años de parches. Funciona
   para Laravel 12, pero conviene actualizarlo antes de pensar en el despliegue a AWS.
+
+---
+
+#### [2026-08-12] - Jullians Mauricio Amado Gutiérrez (con Claude)
+
+- ✅ Completado: Revisión de los commits de RF-13/RF-14 — corregido bug de
+  `fecha_consentimiento` en el seeder, agregado CHECK de rango 0-5 en BD
+  (respaldo de la validación del modelo), eliminado un N+1 en el seeder, y
+  unificado el cálculo de promedio ponderado que estaba duplicado en dos sitios
+- ✅ Completado: Diseño visual de `/calificaciones` ajustado al prototipo de
+  Stitch (paleta, sidebar con iconos, tarjetas de estadísticas), reimplementado
+  en Bootstrap 5 para no depender de Tailwind
+- ✅ Completado: **RF-01 (autenticación) y base de RF-05 (roles)** — login,
+  logout, rutas protegidas con middleware `auth`, usuarios de prueba
+  `admin@sjc.edu.co` / `coordinador@sjc.edu.co`
+- ✅ Completado: Diseño responsive (sidebar tipo cajón en celular, tabla de
+  calificaciones como tarjetas con desplegable por período en pantallas chicas)
+- ✅ Completado: Corregido el warning de PHP 8.5 (`PDO::MYSQL_ATTR_SSL_CA`)
+  que salía en pantalla en `config/database.php`
+- 📌 Decisión de datos: el seeder ahora crea **un solo curso por grado**
+  (9°, 10°, 11°, sin secciones A/B) — el colegio piloto no tiene paralelos
+- ⏳ Próximo: RF-02 a RF-08 (recuperación de contraseña, gestión de usuarios,
+  bloqueo de cuentas, auditoría de accesos) — sin definir con precisión hasta
+  tener el texto exacto de la tesis
+- ⏳ Próximo: boletín académico (RF-19/RF-20), candidato fuerte para siguiente
+  pantalla porque reutiliza el cálculo de notas que ya existe
 
 ---
 
