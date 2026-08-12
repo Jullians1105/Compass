@@ -24,7 +24,14 @@
             </button>
             <div class="collapse navbar-collapse" id="navPrincipal">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link active" href="{{ url('/') }}">Inicio</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link @if (request()->routeIs('inicio')) active @endif"
+                           href="{{ route('inicio') }}">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link @if (request()->routeIs('calificaciones.*')) active @endif"
+                           href="{{ route('calificaciones.index') }}">Calificaciones</a>
+                    </li>
                 </ul>
             </div>
         </div>
