@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed-variant": "#2a486b",
+                        "surface-bright": "#f8f9ff",
+                        "on-surface": "#0b1c30",
+                        "background": "#f8f9ff",
+                        "outline-variant": "#c3c6cf",
+                        "on-error": "#ffffff",
+                        "tertiary-container": "#5b2c00",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-high": "#dce9ff",
+                        "outline": "#73777f",
+                        "primary-container": "#1a3a5c",
+                        "surface-container-highest": "#d3e4fe",
+                        "on-tertiary-fixed": "#301400",
+                        "on-tertiary": "#ffffff",
+                        "inverse-surface": "#213145",
+                        "on-secondary-container": "#00743a",
+                        "on-primary-container": "#87a4cc",
+                        "on-secondary": "#ffffff",
+                        "primary-fixed": "#d2e4ff",
+                        "on-tertiary-fixed-variant": "#713700",
+                        "on-primary-fixed": "#001c37",
+                        "on-secondary-fixed-variant": "#005228",
+                        "on-error-container": "#93000a",
+                        "surface-variant": "#d3e4fe",
+                        "on-primary": "#ffffff",
+                        "surface-container-low": "#eff4ff",
+                        "on-background": "#0b1c30",
+                        "surface-tint": "#436084",
+                        "surface": "#f8f9ff",
+                        "error-container": "#ffdad6",
+                        "inverse-on-surface": "#eaf1ff",
+                        "on-tertiary-container": "#f1872b",
+                        "on-surface-variant": "#43474e",
+                        "primary": "#002444",
+                        "on-secondary-fixed": "#00210c",
+                        "secondary-fixed": "#6bfe9c",
+                        "secondary-fixed-dim": "#4ae183",
+                        "inverse-primary": "#abc9f2",
+                        "surface-container": "#e5eeff",
+                        "tertiary": "#3b1a00",
+                        "tertiary-fixed": "#ffdcc5",
+                        "secondary": "#006d37",
+                        "tertiary-fixed-dim": "#ffb783",
+                        "surface-dim": "#cbdbf5",
+                        "primary-fixed-dim": "#abc9f2",
+                        "secondary-container": "#6bfe9c",
+                        "error": "#ba1a1a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "sm": "0.5rem",
+                        "base": "4px",
+                        "xs": "0.25rem",
+                        "xl": "2rem",
+                        "sidebar-width": "260px",
+                        "lg": "1.5rem",
+                        "gutter": "1.5rem",
+                        "md": "1rem"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Inter"],
+                        "headline-xl": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "label-md": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "headline-xl": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "fontWeight": "600" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .sidebar-active {
+            border-left-width: 4px;
+            border-color: #6bfe9c; /* secondary-fixed */
+            background-color: rgba(211, 228, 254, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen">
+<!-- Side Navigation Bar -->
+<aside class="fixed left-0 top-0 h-full w-sidebar-width bg-primary z-40 overflow-y-auto border-r border-outline-variant flex flex-col">
+<div class="px-lg py-xl">
+<h1 class="font-headline-md text-headline-md font-bold text-on-primary">San José de Calasanz</h1>
+<p class="text-on-primary-container font-label-sm text-label-sm">Academic Management</p>
+</div>
+<nav class="flex-grow">
+<ul class="space-y-xs">
+<li>
+<a class="flex items-center gap-md px-lg py-md text-on-primary-container hover:bg-primary-container hover:text-on-primary-fixed transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-md px-lg py-md text-on-primary-container hover:bg-primary-container hover:text-on-primary-fixed transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="font-label-md text-label-md">Students</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-md px-lg py-md text-on-primary-container hover:bg-primary-container hover:text-on-primary-fixed transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="how_to_reg">how_to_reg</span>
+<span class="font-label-md text-label-md">Enrollment</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-md px-lg py-md border-l-4 border-secondary text-surface-bright bg-surface-container-highest/10 transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="school">school</span>
+<span class="font-label-md text-label-md">Academic</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-md px-lg py-md text-on-primary-container hover:bg-primary-container hover:text-on-primary-fixed transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="warning">warning</span>
+<span class="font-label-md text-label-md">Academic Risk</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-md px-lg py-md text-on-primary-container hover:bg-primary-container hover:text-on-primary-fixed transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+<span class="font-label-md text-label-md">Finance</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-md px-lg py-md text-on-primary-container hover:bg-primary-container hover:text-on-primary-fixed transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="upload_file">upload_file</span>
+<span class="font-label-md text-label-md">Data Import</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-md px-lg py-md text-on-primary-container hover:bg-primary-container hover:text-on-primary-fixed transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="assessment">assessment</span>
+<span class="font-label-md text-label-md">Reports</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-md px-lg py-md text-on-primary-container hover:bg-primary-container hover:text-on-primary-fixed transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-md px-lg py-md text-on-primary-container hover:bg-primary-container hover:text-on-primary-fixed transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="manage_accounts">manage_accounts</span>
+<span class="font-label-md text-label-md">Users</span>
+</a>
+</li>
+</ul>
+</nav>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-sidebar-width min-h-screen flex flex-col">
+<!-- Top Navigation Bar -->
+<header class="sticky top-0 right-0 z-30 flex justify-between items-center px-lg py-md bg-surface border-b border-outline-variant">
+<div class="flex items-center gap-lg">
+<span class="font-headline-md text-headline-md font-extrabold text-primary">Colegio San José</span>
+<div class="relative">
+<span class="absolute inset-y-0 left-0 pl-3 flex items-center text-outline">
+<span class="material-symbols-outlined text-md" data-icon="search">search</span>
+</span>
+<input class="pl-10 pr-4 py-1.5 border border-outline rounded bg-surface text-body-sm focus:ring-2 focus:ring-primary/20 outline-none" placeholder="Buscar estudiante..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+</button>
+<div class="h-8 w-px bg-outline-variant mx-sm"></div>
+<div class="flex items-center gap-sm cursor-pointer hover:bg-surface-container-low px-sm py-1 rounded transition-colors group">
+<div class="text-right">
+<p class="text-label-md font-label-md text-on-surface leading-tight">Prof. Martinez</p>
+<p class="text-label-sm font-label-sm text-on-surface-variant">Profile Settings</p>
+</div>
+<img alt="User Avatar" class="w-10 h-10 rounded-full border border-outline-variant" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpCUa_l3oDfVzb5PhCHcmZaD2wsWlFBnwyEtmzcv0mOfwiNcLiYtH1VU57qBeSAVkOO6ZkqAasn0w54zbKU51_qB08tMycqjdDq3H3Xhj687F2G5pib_Fluwn_2FRGZW4u2Rr2jb2N2GY5KJh52ivRA87fpYiRLC2t3_SjOCLzlX59dwzoBlCMSLoXVYhpG648Ujhv6NlHk4RGLYSexkuG3fEpOZZaJZjMX9KCJLwJcTq5yV4YCEH9lDksHSljdvzoz7Ap-CKCB0qT"/>
+</div>
+</div>
+</header>
+<!-- Content Canvas -->
+<div class="p-lg flex flex-col gap-lg flex-grow">
+<!-- Header Section -->
+<section>
+<h2 class="font-headline-xl text-headline-xl text-primary">Registro de Asistencia</h2>
+<p class="text-body-lg text-on-surface-variant">Marca la asistencia diaria por curso</p>
+</section>
+<!-- Filters Section -->
+<section class="grid grid-cols-1 md:grid-cols-4 gap-md bg-white p-lg border border-outline-variant rounded-lg">
+<div class="flex flex-col gap-xs">
+<label class="text-label-sm font-label-sm text-on-surface-variant">Grado</label>
+<select class="border border-outline px-md py-sm rounded-lg text-body-md focus:ring-2 focus:ring-primary/20">
+<option>10° B</option>
+<option>10° A</option>
+<option>11° A</option>
+</select>
+</div>
+<div class="flex flex-col gap-xs">
+<label class="text-label-sm font-label-sm text-on-surface-variant">Fecha</label>
+<div class="relative">
+<input class="w-full border border-outline px-md py-sm rounded-lg text-body-md focus:ring-2 focus:ring-primary/20" type="text" value="Miércoles, 10 Jun 2026"/>
+<span class="absolute right-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-outline" data-icon="calendar_today">calendar_today</span>
+</div>
+</div>
+<div class="flex flex-col gap-xs">
+<label class="text-label-sm font-label-sm text-on-surface-variant">Materia</label>
+<select class="border border-outline px-md py-sm rounded-lg text-body-md focus:ring-2 focus:ring-primary/20">
+<option>Matemáticas</option>
+<option>Física</option>
+<option>Estadística</option>
+</select>
+</div>
+<div class="flex items-end">
+<button class="w-full h-[42px] bg-primary text-white font-label-md rounded-lg hover:opacity-90 transition-opacity flex items-center justify-center gap-sm">
+<span class="material-symbols-outlined" data-icon="filter_list">filter_list</span>
+                        Filtrar
+                    </button>
+</div>
+</section>
+<!-- Summary KPIs -->
+<section class="grid grid-cols-1 lg:grid-cols-4 gap-lg">
+<div class="bg-white p-lg border border-outline-variant rounded-lg flex flex-col gap-xs">
+<span class="text-label-md font-label-md text-on-surface-variant">Presentes</span>
+<div class="flex items-end gap-md">
+<span class="text-headline-xl font-headline-xl text-secondary">28</span>
+<div class="flex items-center text-secondary font-label-sm mb-base">
+<span class="material-symbols-outlined text-sm" data-icon="arrow_upward">arrow_upward</span>
+                            4%
+                        </div>
+</div>
+</div>
+<div class="bg-white p-lg border border-outline-variant rounded-lg flex flex-col gap-xs">
+<span class="text-label-md font-label-md text-on-surface-variant">Ausentes</span>
+<div class="flex items-end gap-md">
+<span class="text-headline-xl font-headline-xl text-error">4</span>
+<div class="flex items-center text-error font-label-sm mb-base">
+<span class="material-symbols-outlined text-sm" data-icon="arrow_downward">arrow_downward</span>
+                            2%
+                        </div>
+</div>
+</div>
+<div class="bg-white p-lg border border-outline-variant rounded-lg flex flex-col gap-xs">
+<span class="text-label-md font-label-md text-on-surface-variant">Tardanzas</span>
+<div class="flex items-end gap-md">
+<span class="text-headline-xl font-headline-xl text-on-tertiary-container">2</span>
+<div class="flex items-center text-on-tertiary-container font-label-sm mb-base">
+<span class="material-symbols-outlined text-sm" data-icon="trending_flat">trending_flat</span>
+                            0%
+                        </div>
+</div>
+</div>
+<div class="bg-white p-lg border border-outline-variant rounded-lg flex flex-col justify-center gap-md">
+<div class="flex justify-between items-center">
+<span class="text-label-md font-label-md text-on-surface-variant">Asistencia hoy</span>
+<span class="text-label-md font-bold text-primary">82.4%</span>
+</div>
+<div class="w-full bg-surface-container-highest h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 82.4%"></div>
+</div>
+</div>
+</section>
+<!-- Attendance Table -->
+<section class="flex-grow bg-white border border-outline-variant rounded-lg overflow-hidden flex flex-col shadow-sm">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead class="bg-surface-container sticky top-0 z-10 border-b border-outline-variant">
+<tr>
+<th class="px-lg py-md font-label-md text-on-surface-variant w-16">Foto</th>
+<th class="px-lg py-md font-label-md text-on-surface-variant">Nombre del Estudiante</th>
+<th class="px-lg py-md font-label-md text-on-surface-variant text-center">Estado de Asistencia</th>
+<th class="px-lg py-md font-label-md text-on-surface-variant">Justificación / Observación</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<!-- Aguirre Torres, Sofía -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-lg py-md">
+<img alt="Sofía Aguirre" class="w-10 h-10 rounded-full border border-outline-variant" data-alt="A portrait of a young female high school student with a friendly expression. She is wearing a traditional dark navy blue school uniform against a clean, soft-lit academic background. The photo is professionally lit with a slight depth of field, maintaining a clean and institutional visual style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDBPM4bE-4rpc3t8kfvTg0edZHBqNgVJC1AWmhq4uiasFOLcrpmCXPbk4HV4kfIWsQND74WlG30NqWlZAzUrJ88V4sQmuvYfFHn2BC0XzFaFSbRW308HDNS3XCEnoamS6avxfMJl4RCYRW0oLvNlgq620pWbisc5PN0SX1kr5dG5BXug5w049607DHBsfdFdRGgql2W7G7JChXHZj1cfoEnfbVcyqA6j0TA2BR6rm3RNYf6UumWGpl24f6TzuG-G1N11tgEexjwtv1K"/>
+</td>
+<td class="px-lg py-md font-body-md text-on-surface">Aguirre Torres, Sofía</td>
+<td class="px-lg py-md">
+<div class="flex justify-center gap-xs">
+<button class="px-md py-1.5 rounded-lg border border-secondary bg-secondary/10 text-secondary font-label-sm flex items-center gap-xs">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                                            Presente
+                                        </button>
+<button class="px-md py-1.5 rounded-lg border border-outline text-on-surface-variant font-label-sm hover:bg-surface-variant transition-colors">Ausente</button>
+<button class="px-md py-1.5 rounded-lg border border-outline text-on-surface-variant font-label-sm hover:bg-surface-variant transition-colors">Tardanza</button>
+</div>
+</td>
+<td class="px-lg py-md">
+<input class="w-full bg-transparent border-b border-transparent focus:border-primary/20 outline-none text-body-sm py-1" placeholder="Añadir nota..." type="text"/>
+</td>
+</tr>
+<!-- Betancourt, Mario -->
+<tr class="bg-surface-container-low/30 hover:bg-surface-container-low transition-colors">
+<td class="px-lg py-md">
+<img alt="Mario Betancourt" class="w-10 h-10 rounded-full border border-outline-variant" data-alt="A profile photo of a male student with short hair and a neutral expression, wearing a school blazer. The lighting is balanced and clean, typical of a professional school identification card. The background is a soft neutral grey, following a modern corporate and educational aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD6HnwCGglCjvLWXo7-fN1sjgls7l0xq4S9XcOf8F9L3hrQtLi_ScNb35XEIK5sYoom68gLpM6cFQ3gqT-ljfP5ShTzrttmeyZGglacSFm6G4usarBXOGMmB9QRhX7VIM7B-9jZEMAr5eLhJ33JOZ880joXZRt_DzKaU8VRoRSdI2lTvihpoTaD9DD17vA5HXdnZMFSEz3V5cjniy8yHJ-S1ckOYyaBidmkAjSbm2qCwguEBQ48yNw10Vq4x8cAen2T-689YlOQSLHC"/>
+</td>
+<td class="px-lg py-md font-body-md text-on-surface">Betancourt, Mario</td>
+<td class="px-lg py-md">
+<div class="flex justify-center gap-xs">
+<button class="px-md py-1.5 rounded-lg border border-outline text-on-surface-variant font-label-sm hover:bg-surface-variant transition-colors">Presente</button>
+<button class="px-md py-1.5 rounded-lg border border-error bg-error/10 text-error font-label-sm flex items-center gap-xs">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">cancel</span>
+                                            Ausente
+                                        </button>
+<button class="px-md py-1.5 rounded-lg border border-outline text-on-surface-variant font-label-sm hover:bg-surface-variant transition-colors">Tardanza</button>
+</div>
+</td>
+<td class="px-lg py-md">
+<div class="flex items-center gap-sm text-error">
+<span class="material-symbols-outlined text-sm" data-icon="description">description</span>
+<span class="text-body-sm font-medium">Cita médica</span>
+</div>
+</td>
+</tr>
+<!-- Castillo Rivera, Elena -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-lg py-md">
+<img alt="Elena Castillo" class="w-10 h-10 rounded-full border border-outline-variant" data-alt="Portrait of a young female student with long dark hair, wearing a white school shirt. The image has a professional, high-key lighting style that feels bright and modern. The setting is an indoor academic environment with soft focus, maintaining the authoritative and supportive brand personality of the institution." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQOLQqG5Yza2dT2dpzijL-mvXHQQ9JjJ3LI3fqyFoyioPF-EsvtSPu_ncISaqmKGdTvPD0mAQme9P8EQYKzgC5P0Co3d-7GM0uWFCzNUyR-d4lhrRilUqhjji2yNY4LwwIsBEhw985edn0c1foCG7BhsBSr9-kwRqFU8gELOXW0bwW7hiVZDwa2TCrONhK-m0lqHmJNRO83uCuNhBWf6j19mRgzQO3wIzRPvsAW_QZW8InFDLliq5bHPVx3aBHfzezIuZbUyte107T"/>
+</td>
+<td class="px-lg py-md font-body-md text-on-surface">Castillo Rivera, Elena</td>
+<td class="px-lg py-md">
+<div class="flex justify-center gap-xs">
+<button class="px-md py-1.5 rounded-lg border border-secondary bg-secondary/10 text-secondary font-label-sm flex items-center gap-xs">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                                            Presente
+                                        </button>
+<button class="px-md py-1.5 rounded-lg border border-outline text-on-surface-variant font-label-sm hover:bg-surface-variant transition-colors">Ausente</button>
+<button class="px-md py-1.5 rounded-lg border border-outline text-on-surface-variant font-label-sm hover:bg-surface-variant transition-colors">Tardanza</button>
+</div>
+</td>
+<td class="px-lg py-md">
+<input class="w-full bg-transparent border-b border-transparent focus:border-primary/20 outline-none text-body-sm py-1" placeholder="Añadir nota..." type="text"/>
+</td>
+</tr>
+<!-- Díaz Muñoz, Carlos -->
+<tr class="bg-surface-container-low/30 hover:bg-surface-container-low transition-colors">
+<td class="px-lg py-md">
+<img alt="Carlos Díaz" class="w-10 h-10 rounded-full border border-outline-variant" data-alt="Close up photo of a smiling male student in a school uniform. The lighting is warm and clear, suggesting a supportive and positive atmosphere. The background is slightly blurred with hints of a library or classroom setting, reinforcing the academic context and modern corporate UI aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCsbMfp2_Hb7YGMRewyo9vs7OJqkECxvEUgJwKMQOOvnQ41hTyqF0zOvcBmN3Doa5XFQmaMrpFwMAVckW9cpx-J-Gwm1eymgESHzMdxsKmOLWJ-DcxTy888B13lELmKodsTzUegedX9zmnF8Ps2st2EXfMrUGRdmvU_d6ZYvyTbxOLVM3FB6fMmR6_703slUQsTP3NkMpzv5Nsne9WE72t--QMfHwyX6G6YCBBKIurbmp_pjRBw7jgtLfTq2OFCiHpwxoraawDwHrYW"/>
+</td>
+<td class="px-lg py-md font-body-md text-on-surface">Díaz Muñoz, Carlos</td>
+<td class="px-lg py-md">
+<div class="flex justify-center gap-xs">
+<button class="px-md py-1.5 rounded-lg border border-outline text-on-surface-variant font-label-sm hover:bg-surface-variant transition-colors">Presente</button>
+<button class="px-md py-1.5 rounded-lg border border-outline text-on-surface-variant font-label-sm hover:bg-surface-variant transition-colors">Ausente</button>
+<button class="px-md py-1.5 rounded-lg border border-tertiary-container bg-tertiary-fixed text-tertiary-container font-label-sm flex items-center gap-xs">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">schedule</span>
+                                            Tardanza
+                                        </button>
+</div>
+</td>
+<td class="px-lg py-md">
+<input class="w-full bg-transparent border-b border-transparent focus:border-primary/20 outline-none text-body-sm py-1 italic text-on-surface-variant" type="text" value="Ingreso 15 min tarde"/>
+</td>
+</tr>
+<!-- Gómez López, Laura -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-lg py-md">
+<img alt="Laura Gómez" class="w-10 h-10 rounded-full border border-outline-variant" data-alt="Portrait of a female student with glasses, smiling confidently. She is dressed in a school uniform with a soft, clean aesthetic. The lighting is diffused and professional, creating an authoritative yet approachable visual style. The overall feel is academic, precise, and supportive, matching the brand guidelines." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBzrN53Y2lT6KHzMbdP0AGt7iNUMOMRKJmhaWMeAon6qskD3ClN6OfjNgq9BY0Xzw9aOGUztXv2TxF5B_vAeNNEUfFCCatfbPhG-V9C83rzpSIMyxHnZ3Lcl9Gw51SDKpuzeZzFaHOTJ_fUZ3dpmN-fjU3w5hoKsicg-oo5we5CmTsUmzQt5rwQ-CStR34hovw58oQZYsQ85R_qRDWX-qpbO2ebTxHdAzhY0KHxdskX9sLDN2BDpdqE3d52nBVIAii88qo3sFbLsoyg"/>
+</td>
+<td class="px-lg py-md font-body-md text-on-surface">Gómez López, Laura</td>
+<td class="px-lg py-md">
+<div class="flex justify-center gap-xs">
+<button class="px-md py-1.5 rounded-lg border border-secondary bg-secondary/10 text-secondary font-label-sm flex items-center gap-xs">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                                            Presente
+                                        </button>
+<button class="px-md py-1.5 rounded-lg border border-outline text-on-surface-variant font-label-sm hover:bg-surface-variant transition-colors">Ausente</button>
+<button class="px-md py-1.5 rounded-lg border border-outline text-on-surface-variant font-label-sm hover:bg-surface-variant transition-colors">Tardanza</button>
+</div>
+</td>
+<td class="px-lg py-md">
+<input class="w-full bg-transparent border-b border-transparent focus:border-primary/20 outline-none text-body-sm py-1" placeholder="Añadir nota..." type="text"/>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Table Footer/Actions -->
+<div class="mt-auto p-lg bg-surface border-t border-outline-variant flex justify-between items-center">
+<p class="text-label-sm font-label-sm text-on-surface-variant italic">
+                        Mostrando 5 de 32 estudiantes en 10° B
+                    </p>
+<div class="flex gap-md">
+<button class="px-xl py-md border border-outline text-on-surface font-label-md rounded-lg hover:bg-surface-container-low transition-colors">
+                            Cancelar
+                        </button>
+<button class="px-xl py-md bg-primary text-white font-label-md rounded-lg hover:opacity-95 shadow-md flex items-center gap-md active:scale-95 transition-transform">
+<span class="material-symbols-outlined" data-icon="save">save</span>
+                            Guardar Asistencia
+                        </button>
+</div>
+</div>
+</section>
+</div>
+<!-- Footer Info -->
+<footer class="p-lg flex justify-center border-t border-outline-variant bg-surface-container-lowest">
+<p class="text-label-sm font-label-sm text-on-surface-variant flex items-center gap-xs">
+<span class="material-symbols-outlined text-sm" data-icon="lock">lock</span>
+                Datos protegidos - Ley 1581/2012
+            </p>
+</footer>
+</main>
+<script>
+        // Micro-interactions for buttons
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                if(this.innerText.includes('Presente') || this.innerText.includes('Ausente') || this.innerText.includes('Tardanza')) {
+                    // Logic for toggle buttons
+                    const container = this.parentElement;
+                    container.querySelectorAll('button').forEach(b => {
+                        b.classList.remove('bg-secondary/10', 'border-secondary', 'text-secondary', 'bg-error/10', 'border-error', 'text-error', 'bg-tertiary-fixed', 'border-tertiary-container', 'text-tertiary-container');
+                        b.classList.add('border-outline', 'text-on-surface-variant');
+                        const icon = b.querySelector('.material-symbols-outlined');
+                        if(icon) icon.remove();
+                    });
+
+                    this.classList.remove('border-outline', 'text-on-surface-variant');
+                    
+                    if(this.innerText.trim() === 'Presente') {
+                        this.classList.add('bg-secondary/10', 'border-secondary', 'text-secondary');
+                        this.insertAdjacentHTML('afterbegin', '<span class="material-symbols-outlined text-sm" style="font-variation-settings: \'FILL\' 1;">check_circle</span>');
+                    } else if(this.innerText.trim() === 'Ausente') {
+                        this.classList.add('bg-error/10', 'border-error', 'text-error');
+                        this.insertAdjacentHTML('afterbegin', '<span class="material-symbols-outlined text-sm" style="font-variation-settings: \'FILL\' 1;">cancel</span>');
+                    } else if(this.innerText.trim() === 'Tardanza') {
+                        this.classList.add('bg-tertiary-fixed', 'border-tertiary-container', 'text-tertiary-container');
+                        this.insertAdjacentHTML('afterbegin', '<span class="material-symbols-outlined text-sm" style="font-variation-settings: \'FILL\' 1;">schedule</span>');
+                    }
+                }
+            });
+        });
+    </script>
+</body></html>

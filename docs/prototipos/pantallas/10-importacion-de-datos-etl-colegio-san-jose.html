@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Importación de Datos ETL - Colegio San José</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8f9ff; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #c3c6cf; border-radius: 10px; }
+        .step-connector { height: 2px; flex-grow: 1; background: #c3c6cf; margin: 0 16px; }
+        .step-connector.active { background: #002444; }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed-variant": "#2a486b",
+                        "surface-bright": "#f8f9ff",
+                        "on-surface": "#0b1c30",
+                        "background": "#f8f9ff",
+                        "outline-variant": "#c3c6cf",
+                        "on-error": "#ffffff",
+                        "tertiary-container": "#5b2c00",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-high": "#dce9ff",
+                        "outline": "#73777f",
+                        "primary-container": "#1a3a5c",
+                        "surface-container-highest": "#d3e4fe",
+                        "on-tertiary-fixed": "#301400",
+                        "on-tertiary": "#ffffff",
+                        "inverse-surface": "#213145",
+                        "on-secondary-container": "#00743a",
+                        "on-primary-container": "#87a4cc",
+                        "on-secondary": "#ffffff",
+                        "primary-fixed": "#d2e4ff",
+                        "on-tertiary-fixed-variant": "#713700",
+                        "on-primary-fixed": "#001c37",
+                        "on-secondary-fixed-variant": "#005228",
+                        "on-error-container": "#93000a",
+                        "surface-variant": "#d3e4fe",
+                        "on-primary": "#ffffff",
+                        "surface-container-low": "#eff4ff",
+                        "on-background": "#0b1c30",
+                        "surface-tint": "#436084",
+                        "surface": "#f8f9ff",
+                        "error-container": "#ffdad6",
+                        "inverse-on-surface": "#eaf1ff",
+                        "on-tertiary-container": "#f1872b",
+                        "on-surface-variant": "#43474e",
+                        "primary": "#002444",
+                        "on-secondary-fixed": "#00210c",
+                        "secondary-fixed": "#6bfe9c",
+                        "secondary-fixed-dim": "#4ae183",
+                        "inverse-primary": "#abc9f2",
+                        "surface-container": "#e5eeff",
+                        "tertiary": "#3b1a00",
+                        "tertiary-fixed": "#ffdcc5",
+                        "secondary": "#006d37",
+                        "tertiary-fixed-dim": "#ffb783",
+                        "surface-dim": "#cbdbf5",
+                        "primary-fixed-dim": "#abc9f2",
+                        "secondary-container": "#6bfe9c",
+                        "error": "#ba1a1a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "sm": "0.5rem",
+                        "base": "4px",
+                        "xs": "0.25rem",
+                        "xl": "2rem",
+                        "sidebar-width": "260px",
+                        "lg": "1.5rem",
+                        "gutter": "1.5rem",
+                        "md": "1rem"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Inter"],
+                        "headline-xl": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "label-md": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["28px", {"lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "headline-xl": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "fontWeight": "600"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="flex min-h-screen">
+<!-- SideNavBar Shell -->
+<aside class="fixed left-0 top-0 h-full z-40 overflow-y-auto bg-primary dark:bg-primary border-r border-outline-variant w-sidebar-width transition-all duration-200 ease-in-out">
+<div class="p-lg flex flex-col gap-xl">
+<!-- Brand Header -->
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 bg-surface-container-highest rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">school</span>
+</div>
+<div>
+<h1 class="font-headline-md text-headline-md font-bold text-on-primary">San José de Calasanz</h1>
+<p class="font-label-sm text-label-sm text-on-primary-container">Academic Management</p>
+</div>
+</div>
+<!-- Navigation Links -->
+<nav class="flex flex-col gap-xs">
+<a class="flex items-center gap-md px-lg py-md text-on-primary-container hover:bg-primary-container hover:text-on-primary-fixed transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-md px-lg py-md text-on-primary-container hover:bg-primary-container hover:text-on-primary-fixed transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="font-label-md text-label-md">Students</span>
+</a>
+<a class="flex items-center gap-md px-lg py-md text-on-primary-container hover:bg-primary-container hover:text-on-primary-fixed transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="how_to_reg">how_to_reg</span>
+<span class="font-label-md text-label-md">Enrollment</span>
+</a>
+<!-- Active Nav Item -->
+<a class="flex items-center gap-md px-lg py-md border-l-4 border-secondary text-surface-bright bg-surface-container-highest/10 transition-all rounded-r-lg" href="#">
+<span class="material-symbols-outlined" data-icon="upload_file">upload_file</span>
+<span class="font-label-md text-label-md">Data Import</span>
+</a>
+<a class="flex items-center gap-md px-lg py-md text-on-primary-container hover:bg-primary-container hover:text-on-primary-fixed transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="assessment">assessment</span>
+<span class="font-label-md text-label-md">Reports</span>
+</a>
+<a class="flex items-center gap-md px-lg py-md text-on-primary-container hover:bg-primary-container hover:text-on-primary-fixed transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+</nav>
+</div>
+<!-- Admin User Indicator -->
+<div class="absolute bottom-0 left-0 w-full p-md border-t border-on-primary-container/20">
+<div class="flex items-center gap-sm px-md">
+<div class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-secondary-container" data-icon="manage_accounts">manage_accounts</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-primary">Admin Sistema</p>
+<p class="text-[10px] uppercase tracking-wider text-on-primary-container">Full Access</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-sidebar-width flex-1 flex flex-col min-h-screen">
+<!-- TopAppBar -->
+<header class="sticky top-0 right-0 z-30 flex justify-between items-center px-lg py-md bg-surface border-b border-outline-variant">
+<div class="flex items-center gap-md">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary" data-icon="upload_file">upload_file</span>
+<span class="font-headline-md text-headline-md font-extrabold text-primary">Importar Datos Académicos</span>
+</div>
+</div>
+<div class="flex items-center gap-lg">
+<div class="relative group">
+<input class="bg-surface-container-low border border-outline px-xl py-xs rounded-full text-label-md focus:outline-none focus:ring-2 focus:ring-primary/20 w-64 transition-all" placeholder="Buscar procesos..." type="text"/>
+<span class="material-symbols-outlined absolute left-md top-1/2 -translate-y-1/2 text-on-surface-variant text-sm" data-icon="search">search</span>
+</div>
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary transition-colors" data-icon="notifications">notifications</span>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary transition-colors" data-icon="help">help</span>
+<div class="flex items-center gap-sm border-l border-outline-variant pl-md ml-sm">
+<span class="font-label-md text-label-md text-primary">Profile Settings</span>
+<div class="w-8 h-8 rounded-full bg-surface-container-high overflow-hidden border border-outline-variant">
+<img alt="User Avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBBob8PfMSHe5HffpO_96uFWhKQRuByMvlDIqbNAPMZRniG2QVoXEwfH03M9zDsssWY1xVdK1h9zcIMsL0H9whB_AqE2qV-qv1elJMhJYrqjiKxrw-LX3135bTNYUwdNa9cb4ruEtAOYSGaHR1Wy_KgQgnI4gOMgjXr52yUTeDrcUqyBYQjejZoM1Fd3Dzk9AdBrSMWirtYzb5KU4BMwHd6d0zOLl1eMDQwEsfN65tD8Dz7QBBMezzwgWi6FB64hbtgS5Gxv1-W_EAr"/>
+</div>
+</div>
+</div>
+</div>
+</header>
+<!-- Content Area -->
+<section class="p-lg flex-1 overflow-y-auto space-y-lg custom-scrollbar">
+<!-- Header Description -->
+<div class="bg-primary-container rounded-xl p-lg text-on-primary-container relative overflow-hidden">
+<div class="relative z-10 flex items-center justify-between">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-surface-bright">Importar Datos Académicos</h2>
+<p class="font-body-md text-body-md text-on-primary-container max-w-2xl mt-xs opacity-90">
+                            Carga masiva de calificaciones, asistencia y convivencia. Asegúrese de que su archivo cumpla con los estándares de formato institucional para evitar inconsistencias en el BI.
+                        </p>
+</div>
+<button class="flex items-center gap-sm bg-secondary text-on-secondary px-lg py-md rounded-lg font-label-md hover:brightness-110 transition-all shadow-md">
+<span class="material-symbols-outlined" data-icon="download">download</span>
+                        Descargar plantilla Excel
+                    </button>
+</div>
+<!-- Subtle graphic pattern -->
+<div class="absolute right-0 bottom-0 opacity-10 pointer-events-none">
+<span class="material-symbols-outlined text-[120px]" data-icon="database">database</span>
+</div>
+</div>
+<!-- Stepper Container -->
+<div class="flex items-center justify-between px-xl py-lg bg-surface border border-outline-variant rounded-xl shadow-sm">
+<div class="flex items-center gap-md group">
+<div class="w-10 h-10 rounded-full bg-primary text-on-primary flex items-center justify-center font-bold">1</div>
+<span class="font-label-md text-label-md text-primary">Cargar Archivo</span>
+</div>
+<div class="step-connector active"></div>
+<div class="flex items-center gap-md opacity-50">
+<div class="w-10 h-10 rounded-full bg-outline-variant text-on-surface-variant flex items-center justify-center font-bold">2</div>
+<span class="font-label-md text-label-md text-on-surface-variant">Validar Datos</span>
+</div>
+<div class="step-connector"></div>
+<div class="flex items-center gap-md opacity-50">
+<div class="w-10 h-10 rounded-full bg-outline-variant text-on-surface-variant flex items-center justify-center font-bold">3</div>
+<span class="font-label-md text-label-md text-on-surface-variant">Confirmar Carga</span>
+</div>
+</div>
+<!-- Main ETL Workspace (Bento Style) -->
+<div class="grid grid-cols-12 gap-lg">
+<!-- Upload Zone -->
+<div class="col-span-12 lg:col-span-7 bg-surface border border-outline-variant rounded-xl p-xl flex flex-col items-center justify-center border-dashed border-2 hover:bg-surface-container-low transition-all cursor-pointer group">
+<div class="w-20 h-20 bg-primary-container/10 rounded-full flex items-center justify-center mb-md group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-primary text-[48px]" data-icon="cloud_upload">cloud_upload</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary mb-xs">Arrastre y suelte su archivo aquí</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-lg text-center">Formatos soportados: .xlsx, .csv (Máximo 25MB)</p>
+<button class="bg-primary text-on-primary px-xl py-md rounded-lg font-label-md hover:bg-on-primary-fixed-variant transition-colors">
+                        Seleccionar Archivo de mi Equipo
+                    </button>
+</div>
+<!-- Summary Status Area -->
+<div class="col-span-12 lg:col-span-5 grid grid-cols-1 gap-md">
+<!-- Stat Card: Valid -->
+<div class="bg-surface border border-outline-variant rounded-xl p-lg flex justify-between items-center hover:shadow-md transition-shadow">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 bg-secondary/10 rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary" data-icon="check_circle">check_circle</span>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wide">Registros Válidos</p>
+<p class="font-headline-lg text-headline-lg text-secondary">245</p>
+</div>
+</div>
+<div class="text-secondary font-bold text-label-md">100%</div>
+</div>
+<!-- Stat Card: Warnings -->
+<div class="bg-surface border border-outline-variant rounded-xl p-lg flex justify-between items-center hover:shadow-md transition-shadow">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 bg-[#f1872b]/10 rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-[#f1872b]" data-icon="warning">warning</span>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wide">Advertencias</p>
+<p class="font-headline-lg text-headline-lg text-[#f1872b]">7</p>
+</div>
+</div>
+<div class="text-[#f1872b] font-bold text-label-md flex items-center gap-xs">
+<span class="material-symbols-outlined text-sm" data-icon="trending_up">trending_up</span>
+                            2.8%
+                        </div>
+</div>
+<!-- Stat Card: Errors -->
+<div class="bg-surface border border-outline-variant rounded-xl p-lg flex justify-between items-center hover:shadow-md transition-shadow">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 bg-error/10 rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-error" data-icon="error">error</span>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wide">Errores Críticos</p>
+<p class="font-headline-lg text-headline-lg text-error">3</p>
+</div>
+</div>
+<div class="bg-error/10 text-error px-sm py-xs rounded font-bold text-label-sm">REQUIERE ACCIÓN</div>
+</div>
+</div>
+<!-- Error Table Section -->
+<div class="col-span-12 bg-surface border border-outline-variant rounded-xl overflow-hidden shadow-sm">
+<div class="p-lg border-b border-outline-variant flex justify-between items-center">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-error" data-icon="list_alt">list_alt</span>
+<h3 class="font-headline-md text-headline-md text-primary">Detalle de Inconsistencias</h3>
+</div>
+<span class="bg-error-container text-on-error-container px-md py-xs rounded-full font-label-sm">Mostrando 3 errores prioritarios</span>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container text-on-surface-variant">
+<th class="p-lg font-label-md text-label-md">Fila</th>
+<th class="p-lg font-label-md text-label-md">Campo</th>
+<th class="p-lg font-label-md text-label-md">Error detectado</th>
+<th class="p-lg font-label-md text-label-md">Sugerencia de corrección</th>
+<th class="p-lg font-label-md text-label-md text-right">Acción</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="p-lg font-label-md text-label-md">15</td>
+<td class="p-lg"><span class="bg-surface-container-highest px-sm py-xs rounded text-label-sm font-mono">calificación</span></td>
+<td class="p-lg">
+<div class="flex items-center gap-sm text-error">
+<span class="material-symbols-outlined text-sm" data-icon="block">block</span>
+<span class="font-body-sm text-body-sm">Valor "6.5" fuera de rango institucional (1.0 - 5.0)</span>
+</div>
+</td>
+<td class="p-lg font-body-sm text-body-sm text-on-surface-variant">Verificar escala numérica o redondear valor.</td>
+<td class="p-lg text-right">
+<button class="text-primary hover:underline font-label-md">Editar</button>
+</td>
+</tr>
+<tr class="bg-surface-container-low/30 hover:bg-surface-container-low transition-colors">
+<td class="p-lg font-label-md text-label-md">42</td>
+<td class="p-lg"><span class="bg-surface-container-highest px-sm py-xs rounded text-label-sm font-mono">id_estudiante</span></td>
+<td class="p-lg">
+<div class="flex items-center gap-sm text-error">
+<span class="material-symbols-outlined text-sm" data-icon="person_off">person_off</span>
+<span class="font-body-sm text-body-sm">ID "ST-9923" no registrado en base de datos académica.</span>
+</div>
+</td>
+<td class="p-lg font-body-sm text-body-sm text-on-surface-variant">Revisar número de identificación o registrar alumno.</td>
+<td class="p-lg text-right">
+<button class="text-primary hover:underline font-label-md">Editar</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="p-lg font-label-md text-label-md">108</td>
+<td class="p-lg"><span class="bg-surface-container-highest px-sm py-xs rounded text-label-sm font-mono">fecha_inasistencia</span></td>
+<td class="p-lg">
+<div class="flex items-center gap-sm text-error">
+<span class="material-symbols-outlined text-sm" data-icon="event_busy">event_busy</span>
+<span class="font-body-sm text-body-sm">Formato de fecha inválido "2023/13/45".</span>
+</div>
+</td>
+<td class="p-lg font-body-sm text-body-sm text-on-surface-variant">Ajustar a formato estándar DD/MM/AAAA.</td>
+<td class="p-lg text-right">
+<button class="text-primary hover:underline font-label-md">Editar</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+<!-- Footer Control Bar -->
+<footer class="sticky bottom-0 right-0 w-full bg-surface border-t border-outline-variant p-lg flex justify-between items-center">
+<div class="flex items-center gap-md">
+<button class="flex items-center gap-sm outline outline-1 outline-primary text-primary px-lg py-md rounded-lg font-label-md hover:bg-primary-container/10 transition-all">
+<span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+                    Volver
+                </button>
+<div class="flex items-center gap-xs px-md py-sm bg-surface-container-low rounded-lg text-on-surface-variant text-label-sm">
+<span class="material-symbols-outlined text-sm" data-icon="info">info</span>
+                    Se requiere corregir errores antes de proceder con la importación final.
+                </div>
+</div>
+<div class="flex items-center gap-lg">
+<div class="flex flex-col items-end mr-md">
+<span class="text-[10px] text-on-surface-variant font-bold uppercase tracking-widest">Estado Final</span>
+<span class="text-label-md font-bold text-error">Bloqueado por validación</span>
+</div>
+<button class="flex items-center gap-sm bg-outline-variant text-on-surface-variant px-xl py-md rounded-lg font-label-md cursor-not-allowed opacity-60" disabled="">
+<span class="material-symbols-outlined" data-icon="send">send</span>
+                    Confirmar e Importar
+                </button>
+</div>
+</footer>
+</main>
+<script>
+        // Micro-interactions for Drag & Drop zone
+        const dropZone = document.querySelector('.lg\\:col-span-7');
+        
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('bg-surface-container-high', 'scale-[1.02]');
+        });
+
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.classList.remove('bg-surface-container-high', 'scale-[1.02]');
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('bg-surface-container-high', 'scale-[1.02]');
+            alert('Archivo detectado. Iniciando validación preliminar...');
+        });
+    </script>
+</body></html>

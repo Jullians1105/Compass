@@ -394,22 +394,57 @@
 - ✅ Completado: BD `compass_dev` creada (utf8mb4) y migraciones base ejecutadas
 - ✅ Completado: Bootstrap 5.3.8 + Chart.js 4.5.1 integrados vía Vite, compilando desde `resources/css/app.scss`
 - ✅ Completado: Landing de verificación en `/` que confirma Laravel + PHP + MySQL + Bootstrap + Chart.js
-- 🚫 Bloqueador: **Contradicción de stack en la documentación** (severidad: Alta)
-  - `README.md` declara Laravel / PHP / MySQL / Blade
-  - Este documento (sección "Aprendizajes y cambios") declara Node.js + React + PostgreSQL como
-    "stack confirmado", y la tabla de decisiones arquitectónicas lista React y PostgreSQL como
-    aprobados por el tutor
-  - Se avanzó con **Laravel + MySQL** por ser lo que declara el README, la descripción del repo y
-    la estructura de carpetas de `NORMAS_DESARROLLO.md`. **Falta que el equipo corrija el documento
-    que quede desactualizado antes del Sprint 1.**
+- ✅ **RESUELTO — Contradicción de stack.** Se contrastó contra el documento de tesis
+  (Cap. II, "Bases o fundamentos teóricos", sección de tecnologías). La tesis especifica
+  textualmente: HTML5, CSS3, JavaScript, **Bootstrap 5**, PHP 8.x, **Laravel 11**,
+  **MySQL 8.x**, phpMyAdmin, **Chart.js** y **AWS (EC2, RDS for MySQL, S3, Certificate
+  Manager)**. No menciona React ni PostgreSQL en ninguna parte.
+  - El `README.md` estaba correcto; la sección "Aprendizajes y cambios" de este documento
+    (Node.js + React + PostgreSQL "aprobado por el tutor") es texto de plantilla erróneo
+    y **debe borrarse**.
+  - Bootstrap 5 está justificado en la tesis citando RNF-12 (responsive) y RNF-15
+    (compatibilidad de navegadores).
+- 🚫 Bloqueador: **La numeración de RF y RNF del README no coincide con la tesis**
+  (severidad: Alta)
+  - El README listaba `RF-01: Registrar calificación`; en la tesis RF-01 es
+    *Autenticación de usuarios*. El registro de calificaciones es **RF-13** y la consulta
+    es **RF-14**.
+  - La tesis define **RNF-01 a RNF-26**, no los 12 del README.
+  - Se corrigió el README con la numeración real. Las ramas y commits deben usar la de
+    la tesis, que es la que revisa el tutor.
+- 📌 **Corrección de alcance:** las pantallas de *Gestión de Matrículas* y *Dashboard
+  Financiero* del prototipo **sí están en el alcance**. Son los objetivos específicos 5 y 6
+  de la tesis y ocupan RF-34 a RF-46 (matrículas, pagos de mensualidades, comprobantes,
+  estudiantes en mora, alertas de pago y KPIs financieros). La lista de 7 módulos del README
+  está incompleta.
 - 🚫 Bloqueador: **Laravel 11 no es instalable** (severidad: Media)
   - Composer 2.10 bloquea todas las versiones 11.x (hasta 11.55.0) por advisories de seguridad sin
     parchear: el soporte de seguridad de Laravel 11 terminó y las vulnerabilidades no se corrigen.
   - Se instaló **Laravel 12.66.0**, que resuelve limpio ("No security vulnerability advisories found")
     y es compatible con PHP 8.2. Hay que actualizar el `README.md` que dice "Laravel 11.x".
   - Relevante para RNF-4 (OWASP Top 10) y para el manejo de datos de menores (Ley 1581).
+- ✅ Completado: Esquema del núcleo académico (12 tablas), modelos Eloquent y seeders
+  con datos ficticios; vista de consulta de calificaciones (**RF-14**)
+- 📌 **Decisión de modelado:** las evaluaciones son entidad propia (tabla `evaluaciones`),
+  no una columna `tipo_evaluacion` dentro de `calificaciones`. RF-13 exige registrar el
+  tipo de evaluación (parcial, final...), lo que implica **varias notas por período** en
+  una misma asignatura. El diseño inicial tenía una restricción única sobre
+  `(matrícula, asignación, período)` que lo impedía. Ahora la nota del período es el
+  promedio ponderado de sus evaluaciones, y la definitiva pondera esas notas por el peso
+  de cada período.
+- 📌 **Ojo con las dos escalas.** La escala de desempeño del Decreto 1290
+  (Superior/Alto/Básico/Bajo) **no es** la escala de riesgo. RF-29 define niveles
+  bajo/medio/alto con una puntuación de 0 a 100 que combina notas, asistencia y
+  observaciones. Son cosas distintas; hoy solo está modelada la primera.
+- 📌 Decisión de alcance: **el proyecto cubre únicamente los grados 9°, 10° y 11°.**
+  No estaba documentado en ninguna parte. Los seeders generan solo esos tres grados
+  (6 cursos, 168 estudiantes). La tabla `grados` no impone el límite: si más adelante
+  se incluyen 6° a 8°, basta agregarlos al seeder sin tocar el esquema.
 - ⏳ Próximo: RF-35 (login) y RF-36 (roles y permisos) para arrancar Sprint 1
-- ⏳ Próximo: Definir el esquema ER en migraciones (coordinar con Thomas)
+- ⏳ Próximo: Validar el esquema ER con Thomas antes de que se construya encima
+- ⏳ Próximo: Tests automatizados del módulo 1 (RNF-11); hoy la única verificación
+  del cálculo de definitiva es visual
+- ⏳ Próximo: Ajustar el diseño de la vista de calificaciones al prototipo de Stitch
 - 💡 Aprendizaje: PHP 8.2.12 de XAMPP es de octubre 2023 y le faltan ~2 años de parches. Funciona
   para Laravel 12, pero conviene actualizarlo antes de pensar en el despliegue a AWS.
 

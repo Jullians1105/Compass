@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Dashboard Financiero - Colegio San José</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed-variant": "#2a486b",
+                        "surface-bright": "#f8f9ff",
+                        "on-surface": "#0b1c30",
+                        "background": "#f8f9ff",
+                        "outline-variant": "#c3c6cf",
+                        "on-error": "#ffffff",
+                        "tertiary-container": "#5b2c00",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-high": "#dce9ff",
+                        "outline": "#73777f",
+                        "primary-container": "#1a3a5c",
+                        "surface-container-highest": "#d3e4fe",
+                        "on-tertiary-fixed": "#301400",
+                        "on-tertiary": "#ffffff",
+                        "inverse-surface": "#213145",
+                        "on-secondary-container": "#00743a",
+                        "on-primary-container": "#87a4cc",
+                        "on-secondary": "#ffffff",
+                        "primary-fixed": "#d2e4ff",
+                        "on-tertiary-fixed-variant": "#713700",
+                        "on-primary-fixed": "#001c37",
+                        "on-secondary-fixed-variant": "#005228",
+                        "on-error-container": "#93000a",
+                        "surface-variant": "#d3e4fe",
+                        "on-primary": "#ffffff",
+                        "surface-container-low": "#eff4ff",
+                        "on-background": "#0b1c30",
+                        "surface-tint": "#436084",
+                        "surface": "#f8f9ff",
+                        "error-container": "#ffdad6",
+                        "inverse-on-surface": "#eaf1ff",
+                        "on-tertiary-container": "#f1872b",
+                        "on-surface-variant": "#43474e",
+                        "primary": "#002444",
+                        "on-secondary-fixed": "#00210c",
+                        "secondary-fixed": "#6bfe9c",
+                        "secondary-fixed-dim": "#4ae183",
+                        "inverse-primary": "#abc9f2",
+                        "surface-container": "#e5eeff",
+                        "tertiary": "#3b1a00",
+                        "tertiary-fixed": "#ffdcc5",
+                        "secondary": "#006d37",
+                        "tertiary-fixed-dim": "#ffb783",
+                        "surface-dim": "#cbdbf5",
+                        "primary-fixed-dim": "#abc9f2",
+                        "secondary-container": "#6bfe9c",
+                        "error": "#ba1a1a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "sm": "0.5rem",
+                        "base": "4px",
+                        "xs": "0.25rem",
+                        "xl": "2rem",
+                        "sidebar-width": "260px",
+                        "lg": "1.5rem",
+                        "gutter": "1.5rem",
+                        "md": "1rem"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Inter"],
+                        "headline-xl": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "label-md": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Inter"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8f9ff; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .sidebar-active { border-left-width: 4px; border-color: #006d37; background-color: rgba(211, 228, 254, 0.1); }
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #c3c6cf; border-radius: 10px; }
+    </style>
+</head>
+<body class="text-on-background">
+<!-- Side Navigation Shell -->
+<aside class="fixed left-0 top-0 h-full z-40 overflow-y-auto bg-primary border-r border-outline-variant w-sidebar-width flex flex-col">
+<div class="px-lg py-xl">
+<h1 class="font-headline-md text-headline-md font-bold text-on-primary">San José de Calasanz</h1>
+<p class="font-label-sm text-label-sm text-on-primary-container opacity-80 uppercase tracking-wider mt-xs">Academic Management</p>
+</div>
+<nav class="flex-1 px-md space-y-xs">
+<a class="flex items-center gap-md px-lg py-md text-on-primary-container hover:bg-primary-container hover:text-on-primary-fixed transition-all duration-200" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-md px-lg py-md text-on-primary-container hover:bg-primary-container hover:text-on-primary-fixed transition-all duration-200" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-md text-label-md">Students</span>
+</a>
+<a class="flex items-center gap-md px-lg py-md text-on-primary-container hover:bg-primary-container hover:text-on-primary-fixed transition-all duration-200" href="#">
+<span class="material-symbols-outlined">how_to_reg</span>
+<span class="font-label-md text-label-md">Enrollment</span>
+</a>
+<a class="flex items-center gap-md px-lg py-md text-on-primary-container hover:bg-primary-container hover:text-on-primary-fixed transition-all duration-200" href="#">
+<span class="material-symbols-outlined">school</span>
+<span class="font-label-md text-label-md">Academic</span>
+</a>
+<a class="flex items-center gap-md px-lg py-md text-on-primary-container hover:bg-primary-container hover:text-on-primary-fixed transition-all duration-200" href="#">
+<span class="material-symbols-outlined">warning</span>
+<span class="font-label-md text-label-md">Academic Risk</span>
+</a>
+<!-- ACTIVE TAB: Finance -->
+<a class="flex items-center gap-md px-lg py-md border-l-4 border-secondary text-surface-bright bg-surface-container-highest/10 transition-all duration-200" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-label-md text-label-md">Finance</span>
+</a>
+<a class="flex items-center gap-md px-lg py-md text-on-primary-container hover:bg-primary-container hover:text-on-primary-fixed transition-all duration-200" href="#">
+<span class="material-symbols-outlined">upload_file</span>
+<span class="font-label-md text-label-md">Data Import</span>
+</a>
+<a class="flex items-center gap-md px-lg py-md text-on-primary-container hover:bg-primary-container hover:text-on-primary-fixed transition-all duration-200" href="#">
+<span class="material-symbols-outlined">assessment</span>
+<span class="font-label-md text-label-md">Reports</span>
+</a>
+<a class="flex items-center gap-md px-lg py-md text-on-primary-container hover:bg-primary-container hover:text-on-primary-fixed transition-all duration-200" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+<a class="flex items-center gap-md px-lg py-md text-on-primary-container hover:bg-primary-container hover:text-on-primary-fixed transition-all duration-200" href="#">
+<span class="material-symbols-outlined">manage_accounts</span>
+<span class="font-label-md text-label-md">Users</span>
+</a>
+</nav>
+<div class="mt-auto p-lg border-t border-outline-variant/20 flex items-center gap-md">
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center text-primary font-bold">AS</div>
+<div>
+<p class="font-label-md text-label-md text-on-primary">Admin Sistema</p>
+<p class="text-xs text-on-primary-container opacity-60">Financiero</p>
+</div>
+</div>
+</aside>
+<!-- Top AppBar Shell -->
+<header class="sticky top-0 right-0 z-30 flex justify-between items-center px-lg py-md ml-sidebar-width bg-surface border-b border-outline-variant">
+<div class="flex items-center gap-lg">
+<span class="font-headline-md text-headline-md font-extrabold text-primary">Colegio San José</span>
+<div class="relative w-96">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-low border border-outline-variant rounded-lg text-body-sm focus:outline-none focus:ring-2 focus:ring-primary/20" placeholder="Buscar transacción o estudiante..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<button class="p-2 hover:bg-surface-variant rounded-full transition-colors active:scale-95">
+<span class="material-symbols-outlined text-primary">notifications</span>
+</button>
+<button class="p-2 hover:bg-surface-variant rounded-full transition-colors active:scale-95">
+<span class="material-symbols-outlined text-primary">help</span>
+</button>
+<div class="h-8 w-px bg-outline-variant mx-2"></div>
+<button class="flex items-center gap-sm px-3 py-1.5 hover:bg-surface-variant rounded-lg transition-colors group">
+<span class="font-label-md text-label-md text-primary">Profile Settings</span>
+<span class="material-symbols-outlined text-primary group-hover:rotate-180 transition-transform">expand_more</span>
+</button>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="ml-sidebar-width p-lg min-h-screen">
+<!-- Header Section -->
+<header class="mb-xl">
+<h2 class="font-headline-xl text-headline-xl text-primary mb-xs">Dashboard Financiero</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Indicadores de matrículas, pagos y morosidad correspondientes al periodo 2024-1.</p>
+</header>
+<!-- KPI Cards Grid -->
+<section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter mb-xl">
+<div class="bg-white p-lg border border-outline-variant rounded-xl flex flex-col justify-between hover:shadow-lg transition-shadow">
+<div class="flex justify-between items-start">
+<span class="p-2 bg-primary-container/10 rounded-lg">
+<span class="material-symbols-outlined text-primary">payments</span>
+</span>
+<span class="flex items-center text-secondary font-bold text-xs">
+<span class="material-symbols-outlined text-sm">trending_up</span> +8.2%
+                    </span>
+</div>
+<div class="mt-md">
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Ingresos</p>
+<h3 class="font-headline-lg text-headline-lg text-primary">$45.2M <span class="text-sm font-normal">COP</span></h3>
+</div>
+</div>
+<div class="bg-white p-lg border border-outline-variant rounded-xl flex flex-col justify-between hover:shadow-lg transition-shadow">
+<div class="flex justify-between items-start">
+<span class="p-2 bg-secondary-container/20 rounded-lg">
+<span class="material-symbols-outlined text-secondary">check_circle</span>
+</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Mensualidades</span>
+</div>
+<div class="mt-md">
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Al día</p>
+<h3 class="font-headline-lg text-headline-lg text-secondary">301<span class="text-sm font-normal text-on-surface-variant">/342</span></h3>
+</div>
+</div>
+<div class="bg-white p-lg border border-outline-variant rounded-xl flex flex-col justify-between hover:shadow-lg transition-shadow">
+<div class="flex justify-between items-start">
+<span class="p-2 bg-error-container/40 rounded-lg">
+<span class="material-symbols-outlined text-error">priority_high</span>
+</span>
+<span class="flex items-center text-error font-bold text-xs">
+<span class="material-symbols-outlined text-sm">trending_up</span> +3
+                    </span>
+</div>
+<div class="mt-md">
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">En mora</p>
+<h3 class="font-headline-lg text-headline-lg text-error">41</h3>
+</div>
+</div>
+<div class="bg-white p-lg border border-outline-variant rounded-xl flex flex-col justify-between hover:shadow-lg transition-shadow">
+<div class="flex justify-between items-start">
+<span class="p-2 bg-tertiary-fixed-dim/20 rounded-lg">
+<span class="material-symbols-outlined text-tertiary-fixed-variant">schedule</span>
+</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Promedio</span>
+</div>
+<div class="mt-md">
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Días mora</p>
+<h3 class="font-headline-lg text-headline-lg text-on-tertiary-container">23 <span class="text-sm font-normal">Días</span></h3>
+</div>
+</div>
+</section>
+<!-- Charts Row -->
+<section class="grid grid-cols-1 lg:grid-cols-3 gap-gutter mb-xl">
+<!-- Main Bar Chart -->
+<div class="lg:col-span-2 bg-white p-lg border border-outline-variant rounded-xl flex flex-col">
+<div class="flex justify-between items-center mb-xl">
+<div>
+<h4 class="font-headline-md text-headline-md text-primary">Ingresos mes a mes</h4>
+<p class="text-body-sm text-on-surface-variant">Comparativa de recaudación real vs proyección</p>
+</div>
+<div class="flex items-center gap-md">
+<div class="flex items-center gap-sm">
+<div class="w-3 h-3 rounded-full bg-primary"></div>
+<span class="text-xs font-medium">Real</span>
+</div>
+<div class="flex items-center gap-sm">
+<div class="w-3 h-3 rounded-sm border-t-2 border-dashed border-on-primary-container"></div>
+<span class="text-xs font-medium">Proyectado</span>
+</div>
+</div>
+</div>
+<div class="flex-1 flex items-end justify-between gap-md h-64 relative border-b border-l border-outline-variant pb-base pl-base">
+<!-- Simple CSS Bar Mock -->
+<div class="flex-1 flex flex-col items-center gap-xs">
+<div class="w-full bg-primary-container/20 rounded-t h-[60%] hover:bg-primary transition-colors cursor-pointer group relative">
+<span class="absolute -top-6 left-1/2 -translate-x-1/2 bg-primary text-white text-[10px] px-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">38M</span>
+</div>
+<span class="text-[10px] font-bold text-on-surface-variant">Ene</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-xs">
+<div class="w-full bg-primary-container/20 rounded-t h-[75%] hover:bg-primary transition-colors cursor-pointer group relative">
+<span class="absolute -top-6 left-1/2 -translate-x-1/2 bg-primary text-white text-[10px] px-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">42M</span>
+</div>
+<span class="text-[10px] font-bold text-on-surface-variant">Feb</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-xs">
+<div class="w-full bg-primary-container/20 rounded-t h-[70%] hover:bg-primary transition-colors cursor-pointer group relative"></div>
+<span class="text-[10px] font-bold text-on-surface-variant">Mar</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-xs">
+<div class="w-full bg-primary-container/20 rounded-t h-[85%] hover:bg-primary transition-colors cursor-pointer group relative"></div>
+<span class="text-[10px] font-bold text-on-surface-variant">Abr</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-xs">
+<div class="w-full bg-primary-container/20 rounded-t h-[90%] hover:bg-primary transition-colors cursor-pointer group relative"></div>
+<span class="text-[10px] font-bold text-on-surface-variant">May</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-xs">
+<div class="w-full bg-primary rounded-t h-[95%] cursor-pointer group relative">
+<span class="absolute -top-6 left-1/2 -translate-x-1/2 bg-primary text-white text-[10px] px-1 rounded">45.2M</span>
+</div>
+<span class="text-[10px] font-bold text-on-surface-variant">Jun</span>
+</div>
+<!-- Projection Line Overlay -->
+<div class="absolute inset-x-0 top-1/4 border-t border-dashed border-on-primary-container opacity-40"></div>
+</div>
+</div>
+<!-- Donut Chart Card -->
+<div class="bg-white p-lg border border-outline-variant rounded-xl flex flex-col items-center justify-center text-center">
+<h4 class="font-headline-md text-headline-md text-primary mb-xl self-start text-left">Estado de Matrículas</h4>
+<div class="relative w-48 h-48 flex items-center justify-center">
+<!-- CSS Donut Circle -->
+<svg class="w-full h-full transform -rotate-90">
+<circle class="text-surface-container" cx="96" cy="96" fill="transparent" r="80" stroke="currentColor" stroke-width="16"></circle>
+<circle class="text-secondary" cx="96" cy="96" fill="transparent" r="80" stroke="currentColor" stroke-dasharray="502" stroke-dashoffset="60" stroke-width="16"></circle>
+</svg>
+<div class="absolute flex flex-col items-center">
+<span class="font-headline-lg text-headline-lg text-primary">88%</span>
+<span class="text-xs font-medium text-on-surface-variant">Al día</span>
+</div>
+</div>
+<div class="mt-xl w-full space-y-md">
+<div class="flex justify-between items-center text-sm">
+<div class="flex items-center gap-sm">
+<div class="w-3 h-3 rounded-full bg-secondary"></div>
+<span>Al día</span>
+</div>
+<span class="font-bold">301</span>
+</div>
+<div class="flex justify-between items-center text-sm">
+<div class="flex items-center gap-sm">
+<div class="w-3 h-3 rounded-full bg-surface-container"></div>
+<span>En mora</span>
+</div>
+<span class="font-bold">41</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Students in Arrears Table -->
+<section class="bg-white border border-outline-variant rounded-xl overflow-hidden mb-xl">
+<div class="px-lg py-md border-b border-outline-variant flex justify-between items-center">
+<h4 class="font-headline-md text-headline-md text-primary">Estudiantes en Mora</h4>
+<div class="flex gap-md">
+<button class="flex items-center gap-sm px-4 py-2 border border-outline-variant rounded-lg text-body-sm hover:bg-surface-low transition-colors">
+<span class="material-symbols-outlined text-sm">filter_list</span>
+                        Filtrar
+                    </button>
+<button class="flex items-center gap-sm px-4 py-2 bg-primary text-white rounded-lg text-body-sm font-medium hover:bg-primary/90 transition-colors">
+<span class="material-symbols-outlined text-sm">download</span>
+                        Exportar reporte
+                    </button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low">
+<th class="px-lg py-md font-label-md text-label-md text-on-surface-variant border-b border-outline-variant">Nombre</th>
+<th class="px-lg py-md font-label-md text-label-md text-on-surface-variant border-b border-outline-variant">Grado</th>
+<th class="px-lg py-md font-label-md text-label-md text-on-surface-variant border-b border-outline-variant">Monto Adeudado</th>
+<th class="px-lg py-md font-label-md text-label-md text-on-surface-variant border-b border-outline-variant">Días en Mora</th>
+<th class="px-lg py-md font-label-md text-label-md text-on-surface-variant border-b border-outline-variant">Estado</th>
+<th class="px-lg py-md font-label-md text-label-md text-on-surface-variant border-b border-outline-variant text-right">Acciones</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-lowest transition-colors">
+<td class="px-lg py-md">
+<div class="flex items-center gap-md">
+<div class="w-8 h-8 rounded-full bg-primary-container text-white flex items-center justify-center text-xs font-bold">JA</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface">Jiménez, Andrés</span>
+<span class="text-xs text-on-surface-variant italic">ID: 10023451</span>
+</div>
+</div>
+</td>
+<td class="px-lg py-md text-body-sm">11º A</td>
+<td class="px-lg py-md font-bold text-body-sm">$1.240.000</td>
+<td class="px-lg py-md text-body-sm">62</td>
+<td class="px-lg py-md">
+<span class="px-3 py-1 bg-error/10 text-error font-bold text-xs rounded-full uppercase">Mora crítica</span>
+</td>
+<td class="px-lg py-md text-right">
+<button class="p-2 text-primary hover:bg-primary/10 rounded-lg transition-colors group relative" title="Enviar alerta">
+<span class="material-symbols-outlined">send</span>
+<span class="absolute -top-8 left-1/2 -translate-x-1/2 bg-primary text-white text-[10px] px-2 py-1 rounded hidden group-hover:block whitespace-nowrap">Enviar alerta</span>
+</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-lowest transition-colors bg-surface-container-low/30">
+<td class="px-lg py-md">
+<div class="flex items-center gap-md">
+<div class="w-8 h-8 rounded-full bg-tertiary-fixed-dim text-tertiary-fixed-variant flex items-center justify-center text-xs font-bold">SM</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface">Salazar, Martha</span>
+<span class="text-xs text-on-surface-variant italic">ID: 10023902</span>
+</div>
+</div>
+</td>
+<td class="px-lg py-md text-body-sm">8º B</td>
+<td class="px-lg py-md font-bold text-body-sm">$620.000</td>
+<td class="px-lg py-md text-body-sm">28</td>
+<td class="px-lg py-md">
+<span class="px-3 py-1 bg-on-tertiary-container/10 text-on-tertiary-container font-bold text-xs rounded-full uppercase">Mora grave</span>
+</td>
+<td class="px-lg py-md text-right">
+<button class="p-2 text-primary hover:bg-primary/10 rounded-lg transition-colors group relative">
+<span class="material-symbols-outlined">send</span>
+</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-lowest transition-colors">
+<td class="px-lg py-md">
+<div class="flex items-center gap-md">
+<div class="w-8 h-8 rounded-full bg-secondary-container text-on-secondary-fixed-variant flex items-center justify-center text-xs font-bold">CP</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface">Castro, Pedro</span>
+<span class="text-xs text-on-surface-variant italic">ID: 10024410</span>
+</div>
+</div>
+</td>
+<td class="px-lg py-md text-body-sm">3º C</td>
+<td class="px-lg py-md font-bold text-body-sm">$310.000</td>
+<td class="px-lg py-md text-body-sm">12</td>
+<td class="px-lg py-md">
+<span class="px-3 py-1 bg-secondary/10 text-secondary font-bold text-xs rounded-full uppercase">Mora reciente</span>
+</td>
+<td class="px-lg py-md text-right">
+<button class="p-2 text-primary hover:bg-primary/10 rounded-lg transition-colors group relative">
+<span class="material-symbols-outlined">send</span>
+</button>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-surface-container-lowest transition-colors bg-surface-container-low/30">
+<td class="px-lg py-md">
+<div class="flex items-center gap-md">
+<div class="w-8 h-8 rounded-full bg-primary-container/20 text-primary flex items-center justify-center text-xs font-bold">LM</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface">López, María</span>
+<span class="text-xs text-on-surface-variant italic">ID: 10021198</span>
+</div>
+</div>
+</td>
+<td class="px-lg py-md text-body-sm">10º A</td>
+<td class="px-lg py-md font-bold text-body-sm">$1.860.000</td>
+<td class="px-lg py-md text-body-sm">94</td>
+<td class="px-lg py-md">
+<span class="px-3 py-1 bg-error/10 text-error font-bold text-xs rounded-full uppercase">Mora crítica</span>
+</td>
+<td class="px-lg py-md text-right">
+<button class="p-2 text-primary hover:bg-primary/10 rounded-lg transition-colors group relative">
+<span class="material-symbols-outlined">send</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="px-lg py-md border-t border-outline-variant flex items-center justify-between">
+<p class="text-xs text-on-surface-variant">Mostrando 4 de 41 estudiantes en mora</p>
+<div class="flex gap-sm">
+<button class="p-1 border border-outline-variant rounded disabled:opacity-50" disabled="">
+<span class="material-symbols-outlined text-sm">chevron_left</span>
+</button>
+<button class="px-2 py-1 bg-primary text-white text-xs rounded">1</button>
+<button class="px-2 py-1 border border-outline-variant text-xs rounded">2</button>
+<button class="p-1 border border-outline-variant rounded">
+<span class="material-symbols-outlined text-sm">chevron_right</span>
+</button>
+</div>
+</div>
+</section>
+</main>
+<!-- Simple FAB for Quick Actions -->
+<button class="fixed bottom-lg right-lg w-14 h-14 bg-secondary text-white rounded-full shadow-lg flex items-center justify-center hover:scale-110 active:scale-95 transition-transform z-50 group">
+<span class="material-symbols-outlined">add</span>
+<span class="absolute right-full mr-4 bg-primary text-white text-xs px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">Nuevo Recibo</span>
+</button>
+<script>
+        // Micro-interactions and effects
+        document.querySelectorAll('tr').forEach(row => {
+            row.addEventListener('click', () => {
+                // Potential row selection or details view expansion
+            });
+        });
+
+        // Simulating some animation on load
+        window.addEventListener('DOMContentLoaded', () => {
+            const bars = document.querySelectorAll('.bg-primary-container\\/20');
+            bars.forEach((bar, index) => {
+                const finalHeight = bar.style.height;
+                bar.style.height = '0%';
+                setTimeout(() => {
+                    bar.style.height = finalHeight;
+                    bar.classList.add('transition-all', 'duration-1000', 'ease-out');
+                }, index * 100);
+            });
+        });
+    </script>
+</body></html>

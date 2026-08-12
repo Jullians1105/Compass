@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SJC Académico - Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed": "#ffdcc5",
+                        "on-surface": "#0b1c30",
+                        "on-surface-variant": "#43474e",
+                        "on-primary-fixed-variant": "#2a486b",
+                        "outline-variant": "#c3c6cf",
+                        "on-error-container": "#93000a",
+                        "tertiary-fixed-dim": "#ffb783",
+                        "primary-fixed-dim": "#abc9f2",
+                        "on-secondary-fixed-variant": "#005228",
+                        "on-tertiary": "#ffffff",
+                        "outline": "#73777f",
+                        "on-secondary": "#ffffff",
+                        "primary-fixed": "#d2e4ff",
+                        "on-tertiary-fixed-variant": "#713700",
+                        "on-error": "#ffffff",
+                        "surface-tint": "#436084",
+                        "background": "#f8f9ff",
+                        "on-background": "#0b1c30",
+                        "inverse-surface": "#213145",
+                        "surface-bright": "#f8f9ff",
+                        "surface-container-highest": "#d3e4fe",
+                        "secondary": "#006d37",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-dim": "#cbdbf5",
+                        "error": "#ba1a1a",
+                        "on-secondary-fixed": "#00210c",
+                        "primary": "#002444",
+                        "surface-container-low": "#eff4ff",
+                        "error-container": "#ffdad6",
+                        "on-secondary-container": "#00743a",
+                        "surface": "#f8f9ff",
+                        "tertiary": "#3b1a00",
+                        "primary-container": "#1a3a5c",
+                        "on-primary-container": "#87a4cc",
+                        "secondary-fixed": "#6bfe9c",
+                        "secondary-fixed-dim": "#4ae183",
+                        "inverse-on-surface": "#eaf1ff",
+                        "tertiary-container": "#5b2c00",
+                        "on-tertiary-container": "#f1872b",
+                        "surface-container": "#e5eeff",
+                        "on-tertiary-fixed": "#301400",
+                        "surface-variant": "#d3e4fe",
+                        "on-primary-fixed": "#001c37",
+                        "inverse-primary": "#abc9f2",
+                        "secondary-container": "#6bfe9c",
+                        "surface-container-high": "#dce9ff",
+                        "on-primary": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "lg": "1.5rem",
+                        "gutter": "1.5rem",
+                        "md": "1rem",
+                        "sm": "0.5rem",
+                        "base": "4px",
+                        "xs": "0.25rem",
+                        "sidebar-width": "260px",
+                        "xl": "2rem"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-xl": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "fontWeight": "600"}],
+                        "headline-xl": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-lg": ["28px", {"lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .sidebar-active {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-left: 4px solid #6bfe9c;
+            color: #ffffff;
+            font-weight: 700;
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #c3c6cf;
+            border-radius: 4px;
+        }
+        .zebra-row:nth-child(even) {
+            background-color: #f1f5f9;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md overflow-hidden">
+<!-- SideNavBar -->
+<aside class="fixed h-screen w-sidebar-width left-0 top-0 bg-primary flex flex-col overflow-y-auto duration-200 ease-in-out">
+<div class="p-lg">
+<h1 class="font-headline-md text-headline-md font-bold text-on-primary">SJC Académico</h1>
+<p class="text-on-primary-container font-label-sm">Institutional BI</p>
+</div>
+<nav class="flex-1 mt-md">
+<!-- Active: Dashboard -->
+<a class="sidebar-active flex items-center gap-md px-lg py-md transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md">Dashboard</span>
+</a>
+<a class="text-on-primary-container hover:text-white hover:bg-white/5 flex items-center gap-md px-lg py-md transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-md">Students</span>
+</a>
+<a class="text-on-primary-container hover:text-white hover:bg-white/5 flex items-center gap-md px-lg py-md transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">person_add</span>
+<span class="font-label-md">Enrollment</span>
+</a>
+<a class="text-on-primary-container hover:text-white hover:bg-white/5 flex items-center gap-md px-lg py-md transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">school</span>
+<span class="font-label-md">Academic</span>
+</a>
+<a class="text-on-primary-container hover:text-white hover:bg-white/5 flex items-center gap-md px-lg py-md transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">warning</span>
+<span class="font-label-md">Academic Risk</span>
+</a>
+<a class="text-on-primary-container hover:text-white hover:bg-white/5 flex items-center gap-md px-lg py-md transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-label-md">Finance</span>
+</a>
+<a class="text-on-primary-container hover:text-white hover:bg-white/5 flex items-center gap-md px-lg py-md transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">upload_file</span>
+<span class="font-label-md">Data Import</span>
+</a>
+<a class="text-on-primary-container hover:text-white hover:bg-white/5 flex items-center gap-md px-lg py-md transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">assessment</span>
+<span class="font-label-md">Reports</span>
+</a>
+<a class="text-on-primary-container hover:text-white hover:bg-white/5 flex items-center gap-md px-lg py-md transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-md">Settings</span>
+</a>
+<a class="text-on-primary-container hover:text-white hover:bg-white/5 flex items-center gap-md px-lg py-md transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">manage_accounts</span>
+<span class="font-label-md">Users</span>
+</a>
+</nav>
+<div class="p-lg mt-auto border-t border-white/10">
+<div class="flex items-center gap-sm">
+<img alt="User profile photo" class="w-10 h-10 rounded-full border border-secondary-fixed" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBW51ZT0mNqysShGkUVLWvM3vgPNUv34_AzGvZmnou_p6TUCrrc8-_rjr8bRaGEMtWZet7LQPVj5GsSPAao32uHKHnJL-P_iSBWpx9-UJEppuDUUi2p_expc9AFK8mywJOFAi-6UEq6FPz1p46T3BQ1PTJ6O3cgMaujWFthWJaHX9NsJD89pUkO22wVUkryrKXNpmgb25Inez7nUK7vm5WyYvvcqX1YtHuAgRuvGtteyy1YAlFMTGB_Q5TT5EYxSo0BCllBA3LWlKg-"/>
+<div>
+<p class="text-on-primary font-label-md">Juan Pérez</p>
+<p class="text-on-primary-container text-xs">Admin</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Wrapper -->
+<div class="ml-sidebar-width flex flex-col h-screen">
+<!-- TopNavBar -->
+<header class="h-16 flex justify-between items-center px-lg bg-surface border-b border-outline-variant shrink-0">
+<div class="flex items-center gap-lg">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="pl-10 pr-4 py-2 bg-surface-container-low border border-outline rounded-lg text-body-sm w-80 focus:ring-2 focus:ring-primary focus:border-primary transition-all" placeholder="Buscar estudiante o reporte..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<button class="p-2 hover:bg-surface-container-low rounded-full transition-all active:scale-95 text-on-surface-variant relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-1.5 right-1.5 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<button class="p-2 hover:bg-surface-container-low rounded-full transition-all active:scale-95 text-on-surface-variant">
+<span class="material-symbols-outlined">help</span>
+</button>
+<div class="h-8 w-[1px] bg-outline-variant mx-2"></div>
+<div class="text-right">
+<p class="font-label-md text-primary leading-none">Juan Pérez</p>
+<p class="text-[10px] font-bold text-on-surface-variant uppercase tracking-wider">Admin</p>
+</div>
+</div>
+</header>
+<!-- Scrollable Canvas -->
+<main class="flex-1 overflow-y-auto p-lg">
+<div class="max-w-[1600px] mx-auto space-y-lg">
+<!-- Page Header -->
+<div class="flex justify-between items-end">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-primary">Dashboard Académico</h2>
+<p class="text-on-surface-variant font-body-sm">Visualización en tiempo real del estado institucional y alertas de riesgo.</p>
+</div>
+<div class="flex gap-sm">
+<button class="px-md py-sm border border-primary text-primary font-label-md rounded hover:bg-primary/5 transition-all">Exportar PDF</button>
+<button class="px-md py-sm bg-primary text-white font-label-md rounded hover:bg-primary/90 transition-all flex items-center gap-xs">
+<span class="material-symbols-outlined text-sm">refresh</span>
+                            Actualizar Datos
+                        </button>
+</div>
+</div>
+<!-- KPI Row -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-md">
+<!-- Total Students -->
+<div class="bg-white p-lg rounded-lg border border-outline-variant flex flex-col justify-between">
+<p class="text-on-surface-variant font-label-sm">Total Estudiantes</p>
+<div class="flex items-baseline gap-xs">
+<span class="text-headline-lg font-bold text-primary">342</span>
+<span class="text-secondary text-xs flex items-center">+2.4% <span class="material-symbols-outlined text-[14px]">arrow_upward</span></span>
+</div>
+</div>
+<!-- High Risk -->
+<div class="bg-white p-lg rounded-lg border border-outline-variant flex flex-col justify-between">
+<p class="text-on-surface-variant font-label-sm">Riesgo Alto</p>
+<div class="flex items-baseline gap-xs">
+<span class="text-headline-lg font-bold text-error">24</span>
+<span class="text-error text-xs flex items-center">+5% <span class="material-symbols-outlined text-[14px]">trending_up</span></span>
+</div>
+</div>
+<!-- Medium Risk -->
+<div class="bg-white p-lg rounded-lg border border-outline-variant flex flex-col justify-between">
+<p class="text-on-surface-variant font-label-sm">Riesgo Medio</p>
+<div class="flex items-baseline gap-xs">
+<span class="text-headline-lg font-bold text-tertiary-container">47</span>
+<span class="text-on-surface-variant text-xs">Estable</span>
+</div>
+</div>
+<!-- Attendance -->
+<div class="bg-white p-lg rounded-lg border border-outline-variant flex flex-col justify-between">
+<p class="text-on-surface-variant font-label-sm">Asistencia</p>
+<div class="flex items-baseline gap-xs">
+<span class="text-headline-lg font-bold text-primary">87.3%</span>
+<span class="text-error text-xs flex items-center">-1.2% <span class="material-symbols-outlined text-[14px]">arrow_downward</span></span>
+</div>
+</div>
+<!-- Average Grade -->
+<div class="bg-white p-lg rounded-lg border border-outline-variant flex flex-col justify-between">
+<p class="text-on-surface-variant font-label-sm">Promedio</p>
+<div class="flex items-baseline gap-xs">
+<span class="text-headline-lg font-bold text-primary">3.6</span>
+<span class="text-on-surface-variant text-xs">Escala 5.0</span>
+</div>
+</div>
+<!-- Delinquency -->
+<div class="bg-white p-lg rounded-lg border border-outline-variant flex flex-col justify-between">
+<p class="text-on-surface-variant font-label-sm">Morosidad</p>
+<div class="flex items-baseline gap-xs">
+<span class="text-headline-lg font-bold text-error">12.4%</span>
+<span class="text-secondary text-xs flex items-center">-0.8% <span class="material-symbols-outlined text-[14px]">arrow_downward</span></span>
+</div>
+</div>
+</div>
+<!-- Main Grid Layout -->
+<div class="grid grid-cols-12 gap-lg">
+<!-- Left: Charts and Table -->
+<div class="col-span-12 xl:col-span-9 space-y-lg">
+<!-- Charts Row -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-lg">
+<!-- Bar Chart: Grade Averages -->
+<div class="bg-white p-lg rounded-lg border border-outline-variant">
+<div class="flex justify-between items-center mb-md">
+<h3 class="font-label-md text-primary">Promedios por Grado y Periodo</h3>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer">more_vert</span>
+</div>
+<div class="h-64 flex items-end justify-between px-md">
+<!-- Bar Simulation -->
+<div class="flex-1 flex flex-col items-center gap-sm">
+<div class="w-full flex justify-center gap-1 items-end h-48">
+<div class="w-3 bg-primary-container h-[70%] rounded-t-sm" title="P1"></div>
+<div class="w-3 bg-primary h-[75%] rounded-t-sm" title="P2"></div>
+<div class="w-3 bg-secondary-container h-[80%] rounded-t-sm" title="P3"></div>
+</div>
+<span class="text-[10px] font-bold text-on-surface-variant">9°</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-sm">
+<div class="w-full flex justify-center gap-1 items-end h-48">
+<div class="w-3 bg-primary-container h-[60%] rounded-t-sm" title="P1"></div>
+<div class="w-3 bg-primary h-[65%] rounded-t-sm" title="P2"></div>
+<div class="w-3 bg-secondary-container h-[70%] rounded-t-sm" title="P3"></div>
+</div>
+<span class="text-[10px] font-bold text-on-surface-variant">10°</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-sm">
+<div class="w-full flex justify-center gap-1 items-end h-48">
+<div class="w-3 bg-primary-container h-[85%] rounded-t-sm" title="P1"></div>
+<div class="w-3 bg-primary h-[82%] rounded-t-sm" title="P2"></div>
+<div class="w-3 bg-secondary-container h-[90%] rounded-t-sm" title="P3"></div>
+</div>
+<span class="text-[10px] font-bold text-on-surface-variant">11°</span>
+</div>
+</div>
+<div class="flex justify-center gap-lg mt-md">
+<div class="flex items-center gap-xs"><div class="w-3 h-3 bg-primary-container rounded-full"></div><span class="text-[10px]">Período 1</span></div>
+<div class="flex items-center gap-xs"><div class="w-3 h-3 bg-primary rounded-full"></div><span class="text-[10px]">Período 2</span></div>
+<div class="flex items-center gap-xs"><div class="w-3 h-3 bg-secondary-container rounded-full"></div><span class="text-[10px]">Período 3</span></div>
+</div>
+</div>
+<!-- Donut Chart: Risk Distribution -->
+<div class="bg-white p-lg rounded-lg border border-outline-variant flex flex-col">
+<div class="flex justify-between items-center mb-md">
+<h3 class="font-label-md text-primary">Distribución de Riesgo</h3>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer">info</span>
+</div>
+<div class="flex-1 flex items-center justify-center relative">
+<!-- Donut Simulation using SVG -->
+<svg class="w-48 h-48 transform -rotate-90">
+<circle cx="96" cy="96" fill="transparent" r="70" stroke="#f1f5f9" stroke-width="20"></circle>
+<circle cx="96" cy="96" fill="transparent" r="70" stroke="#2ecc71" stroke-dasharray="440" stroke-dashoffset="140" stroke-width="20"></circle>
+<circle cx="96" cy="96" fill="transparent" r="70" stroke="#f1872b" stroke-dasharray="440" stroke-dashoffset="360" stroke-width="20"></circle>
+<circle cx="96" cy="96" fill="transparent" r="70" stroke="#ba1a1a" stroke-dasharray="440" stroke-dashoffset="400" stroke-width="20"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="text-headline-md font-bold text-primary">342</span>
+<span class="text-[10px] text-on-surface-variant">Total</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-y-2 mt-md">
+<div class="flex items-center justify-between px-2">
+<div class="flex items-center gap-sm">
+<div class="w-2 h-2 rounded-full bg-secondary"></div>
+<span class="text-xs">Bajo</span>
+</div>
+<span class="text-xs font-bold">68%</span>
+</div>
+<div class="flex items-center justify-between px-2">
+<div class="flex items-center gap-sm">
+<div class="w-2 h-2 rounded-full bg-[#f1872b]"></div>
+<span class="text-xs">Medio</span>
+</div>
+<span class="text-xs font-bold">18%</span>
+</div>
+<div class="flex items-center justify-between px-2">
+<div class="flex items-center gap-sm">
+<div class="w-2 h-2 rounded-full bg-error"></div>
+<span class="text-xs">Alto</span>
+</div>
+<span class="text-xs font-bold">9%</span>
+</div>
+<div class="flex items-center justify-between px-2">
+<div class="flex items-center gap-sm">
+<div class="w-2 h-2 rounded-full bg-outline"></div>
+<span class="text-xs">Sin Datos</span>
+</div>
+<span class="text-xs font-bold">5%</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Table Section -->
+<section class="bg-white rounded-lg border border-outline-variant overflow-hidden">
+<div class="p-lg border-b border-outline-variant flex justify-between items-center">
+<h3 class="font-label-md text-error flex items-center gap-sm">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">warning</span>
+                                    Estudiantes en Riesgo Alto — Acción Urgente
+                                </h3>
+<button class="text-primary font-label-sm hover:underline">Ver todos los casos</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead>
+<tr class="bg-surface-container-low border-b border-outline-variant">
+<th class="px-lg py-md font-label-sm text-on-surface-variant">Estudiante</th>
+<th class="px-md py-md font-label-sm text-on-surface-variant">Grado</th>
+<th class="px-md py-md font-label-sm text-on-surface-variant">Promedio</th>
+<th class="px-md py-md font-label-sm text-on-surface-variant">Asistencia</th>
+<th class="px-md py-md font-label-sm text-on-surface-variant">Observaciones</th>
+<th class="px-md py-md font-label-sm text-on-surface-variant">Nivel Riesgo</th>
+<th class="px-lg py-md font-label-sm text-on-surface-variant">Acción</th>
+</tr>
+</thead>
+<tbody class="text-body-sm">
+<tr class="zebra-row">
+<td class="px-lg py-md font-bold text-primary">Andrés Felipe Castro</td>
+<td class="px-md py-md">11° A</td>
+<td class="px-md py-md text-error font-bold">2.4</td>
+<td class="px-md py-md">72%</td>
+<td class="px-md py-md italic text-on-surface-variant">Ausencias repetidas lunes/viernes</td>
+<td class="px-md py-md">
+<span class="px-2 py-1 bg-error/10 text-error rounded font-bold text-[10px]">ALTO RIESGO</span>
+</td>
+<td class="px-lg py-md">
+<button class="bg-[#2ECC71] text-white px-md py-1 rounded text-[11px] font-bold hover:brightness-95 transition-all">Intervenir</button>
+</td>
+</tr>
+<tr class="zebra-row">
+<td class="px-lg py-md font-bold text-primary">Mariana Gómez V.</td>
+<td class="px-md py-md">10° B</td>
+<td class="px-md py-md text-error font-bold">2.8</td>
+<td class="px-md py-md">88%</td>
+<td class="px-md py-md italic text-on-surface-variant">Bajo rendimiento en Matemáticas</td>
+<td class="px-md py-md">
+<span class="px-2 py-1 bg-error/10 text-error rounded font-bold text-[10px]">ALTO RIESGO</span>
+</td>
+<td class="px-lg py-md">
+<button class="bg-[#2ECC71] text-white px-md py-1 rounded text-[11px] font-bold hover:brightness-95 transition-all">Intervenir</button>
+</td>
+</tr>
+<tr class="zebra-row">
+<td class="px-lg py-md font-bold text-primary">Carlos Ruiz</td>
+<td class="px-md py-md">11° C</td>
+<td class="px-md py-md text-error font-bold">2.1</td>
+<td class="px-md py-md">65%</td>
+<td class="px-md py-md italic text-on-surface-variant">Posible deserción, 2 semanas ausente</td>
+<td class="px-md py-md">
+<span class="px-2 py-1 bg-error/10 text-error rounded font-bold text-[10px]">ALTO RIESGO</span>
+</td>
+<td class="px-lg py-md">
+<button class="bg-[#2ECC71] text-white px-md py-1 rounded text-[11px] font-bold hover:brightness-95 transition-all">Intervenir</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</div>
+<!-- Right Panel -->
+<div class="col-span-12 xl:col-span-3 space-y-lg">
+<!-- Recent Alerts -->
+<section class="bg-white rounded-lg border border-outline-variant flex flex-col">
+<div class="p-md border-b border-outline-variant flex items-center justify-between">
+<h3 class="font-label-md text-primary">Alertas Recientes</h3>
+<span class="bg-error text-white text-[10px] px-1.5 py-0.5 rounded-full">4</span>
+</div>
+<div class="p-md space-y-md">
+<!-- Alert Item -->
+<div class="flex gap-md group cursor-pointer">
+<div class="shrink-0 w-8 h-8 rounded-full bg-error/10 flex items-center justify-center text-error">
+<span class="material-symbols-outlined text-[20px]">priority_high</span>
+</div>
+<div>
+<p class="text-body-sm font-bold leading-tight group-hover:text-primary transition-colors">Caída crítica de asistencia</p>
+<p class="text-[11px] text-on-surface-variant mt-0.5">Grado 11° - Disminuyó un 15% esta semana.</p>
+<p class="text-[10px] text-outline mt-1 uppercase">Hace 2 horas</p>
+</div>
+</div>
+<!-- Alert Item -->
+<div class="flex gap-md group cursor-pointer">
+<div class="shrink-0 w-8 h-8 rounded-full bg-[#f1872b]/10 flex items-center justify-center text-[#f1872b]">
+<span class="material-symbols-outlined text-[20px]">warning</span>
+</div>
+<div>
+<p class="text-body-sm font-bold leading-tight group-hover:text-primary transition-colors">Reporte de Morosidad</p>
+<p class="text-[11px] text-on-surface-variant mt-0.5">Cierre de mes próximo. 45 padres en mora.</p>
+<p class="text-[10px] text-outline mt-1 uppercase">Hace 5 horas</p>
+</div>
+</div>
+<!-- Alert Item -->
+<div class="flex gap-md group cursor-pointer">
+<div class="shrink-0 w-8 h-8 rounded-full bg-secondary/10 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[20px]">check_circle</span>
+</div>
+<div>
+<p class="text-body-sm font-bold leading-tight group-hover:text-primary transition-colors">Notas Cargadas: Primaria</p>
+<p class="text-[11px] text-on-surface-variant mt-0.5">Grados 1° a 5° han completado el Periodo 3.</p>
+<p class="text-[10px] text-outline mt-1 uppercase">Ayer</p>
+</div>
+</div>
+</div>
+<button class="p-md border-t border-outline-variant text-[11px] font-bold text-primary hover:bg-surface-container-low transition-all uppercase tracking-wide text-center">Ver Centro de Notificaciones</button>
+</section>
+<!-- Quick Access -->
+<section class="bg-white rounded-lg border border-outline-variant overflow-hidden">
+<div class="p-md border-b border-outline-variant">
+<h3 class="font-label-md text-primary">Accesos Directos</h3>
+</div>
+<div class="p-md grid grid-cols-2 gap-sm">
+<a class="flex flex-col items-center justify-center p-md bg-surface-container-low rounded border border-outline-variant hover:border-primary hover:bg-white transition-all group" href="#">
+<span class="material-symbols-outlined text-primary mb-1 group-hover:scale-110 transition-transform">post_add</span>
+<span class="text-[11px] font-bold">Nuevo Acta</span>
+</a>
+<a class="flex flex-col items-center justify-center p-md bg-surface-container-low rounded border border-outline-variant hover:border-primary hover:bg-white transition-all group" href="#">
+<span class="material-symbols-outlined text-primary mb-1 group-hover:scale-110 transition-transform">mail</span>
+<span class="text-[11px] font-bold">Enviar Citación</span>
+</a>
+<a class="flex flex-col items-center justify-center p-md bg-surface-container-low rounded border border-outline-variant hover:border-primary hover:bg-white transition-all group" href="#">
+<span class="material-symbols-outlined text-primary mb-1 group-hover:scale-110 transition-transform">history_edu</span>
+<span class="text-[11px] font-bold">Plan Remedial</span>
+</a>
+<a class="flex flex-col items-center justify-center p-md bg-surface-container-low rounded border border-outline-variant hover:border-primary hover:bg-white transition-all group" href="#">
+<span class="material-symbols-outlined text-primary mb-1 group-hover:scale-110 transition-transform">summarize</span>
+<span class="text-[11px] font-bold">Boletines</span>
+</a>
+</div>
+</section>
+<!-- Secondary KPI/Quick Info -->
+<div class="bg-primary p-lg rounded-lg text-white">
+<div class="flex items-center justify-between mb-md">
+<p class="text-[10px] uppercase font-bold tracking-widest text-primary-fixed-dim">Próximo Consejo</p>
+<span class="material-symbols-outlined text-sm">calendar_today</span>
+</div>
+<p class="text-body-lg font-bold mb-xs">Viernes, 15 Oct</p>
+<p class="text-xs text-on-primary-container">Análisis de Riesgo Periodo 3</p>
+<button class="mt-lg w-full py-2 bg-secondary text-on-secondary text-xs font-bold rounded-full hover:brightness-110 transition-all">Agendar Recordatorio</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- Micro-interaction for hover states -->
+<script>
+        document.querySelectorAll('.sidebar-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('sidebar-active'));
+                link.classList.add('sidebar-active');
+            });
+        });
+    </script>
+</body></html>

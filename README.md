@@ -385,17 +385,29 @@ tail -f storage/logs/laravel.log
 
 ## 📋 Requisitos funcionales (46 RF)
 
-Mapeados a los 7 módulos. Ver [`docs/REQUISITOS.md`](docs/REQUISITOS.md) para listado completo.
+> ⚠️ **La numeración que aparecía aquí no coincidía con la del documento de tesis.**
+> Este README listaba `RF-01: Registrar calificación`, pero en la tesis (sección 1.4)
+> el RF-01 es *Autenticación de usuarios*. La numeración correcta es la de la tesis;
+> es la que ve el tutor y la que se debe usar en ramas, commits y PRs.
 
-**Ejemplo:**
+Numeración real, agrupada por bloque:
 
-```
-RF-01: Registrar calificación de estudiante
-RF-02: Consultar promedio por período
-RF-03: Exportar reporte de calificaciones
-...
-RF-46: Validar reglas de riesgo en tiempo real
-```
+| Rango | Bloque |
+|---|---|
+| RF-01 a RF-08 | Autenticación, roles y gestión de usuarios |
+| RF-09 a RF-12 | Estudiantes: registro, perfil e historial académico |
+| **RF-13 a RF-14** | **Calificaciones: registro y consulta** |
+| RF-15 a RF-16 | Asistencia |
+| RF-17 a RF-18 | Observaciones disciplinarias y observador |
+| RF-19 a RF-20 | Boletines e informes institucionales |
+| RF-21 a RF-24 | Importación, validación y almacenamiento de datos |
+| RF-25 a RF-28 | Indicadores académicos y dashboard |
+| RF-29 a RF-33 | Clasificación y seguimiento de riesgo académico |
+| RF-34 a RF-46 | Matrículas, pagos, mora y KPIs financieros |
+
+Los requisitos no funcionales también difieren: la tesis define **RNF-01 a RNF-26**,
+no los 12 que listaba este archivo. Por ejemplo, el registro de auditoría es RNF-11
+y la validación de datos es RNF-17.
 
 ---
 

@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Portal del Acudiente - Colegio San José</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed-variant": "#2a486b",
+                        "surface-bright": "#f8f9ff",
+                        "on-surface": "#0b1c30",
+                        "background": "#f8f9ff",
+                        "outline-variant": "#c3c6cf",
+                        "on-error": "#ffffff",
+                        "tertiary-container": "#5b2c00",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-high": "#dce9ff",
+                        "outline": "#73777f",
+                        "primary-container": "#1a3a5c",
+                        "surface-container-highest": "#d3e4fe",
+                        "on-tertiary-fixed": "#301400",
+                        "on-tertiary": "#ffffff",
+                        "inverse-surface": "#213145",
+                        "on-secondary-container": "#00743a",
+                        "on-primary-container": "#87a4cc",
+                        "on-secondary": "#ffffff",
+                        "primary-fixed": "#d2e4ff",
+                        "on-tertiary-fixed-variant": "#713700",
+                        "on-primary-fixed": "#001c37",
+                        "on-secondary-fixed-variant": "#005228",
+                        "on-error-container": "#93000a",
+                        "surface-variant": "#d3e4fe",
+                        "on-primary": "#ffffff",
+                        "surface-container-low": "#eff4ff",
+                        "on-background": "#0b1c30",
+                        "surface-tint": "#436084",
+                        "surface": "#f8f9ff",
+                        "error-container": "#ffdad6",
+                        "inverse-on-surface": "#eaf1ff",
+                        "on-tertiary-container": "#f1872b",
+                        "on-surface-variant": "#43474e",
+                        "primary": "#002444",
+                        "on-secondary-fixed": "#00210c",
+                        "secondary-fixed": "#6bfe9c",
+                        "secondary-fixed-dim": "#4ae183",
+                        "inverse-primary": "#abc9f2",
+                        "surface-container": "#e5eeff",
+                        "tertiary": "#3b1a00",
+                        "tertiary-fixed": "#ffdcc5",
+                        "secondary": "#006d37",
+                        "tertiary-fixed-dim": "#ffb783",
+                        "surface-dim": "#cbdbf5",
+                        "primary-fixed-dim": "#abc9f2",
+                        "secondary-container": "#6bfe9c",
+                        "error": "#ba1a1a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "sm": "0.5rem",
+                        "base": "4px",
+                        "xs": "0.25rem",
+                        "xl": "2rem",
+                        "sidebar-width": "260px",
+                        "lg": "1.5rem",
+                        "gutter": "1.5rem",
+                        "md": "1rem"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Inter"],
+                        "headline-xl": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "label-md": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["28px", {"lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "headline-xl": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "fontWeight": "600"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8f9ff; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .active-nav-link { position: relative; }
+        .active-nav-link::after { content: ''; position: absolute; bottom: -8px; left: 0; width: 100%; height: 2px; background-color: #002444; }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen">
+<!-- TopNavBar (Derived from JSON Hierarchy) -->
+<header class="sticky top-0 w-full bg-surface z-50 border-b border-outline-variant flex justify-between items-center px-lg py-md">
+<div class="flex items-center gap-xl">
+<h1 class="font-headline-md text-headline-md font-extrabold text-primary">Colegio San José</h1>
+<nav class="hidden md:flex gap-lg">
+<a class="font-label-md text-label-md text-primary font-bold active-nav-link" href="#">Inicio</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Calificaciones</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Asistencia</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Boletines</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Contacto</a>
+</nav>
+</div>
+<div class="flex items-center gap-md">
+<button class="p-sm hover:bg-surface-container-high rounded-full transition-colors active:scale-95">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="notifications">notifications</span>
+</button>
+<div class="flex items-center gap-sm bg-surface-container-low px-md py-xs rounded-full cursor-pointer hover:bg-surface-container transition-colors">
+<img alt="User Avatar" class="w-8 h-8 rounded-full border border-outline-variant" data-alt="A portrait photo of a professional male guardian in his 40s, looking friendly and supportive. He is wearing a modern blue polo shirt. The background is a soft-focus office environment with natural daylight, maintaining a clean and institutional academic atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBr1Qa9-F802d8w3San1U7mfkr7F2LVSATF6OHWh0hGehtCU5bkJLkC1W9UdiChYcMDe3DMfQ9j68SVkRYv2NBePOzRc0hNB7KISYcFJM4E3duywO8uXFUJC_8BUNIgnDphCdcnY8QWE5HW4-Y0zXL-hC1mx2iYyRQ7sP_bq72-8wTMR-WgPf784aE3bEbWIkXD6UfUwt3PybFTLHQRQX_bBWD2Xbe6NCMRdN7LZ0o1BSs8m2l9xH81ZjWiAMyOqzMRn8dAR9dNXHtl"/>
+<span class="font-label-md text-label-md text-on-surface hidden sm:block">Carlos Torres</span>
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="expand_more">expand_more</span>
+</div>
+</div>
+</header>
+<main class="max-w-7xl mx-auto px-lg py-xl space-y-xl">
+<!-- Welcome Header -->
+<section class="space-y-xs">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-md">
+<div>
+<h2 class="font-headline-xl text-headline-xl text-on-surface">Bienvenido/a, Carlos Torres</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Acudiente de: <span class="font-bold text-primary">Sebastián Torres</span> — 9°A</p>
+</div>
+<div class="flex items-center gap-sm text-on-secondary-container bg-secondary-container/20 px-md py-sm rounded-lg border border-secondary/20">
+<span class="material-symbols-outlined" data-icon="verified" style="font-variation-settings: 'FILL' 1;">verified</span>
+<span class="font-label-md text-label-md">Matrícula 2026 Vigente</span>
+</div>
+</div>
+</section>
+<!-- Bento Grid: Summary & Alerts -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-lg">
+<!-- Student Summary Card -->
+<div class="lg:col-span-2 bg-white border border-outline-variant rounded-xl p-lg flex flex-col md:flex-row gap-lg items-center">
+<div class="relative">
+<img alt="Student Photo" class="w-32 h-32 rounded-xl object-cover border-4 border-surface-container shadow-sm" data-alt="A studio portrait of a high school student, male, around 15 years old, wearing a neat white and blue school uniform with a subtle school crest. The student has a confident and engaged expression. The background is a solid soft grey, reflecting a formal yet modern institutional style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBIcwSRsXh0mXkPJ18QU2Y4mdjlaBbBZME8cy1s6kOm7N1eVIsxaUtUVXeOqP7UJtMTOMIbeLZNvXr3g8dm9aw6S_0cwYT0pIY8bqhJw4CMM14lKNTQ5feD8QF1utKBkZAh_3RFMhcr0GDOu2RTjlAwFF_1MTxKWBMxpDcHzGGk2o5vpBB7kktZh2_y80AIrPPJNEx6sacs9C7x_wvBiPRYjYZjY3wyUTIFfM9nW49yeQs9LOD0WgLyJ9LWR1d0KGDwcwTZdC29Flzg"/>
+<div class="absolute -bottom-2 -right-2 bg-secondary text-on-secondary text-xs font-bold px-2 py-1 rounded-full border-2 border-white">9°A</div>
+</div>
+<div class="flex-1 space-y-md text-center md:text-left">
+<div>
+<h3 class="font-headline-lg text-headline-lg text-on-surface">Sebastián Torres Méndez</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Año Lectivo: 2026</p>
+</div>
+<div class="grid grid-cols-3 gap-md">
+<div class="bg-surface-container-low p-md rounded-lg text-center">
+<p class="text-secondary font-bold text-headline-md">3.9</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase">Promedio</p>
+</div>
+<div class="bg-surface-container-low p-md rounded-lg text-center">
+<p class="text-primary font-bold text-headline-md">92%</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase">Asistencia</p>
+</div>
+<div class="bg-secondary-container/10 p-md rounded-lg text-center flex flex-col items-center justify-center">
+<span class="text-secondary font-bold text-label-md px-2 py-1 bg-secondary-fixed/30 rounded-lg">Sin riesgo</span>
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase mt-1">Estatus</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Alerts & Quick Action -->
+<div class="flex flex-col gap-lg">
+<!-- Alerts Card -->
+<div class="bg-green-50 border border-secondary-fixed-dim/50 rounded-xl p-lg flex items-start gap-md h-full">
+<div class="bg-secondary rounded-full p-2 text-on-secondary">
+<span class="material-symbols-outlined" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<div>
+<h4 class="font-label-md text-label-md text-on-secondary-fixed-variant">Alertas Académicas</h4>
+<p class="font-body-sm text-body-sm text-on-secondary-fixed mt-1">✅ Todo en orden. Sin novedades académicas ni reportes de convivencia pendientes.</p>
+</div>
+</div>
+<!-- Action Button -->
+<button class="w-full bg-primary text-on-primary font-label-md text-label-md py-lg rounded-xl flex items-center justify-center gap-md hover:opacity-90 transition-all shadow-md active:scale-[0.98]">
+<span class="material-symbols-outlined" data-icon="download">download</span>
+                    Descargar Boletín Período P1 2026
+                </button>
+</div>
+</div>
+<!-- Grades Table Section -->
+<section class="bg-white border border-outline-variant rounded-xl overflow-hidden">
+<div class="px-lg py-md border-b border-outline-variant flex justify-between items-center bg-surface-container-lowest">
+<h3 class="font-headline-md text-headline-md text-on-surface">Calificaciones - Período Actual (P1)</h3>
+<div class="flex items-center gap-xs text-on-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[18px]" data-icon="history">history</span>
+                    Última actualización: Hoy, 08:45 AM
+                </div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low font-label-md text-label-md text-on-surface-variant border-b border-outline-variant">
+<th class="px-lg py-md">Materia</th>
+<th class="px-lg py-md text-center">P1</th>
+<th class="px-lg py-md text-center">P2</th>
+<th class="px-lg py-md text-center">P3</th>
+<th class="px-lg py-md text-center">P4</th>
+<th class="px-lg py-md text-center">Promedio</th>
+<th class="px-lg py-md">Estado</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/30 font-body-md text-body-md text-on-surface">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="px-lg py-md font-semibold">Matemáticas Avanzadas</td>
+<td class="px-lg py-md text-center">4.2</td>
+<td class="px-lg py-md text-center text-outline">-</td>
+<td class="px-lg py-md text-center text-outline">-</td>
+<td class="px-lg py-md text-center text-outline">-</td>
+<td class="px-lg py-md text-center font-bold text-primary">4.2</td>
+<td class="px-lg py-md">
+<span class="bg-secondary/10 text-secondary font-bold text-label-sm px-3 py-1 rounded-full">Aprobado</span>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="bg-surface-container-low/20 hover:bg-surface-container-low/50 transition-colors">
+<td class="px-lg py-md font-semibold">Lengua Castellana</td>
+<td class="px-lg py-md text-center">3.8</td>
+<td class="px-lg py-md text-center text-outline">-</td>
+<td class="px-lg py-md text-center text-outline">-</td>
+<td class="px-lg py-md text-center text-outline">-</td>
+<td class="px-lg py-md text-center font-bold text-primary">3.8</td>
+<td class="px-lg py-md">
+<span class="bg-secondary/10 text-secondary font-bold text-label-sm px-3 py-1 rounded-full">Aprobado</span>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="px-lg py-md font-semibold">Ciencias Naturales</td>
+<td class="px-lg py-md text-center">4.5</td>
+<td class="px-lg py-md text-center text-outline">-</td>
+<td class="px-lg py-md text-center text-outline">-</td>
+<td class="px-lg py-md text-center text-outline">-</td>
+<td class="px-lg py-md text-center font-bold text-primary">4.5</td>
+<td class="px-lg py-md">
+<span class="bg-secondary/10 text-secondary font-bold text-label-sm px-3 py-1 rounded-full">Excelente</span>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="bg-surface-container-low/20 hover:bg-surface-container-low/50 transition-colors">
+<td class="px-lg py-md font-semibold">Inglés - B2</td>
+<td class="px-lg py-md text-center">3.1</td>
+<td class="px-lg py-md text-center text-outline">-</td>
+<td class="px-lg py-md text-center text-outline">-</td>
+<td class="px-lg py-md text-center text-outline">-</td>
+<td class="px-lg py-md text-center font-bold text-primary">3.1</td>
+<td class="px-lg py-md">
+<span class="bg-tertiary-fixed/30 text-on-tertiary-fixed-variant font-bold text-label-sm px-3 py-1 rounded-full">Riesgo Bajo</span>
+</td>
+</tr>
+<!-- Row 5 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="px-lg py-md font-semibold">Historia Universal</td>
+<td class="px-lg py-md text-center">4.0</td>
+<td class="px-lg py-md text-center text-outline">-</td>
+<td class="px-lg py-md text-center text-outline">-</td>
+<td class="px-lg py-md text-center text-outline">-</td>
+<td class="px-lg py-md text-center font-bold text-primary">4.0</td>
+<td class="px-lg py-md">
+<span class="bg-secondary/10 text-secondary font-bold text-label-sm px-3 py-1 rounded-full">Aprobado</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- Attendance Micro-View (Optional enrichment) -->
+<section class="grid grid-cols-1 md:grid-cols-2 gap-lg">
+<div class="bg-white border border-outline-variant rounded-xl p-lg">
+<div class="flex items-center justify-between mb-md">
+<h4 class="font-label-md text-label-md text-on-surface">Asistencia Semanal</h4>
+<span class="text-secondary font-bold text-body-sm">92% Regular</span>
+</div>
+<div class="flex gap-2 h-20 items-end">
+<div class="flex-1 bg-primary rounded-t-lg h-[100%] group relative cursor-pointer"><div class="hidden group-hover:block absolute -top-8 left-1/2 -translate-x-1/2 bg-on-surface text-white text-xs px-2 py-1 rounded">Lun: Presente</div></div>
+<div class="flex-1 bg-primary rounded-t-lg h-[100%] group relative cursor-pointer"></div>
+<div class="flex-1 bg-primary-container h-[10%] rounded-t-lg group relative cursor-pointer"><div class="hidden group-hover:block absolute -top-8 left-1/2 -translate-x-1/2 bg-error text-white text-xs px-2 py-1 rounded">Mié: Inasistencia</div></div>
+<div class="flex-1 bg-primary rounded-t-lg h-[100%] group relative cursor-pointer"></div>
+<div class="flex-1 bg-primary rounded-t-lg h-[100%] group relative cursor-pointer"></div>
+</div>
+<div class="flex justify-between mt-xs font-label-sm text-label-sm text-on-surface-variant">
+<span>L</span><span>M</span><span>M</span><span>J</span><span>V</span>
+</div>
+</div>
+<div class="bg-white border border-outline-variant rounded-xl p-lg flex flex-col justify-center">
+<div class="flex items-center gap-md">
+<div class="p-md bg-primary/10 rounded-full text-primary">
+<span class="material-symbols-outlined" data-icon="calendar_month">calendar_month</span>
+</div>
+<div>
+<h4 class="font-label-md text-label-md text-on-surface">Próxima Entrega de Notas</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Viernes, 24 de Abril — Segundo Período</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<footer class="mt-xl py-lg border-t border-outline-variant bg-surface-container-low">
+<div class="max-w-7xl mx-auto px-lg flex flex-col md:flex-row justify-between items-center gap-md">
+<div class="flex items-center gap-md text-on-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[20px]" data-icon="lock">lock</span>
+                Datos protegidos - Ley 1581/2012
+            </div>
+<div class="font-label-sm text-label-sm text-on-surface-variant/70">
+                © 2026 Colegio San José de Calasanz. Todos los derechos reservados.
+            </div>
+</div>
+</footer>
+<script>
+        // Simple micro-interaction for active states
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                document.querySelectorAll('nav a').forEach(l => {
+                    l.classList.remove('active-nav-link', 'font-bold', 'text-primary');
+                    l.classList.add('text-on-surface-variant');
+                });
+                this.classList.add('active-nav-link', 'font-bold', 'text-primary');
+                this.classList.remove('text-on-surface-variant');
+            });
+        });
+    </script>
+</body></html>

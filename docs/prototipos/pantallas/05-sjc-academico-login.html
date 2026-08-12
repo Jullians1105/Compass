@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SJC Académico - Login</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed": "#ffdcc5",
+                        "on-surface": "#0b1c30",
+                        "on-surface-variant": "#43474e",
+                        "on-primary-fixed-variant": "#2a486b",
+                        "outline-variant": "#c3c6cf",
+                        "on-error-container": "#93000a",
+                        "tertiary-fixed-dim": "#ffb783",
+                        "primary-fixed-dim": "#abc9f2",
+                        "on-secondary-fixed-variant": "#005228",
+                        "on-tertiary": "#ffffff",
+                        "outline": "#73777f",
+                        "on-secondary": "#ffffff",
+                        "primary-fixed": "#d2e4ff",
+                        "on-tertiary-fixed-variant": "#713700",
+                        "on-error": "#ffffff",
+                        "surface-tint": "#436084",
+                        "background": "#f8f9ff",
+                        "on-background": "#0b1c30",
+                        "inverse-surface": "#213145",
+                        "surface-bright": "#f8f9ff",
+                        "surface-container-highest": "#d3e4fe",
+                        "secondary": "#006d37",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-dim": "#cbdbf5",
+                        "error": "#ba1a1a",
+                        "on-secondary-fixed": "#00210c",
+                        "primary": "#002444",
+                        "surface-container-low": "#eff4ff",
+                        "error-container": "#ffdad6",
+                        "on-secondary-container": "#00743a",
+                        "surface": "#f8f9ff",
+                        "tertiary": "#3b1a00",
+                        "primary-container": "#1a3a5c",
+                        "on-primary-container": "#87a4cc",
+                        "secondary-fixed": "#6bfe9c",
+                        "secondary-fixed-dim": "#4ae183",
+                        "inverse-on-surface": "#eaf1ff",
+                        "tertiary-container": "#5b2c00",
+                        "on-tertiary-container": "#f1872b",
+                        "surface-container": "#e5eeff",
+                        "on-tertiary-fixed": "#301400",
+                        "surface-variant": "#d3e4fe",
+                        "on-primary-fixed": "#001c37",
+                        "inverse-primary": "#abc9f2",
+                        "secondary-container": "#6bfe9c",
+                        "surface-container-high": "#dce9ff",
+                        "on-primary": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "lg": "1.5rem",
+                        "gutter": "1.5rem",
+                        "md": "1rem",
+                        "sm": "0.5rem",
+                        "base": "4px",
+                        "xs": "0.25rem",
+                        "sidebar-width": "260px",
+                        "xl": "2rem"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-xl": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "fontWeight": "600"}],
+                        "headline-xl": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-lg": ["28px", {"lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background-color: #F8FAFC;
+            font-family: 'Inter', sans-serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .tonal-layer-1 {
+            background-color: #FFFFFF;
+            border: 1px solid #E2E8F0;
+        }
+        .overlay-vignette {
+            background: radial-gradient(circle, rgba(0,36,68,0.1) 0%, rgba(0,36,68,0.4) 100%);
+        }
+        input:focus {
+            outline: none;
+            border-color: #1a3a5c;
+            box-shadow: 0 0 0 2px rgba(26, 58, 92, 0.2);
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen relative overflow-hidden">
+<!-- Background Layer with Data-First Aesthetic -->
+<div class="absolute inset-0 z-0 overflow-hidden">
+<img alt="Background" class="w-full h-full object-cover filter blur-sm scale-105" data-alt="A sophisticated wide shot of a prestigious modern university hallway with high ceilings and architectural wood paneling. The lighting is soft and natural, streaming through large glass windows, creating a clean and authoritative academic atmosphere. The color palette is composed of muted blues and crisp whites, reflecting a sense of tradition blended with modern digital intelligence." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCt8TDNHID2fdJj0XhxtWyJD2FGzjvjNRjc7EP5Q7XmNlRsJ6gGbj3Hppwn1mq9VNvuSrtvOkPBDRnlPTCArLkj1KgGNqQYKIhL65X7KXOgC6Oy3EYwecdqiqHNGC90l1EDlQB5sY80wcXVRHxLyRk7uzn18Y8C9y3zLtFV_n2hR8uXtwv9VvpYmHb3u-MmX4SI52datSALJQT9TTkLL3I_t3B3BwUdbblMRUoVjXckA8xPy5VX3ws2OVmrtBRnKNDrp0VbzRPC4mjh"/>
+<div class="absolute inset-0 overlay-vignette mix-blend-multiply"></div>
+</div>
+<!-- Login Container -->
+<main class="relative z-10 w-full max-w-md px-md">
+<!-- Brand Header Section -->
+<div class="text-center mb-xl">
+<div class="inline-flex items-center justify-center w-24 h-24 mb-md rounded-full bg-white shadow-lg p-2 border-2 border-primary-container/10">
+<img alt="Colegio San José de Calasanz Logo" class="w-16 h-16 object-contain" data-alt="A professional and traditional heraldic crest for Colegio San José de Calasanz, featuring classic academic symbols like a book and a torch. The logo is rendered in a deep navy blue and metallic gold finish, appearing sharp and clean on a white circular badge. The style is prestigious and institutional, conveying a long-standing history of excellence in education." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDgPS3vBRAgKWRcl8h8qcbZOtOUHBzsvlvpdiMwrdchkpG6rXmhjvXxGwGv-dV0npTStMSNoB1wa8k5tucxY43wTeQ6C1aKkEeDCZd9OTXevcSNUTrC0SZ3LlvGfOP4WOoUqFs5Lw-3n0NqBvrFbTXk9CgOix25BiURINlgH8u1my2sar70BCyMMoCztjxPLaeagLVjEalQOZ38cPf_b5FC8nq55wQsPon3qZsWHyHrdhP5gYiyHpZmLfHCh1OW0YEKE1qNqVL-_BWW"/>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-white drop-shadow-md">
+                SJC Académico
+            </h1>
+<p class="font-body-md text-body-md text-white/90 font-medium">
+                Institutional Intelligence Portal
+            </p>
+</div>
+<!-- Login Card -->
+<div class="tonal-layer-1 rounded-xl shadow-2xl p-lg md:p-xl transition-all duration-300">
+<div class="mb-lg">
+<h2 class="font-headline-md text-headline-md text-on-surface mb-xs">
+                    Bienvenido
+                </h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                    Por favor, ingresa tus credenciales para continuar.
+                </p>
+</div>
+<form class="space-y-lg" id="loginForm" onsubmit="return false;">
+<!-- User Field -->
+<div class="space-y-xs">
+<label class="font-label-md text-label-md text-on-surface flex items-center gap-2" for="username">
+<span class="material-symbols-outlined text-[20px]">person</span>
+                        Email o Usuario
+                    </label>
+<input class="w-full h-12 px-md font-body-md text-body-md rounded-lg border border-outline transition-all duration-200 bg-surface-container-lowest focus:ring-2 focus:ring-primary/20" id="username" name="username" placeholder="ejemplo@sjc.edu" required="" type="text"/>
+</div>
+<!-- Password Field -->
+<div class="space-y-xs">
+<div class="flex justify-between items-center">
+<label class="font-label-md text-label-md text-on-surface flex items-center gap-2" for="password">
+<span class="material-symbols-outlined text-[20px]">lock</span>
+                            Contraseña
+                        </label>
+</div>
+<div class="relative group">
+<input class="w-full h-12 px-md font-body-md text-body-md rounded-lg border border-outline transition-all duration-200 bg-surface-container-lowest focus:ring-2 focus:ring-primary/20" id="password" name="password" placeholder="••••••••" required="" type="password"/>
+<button class="absolute right-md top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-primary transition-colors" onclick="togglePassword()" type="button">
+<span class="material-symbols-outlined" id="passwordIcon">visibility</span>
+</button>
+</div>
+</div>
+<!-- Remember & Forgot -->
+<div class="flex items-center justify-between">
+<label class="flex items-center gap-2 cursor-pointer group">
+<input class="w-4 h-4 rounded border-outline text-primary focus:ring-primary transition-all" type="checkbox"/>
+<span class="font-label-sm text-label-sm text-on-surface-variant group-hover:text-on-surface">Recordarme</span>
+</label>
+<a class="font-label-sm text-label-sm text-primary-container font-bold hover:underline decoration-2 underline-offset-4" href="#">
+                        ¿Olvidaste tu contraseña?
+                    </a>
+</div>
+<!-- Action Button -->
+<button class="w-full h-14 bg-[#1A3A5C] text-white font-label-md text-label-md rounded-lg shadow-md hover:shadow-lg active:scale-[0.98] transition-all duration-200 flex items-center justify-center gap-2 group" type="submit">
+<span>Ingresar</span>
+<span class="material-symbols-outlined transition-transform group-hover:translate-x-1">login</span>
+</button>
+</form>
+<!-- Secondary Help -->
+<div class="mt-xl pt-lg border-t border-outline-variant text-center">
+<p class="font-label-sm text-label-sm text-on-surface-variant">
+                    ¿Necesitas ayuda? 
+                    <a class="text-primary-container font-bold hover:text-primary transition-colors" href="#">Contactar a Soporte TI</a>
+</p>
+</div>
+</div>
+<!-- Footer Meta -->
+<footer class="mt-lg text-center">
+<p class="font-label-sm text-label-sm text-white/70">
+                © 2024 Colegio San José de Calasanz. Todos los derechos reservados.
+                <br/>
+<span class="opacity-75">SJC Académico v4.2.0 | Conectado a Red Institucional</span>
+</p>
+</footer>
+</main>
+<!-- Micro-interaction Scripts -->
+<script>
+        function togglePassword() {
+            const passwordInput = document.getElementById('password');
+            const icon = document.getElementById('passwordIcon');
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                icon.textContent = 'visibility_off';
+            } else {
+                passwordInput.type = 'password';
+                icon.textContent = 'visibility';
+            }
+        }
+
+        // Add a subtle parallax effect to the background
+        document.addEventListener('mousemove', (e) => {
+            const moveX = (e.clientX - window.innerWidth / 2) * 0.01;
+            const moveY = (e.clientY - window.innerHeight / 2) * 0.01;
+            const bg = document.querySelector('.absolute.inset-0.z-0 img');
+            if (bg) {
+                bg.style.transform = `scale(1.05) translate(${moveX}px, ${moveY}px)`;
+            }
+        });
+
+        // Form Submission visual feedback
+        const form = document.getElementById('loginForm');
+        form.addEventListener('submit', (e) => {
+            const btn = e.target.querySelector('button[type="submit"]');
+            const originalContent = btn.innerHTML;
+            btn.disabled = true;
+            btn.innerHTML = '<span class="material-symbols-outlined animate-spin">sync</span> Validando...';
+            
+            setTimeout(() => {
+                btn.innerHTML = originalContent;
+                btn.disabled = false;
+            }, 1500);
+        });
+    </script>
+</body></html>
