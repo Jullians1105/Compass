@@ -52,6 +52,14 @@
                     @endif
                 @endforeach
 
+                @if (auth()->user()->tienePermiso('consulta-de-estudiantes'))
+                    <a class="nav-link d-flex align-items-center gap-2 py-2 px-2 @if (request()->routeIs('estudiantes.*')) active @endif"
+                       href="{{ route('estudiantes.index') }}">
+                        <span class="material-symbols-outlined">groups</span>
+                        Estudiantes
+                    </a>
+                @endif
+
                 @if (auth()->user()->tienePermiso('gestion-de-usuarios'))
                     <a class="nav-link d-flex align-items-center gap-2 py-2 px-2 @if (request()->routeIs('usuarios.*')) active @endif"
                        href="{{ route('usuarios.index') }}">
@@ -65,6 +73,14 @@
                        href="{{ route('roles.index') }}">
                         <span class="material-symbols-outlined">admin_panel_settings</span>
                         Roles y permisos
+                    </a>
+                @endif
+
+                @if (auth()->user()->tienePermiso('auditoria'))
+                    <a class="nav-link d-flex align-items-center gap-2 py-2 px-2 @if (request()->routeIs('auditoria.*')) active @endif"
+                       href="{{ route('auditoria.index') }}">
+                        <span class="material-symbols-outlined">fact_check</span>
+                        Auditoría
                     </a>
                 @endif
             </nav>

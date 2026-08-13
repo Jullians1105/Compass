@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Auditoria;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -28,6 +29,10 @@ class SessionController extends Controller
         ]);
 
         if (! Auth::attempt($credenciales, $request->boolean('recordarme'))) {
+            // RNF-11: sin user_id (todavia no autenticado), el email
+            // intentado queda en 'detalle' para poder detectar fuerza bruta.
+            Auditoria::registrar('login_fallido', detalle: ['email' => $credenciales['email']]);
+
             throw ValidationException::withMessages([
                 'email' => 'Esas credenciales no coinciden con ningun registro.',
             ]);
@@ -36,6 +41,8 @@ class SessionController extends Controller
         // RF-07: el estado de cuenta (activo/inactivo) tiene que restringir
         // algo de verdad, si no el toggle de /usuarios no serviria de nada.
         if (! Auth::user()->activo) {
+            Auditoria::registrar('login_fallido', detalle: ['email' => $credenciales['email'], 'motivo' => 'cuenta_inactiva']);
+
             Auth::logout();
 
             throw ValidationException::withMessages([
@@ -44,6 +51,8 @@ class SessionController extends Controller
         }
 
         $request->session()->regenerate();
+
+        Auditoria::registrar('login');
 
         return redirect()->intended(route('inicio'));
     }
@@ -54,6 +63,8 @@ class SessionController extends Controller
     // ver NORMAS_DESARROLLO.md).
     public function destroy(Request $request): RedirectResponse
     {
+        Auditoria::registrar('logout');
+
         Auth::guard('web')->logout();
 
         $request->session()->invalidate();

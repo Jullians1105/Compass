@@ -12,10 +12,11 @@ use Illuminate\Support\Str;
  * RF-04: catalogo de permisos y roles por defecto.
  *
  * El catalogo de permisos sale de App\Support\Modulos (los 9 modulos del
- * README) mas 'roles-y-permisos' (RF-04) y 'gestion-de-usuarios' (RF-06 a
- * RF-08), que son pantallas de administracion, no modulos academicos. No hay
- * nada mas granular todavia porque no hay mas acciones definidas dentro de
- * cada modulo.
+ * README) mas 'roles-y-permisos' (RF-04), 'gestion-de-usuarios' (RF-06 a
+ * RF-08), los dos de estudiantes (RF-09 a RF-11) y 'auditoria' (RNF-11), que
+ * son pantallas de administracion o entidades compartidas, no modulos
+ * academicos del README. No hay nada mas granular todavia porque no hay mas
+ * acciones definidas dentro de cada modulo.
  */
 class RolePermissionSeeder extends Seeder
 {
@@ -25,6 +26,13 @@ class RolePermissionSeeder extends Seeder
             ->pluck('permiso')
             ->push('roles-y-permisos')
             ->push('gestion-de-usuarios')
+            // RF-09/RF-10 (Administrativo): alta y edicion de estudiantes.
+            ->push('gestion-de-estudiantes')
+            // RF-11 (Docente / Administrativo): solo consultar el perfil.
+            ->push('consulta-de-estudiantes')
+            // RNF-11: ver el log de auditoria. Solo admin — igual que roles
+            // y usuarios, es informacion de seguridad, no un modulo academico.
+            ->push('auditoria')
             ->unique()
             ->values();
 
@@ -34,7 +42,8 @@ class RolePermissionSeeder extends Seeder
         ));
 
         $todos = Permission::pluck('id')->all();
-        $soloCalificaciones = Permission::whereIn('slug', ['gestion-de-calificaciones'])->pluck('id')->all();
+        $soloDocente = Permission::whereIn('slug', ['gestion-de-calificaciones', 'consulta-de-estudiantes'])
+            ->pluck('id')->all();
 
         $admin = Role::firstOrCreate(
             ['slug' => 'admin'],
@@ -47,13 +56,13 @@ class RolePermissionSeeder extends Seeder
             ['nombre' => 'Coordinador', 'descripcion' => 'Acceso academico, sin gestion de roles.']
         );
         $coordinador->permissions()->sync(
-            Permission::whereNotIn('slug', ['roles-y-permisos', 'gestion-de-usuarios'])->pluck('id')
+            Permission::whereNotIn('slug', ['roles-y-permisos', 'gestion-de-usuarios', 'auditoria'])->pluck('id')
         );
 
         $docente = Role::firstOrCreate(
             ['slug' => 'docente'],
             ['nombre' => 'Docente', 'descripcion' => 'Acceso a sus propios cursos y asignaturas.']
         );
-        $docente->permissions()->sync($soloCalificaciones);
+        $docente->permissions()->sync($soloDocente);
     }
 }

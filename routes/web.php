@@ -1,9 +1,11 @@
 <?php
 
+use App\Http\Controllers\AuditoriaController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\SessionController;
 use App\Http\Controllers\CalificacionController;
+use App\Http\Controllers\EstudianteController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Support\Modulos;
@@ -65,4 +67,26 @@ Route::middleware(['auth', 'permission:gestion-de-usuarios'])->prefix('usuarios'
     Route::post('/', [UserController::class, 'store'])->name('store');
     Route::get('/{usuario}/editar', [UserController::class, 'edit'])->name('edit');
     Route::put('/{usuario}', [UserController::class, 'update'])->name('update');
+});
+
+// RF-09/RF-10: alta y edicion (solo Administrativo). Va ANTES del grupo de
+// consulta: '/estudiantes/crear' tiene que resolver antes que el comodin
+// '/estudiantes/{estudiante}' de abajo, si no Laravel intenta usar "crear"
+// como el ID del estudiante.
+Route::middleware(['auth', 'permission:gestion-de-estudiantes'])->prefix('estudiantes')->name('estudiantes.')->group(function () {
+    Route::get('/crear', [EstudianteController::class, 'create'])->name('create');
+    Route::post('/', [EstudianteController::class, 'store'])->name('store');
+    Route::get('/{estudiante}/editar', [EstudianteController::class, 'edit'])->name('edit');
+    Route::put('/{estudiante}', [EstudianteController::class, 'update'])->name('update');
+});
+
+// RF-11: consulta (Docente / Administrativo).
+Route::middleware(['auth', 'permission:consulta-de-estudiantes'])->prefix('estudiantes')->name('estudiantes.')->group(function () {
+    Route::get('/', [EstudianteController::class, 'index'])->name('index');
+    Route::get('/{estudiante}', [EstudianteController::class, 'show'])->name('show');
+});
+
+// RNF-11: log de auditoria. Solo el permiso 'auditoria' (admin, por defecto).
+Route::middleware(['auth', 'permission:auditoria'])->prefix('auditoria')->name('auditoria.')->group(function () {
+    Route::get('/', [AuditoriaController::class, 'index'])->name('index');
 });

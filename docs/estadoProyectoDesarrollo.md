@@ -39,9 +39,9 @@ Usuarios de prueba (sembrados por el seeder, solo local):
 
 | Email | Contraseña | Rol | Permisos |
 |---|---|---|---|
-| admin@sjc.edu.co | admin | Administrador | Todos (incluye roles y usuarios) |
-| coordinador@sjc.edu.co | coordinador | Coordinador | Todos los módulos académicos, sin roles/usuarios |
-| docente@sjc.edu.co | docente | Docente | Solo Gestión de Calificaciones |
+| admin@sjc.edu.co | admin | Administrador | Todos (incluye roles, usuarios y auditoría) |
+| coordinador@sjc.edu.co | coordinador | Coordinador | Todos los módulos académicos, sin roles/usuarios/auditoría |
+| docente@sjc.edu.co | docente | Docente | Gestión de Calificaciones + consulta de Estudiantes |
 
 ## Módulos implementados
 
@@ -100,6 +100,26 @@ Usuarios de prueba (sembrados por el seeder, solo local):
   debería poder calificar solo sus propias asignaciones — esa regla todavía
   no está escrita en ningún lado.
 
+### ✅ Estudiantes (RF-09 a RF-11)
+
+- No es uno de los 9 módulos del README — es una entidad compartida (como
+  `Docente`), usada por varios módulos futuros (Asistencia, Convivencia...).
+- **RF-09 (registro)** — `/estudiantes/crear`. Crea el `Estudiante` y su
+  `Matricula` en el curso del grado solicitado dentro del año lectivo activo;
+  la confirmación devuelve el ID de esa matrícula ("número de matrícula
+  preliminar").
+- **RF-10 (actualización)** — `/estudiantes/{id}/editar`. Datos personales/
+  contacto + reasignación de grado (mueve o crea la matrícula vigente). El
+  documento de identidad no se edita después del alta.
+- **RF-11 (consulta de perfil)** — `/estudiantes/{id}`, actor Docente o
+  Administrativo. `/estudiantes` (listado + búsqueda por nombre/documento)
+  es la plomería para llegar al ID, no un RF en sí mismo.
+- Esquema: se agregaron `acudiente_nombre`/`acudiente_telefono` a
+  `estudiantes` (antes no existían).
+- Permisos: `gestion-de-estudiantes` (admin + coordinador) para RF-09/RF-10,
+  `consulta-de-estudiantes` (+ docente) para RF-11 — dos permisos porque los
+  actores de la tesis son distintos.
+
 ### ⏳ Sin empezar
 
 Asistencia, Convivencia Escolar, Observador Académico, Reportes de Período,
@@ -122,13 +142,50 @@ para RF-02 a RF-12.
   (los usuarios necesitan `role_id`). El orden importa si se agregan más
   seeders.
 
+## ✅ Auditoría (RNF-11) y protección de datos personales (RNF-10)
+
+- Tabla `auditorias` (append-only, sin `updated_at`): `user_id` nullable,
+  `evento`, `auditable_type`/`auditable_id` (morph, opcional), `detalle`
+  (JSON), `ip`.
+- `App\Models\Auditoria::registrar()` es el punto de entrada único para crear
+  un evento; usa `auth()->id()` y `request()->ip()` automáticamente.
+- `App\Models\Concerns\Auditable` (trait) engancha `created`/`updated` de
+  Eloquent — usado por `User`, `Role` y `Estudiante`. No cubre `delete()`
+  porque ningún controller expone borrar estos modelos todavía.
+- `Estudiante` define `$auditableSoloClaves = true`: la auditoría de un
+  estudiante guarda solo **qué campos cambiaron**, nunca sus valores (Ley
+  1581 — no duplicar datos de un menor en una segunda tabla). `User`/`Role`
+  sí guardan valores, excepto `password`/`remember_token` (excluidos siempre
+  por el trait).
+- `RoleController` audita el cambio de permisos aparte del `update()` del
+  rol — `permissions()->sync()` es una tabla pivote y no dispara el evento
+  `updated` de Eloquent.
+- `SessionController` audita `login`, `login_fallido` (con el email
+  intentado, para detectar fuerza bruta) y `logout`.
+- `EstudianteController@show` audita `consultado` — RNF-10: acceder al
+  perfil de un menor queda trazado, no solo modificarlo.
+- Pantalla `/auditoria` (filtros por evento/usuario/rango de fechas,
+  paginada), detrás del permiso `auditoria` (solo admin, igual criterio que
+  `roles-y-permisos` y `gestion-de-usuarios`).
+
+## Testing
+
+- **BD de testing separada:** `compass_test` (MySQL — no hay extensión
+  `sqlite` en este entorno para usar `:memory:`). Configurada directo en
+  `phpunit.xml` (`DB_DATABASE=compass_test`). Nunca corras
+  `php artisan test` sin esto: `RefreshDatabase` hace `migrate:fresh`, y si
+  apuntara a `compass_dev` borraría los datos sembrados de desarrollo.
+- 16 tests automatizados (`tests/Feature/`): `PasswordHashingTest` (RNF-08),
+  `RoleAccessControlTest` (RNF-09), `AuditLogTest` (RNF-10/RNF-11), más el
+  smoke test original de auth. Cubren RF-01 a RF-11 solo parcialmente —
+  la mayoría de esta sesión se validó manualmente con curl, no queda como
+  test de regresión.
+
 ## Pendiente técnico conocido
 
-- Tests automatizados: hoy solo hay smoke tests de auth
-  (`tests/Feature/ExampleTest.php`). Todo el flujo de RF-01 a RF-08 se probó
-  manualmente con curl en esta sesión, no queda como test de regresión.
-- Auditoría de cambios (RNF-11) — hoy solo `registrado_por`/`actualizado_por`
-  en calificaciones; nada audita altas/bajas de usuarios ni cambios de rol.
+- Tests automatizados: falta cobertura de RF-01 a RF-08 más allá de lo que
+  tocan `RoleAccessControlTest`/`AuditLogTest` de forma indirecta (no hay
+  tests de `UserController`, `RoleController` ni `PasswordReset*` en sí).
 - `Docente.user_id` sigue sin usarse — no hay vínculo entre la ficha
   académica de un profesor y su cuenta de login. Un futuro RF de "mis
   cursos" para el rol docente lo va a necesitar.

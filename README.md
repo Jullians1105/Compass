@@ -407,28 +407,41 @@ Numeración real, agrupada por bloque:
 | RF-29 a RF-33 | Clasificación y seguimiento de riesgo académico |
 | RF-34 a RF-46 | Matrículas, pagos, mora y KPIs financieros |
 
-Los requisitos no funcionales también difieren: la tesis define **RNF-01 a RNF-26**,
-no los 12 que listaba este archivo. Por ejemplo, el registro de auditoría es RNF-11
-y la validación de datos es RNF-17.
+Texto completo de los 46 RF y 26 RNF (descripción, actor, entrada, salida de
+cada uno): `docs/RF y no RF.txt`. Estado de avance real: `docs/estadoProyecto.md`.
 
 ---
 
-## 🎓 Requisitos no funcionales (12 RNF)
+## 🎓 Requisitos no funcionales (26 RNF)
 
 | ID | Requisito | Target |
 |----|-----------|--------|
-| RNF-1 | Responsividad móvil | 95% de dispositivos |
-| RNF-2 | Carga de dashboard | < 2 segundos |
-| RNF-3 | Disponibilidad | 99% uptime |
-| RNF-4 | Seguridad de datos | OWASP Top 10 |
-| RNF-5 | Encriptación | TLS 1.2+ |
-| RNF-6 | Auditoría | Logs de todos los accesos |
-| RNF-7 | Escalabilidad | 500+ usuarios concurrentes |
-| RNF-8 | Backup | Diario, 30 días retención |
-| RNF-9 | Documentación | 100% API documentada |
-| RNF-10 | Usabilidad | Compatibilidad WCAG 2.1 AA |
-| RNF-11 | Mantenibilidad | Código comentado, tests |
-| RNF-12 | Performance ETL | Carga nocturna < 30 min |
+| RNF-01 | Tiempo de respuesta del sistema | < 3 segundos |
+| RNF-02 | Tiempo de carga del Dashboard | < 5 segundos |
+| RNF-03 | Soporte de usuarios concurrentes | 10+ simultáneos |
+| RNF-04 | Disponibilidad del sistema | 99% horario académico |
+| RNF-05 | Copia de seguridad automática | Diaria |
+| RNF-06 | Recuperación ante fallos | Restaurar desde backup |
+| RNF-07 | Autenticación segura | Credenciales + HTTPS |
+| RNF-08 | Cifrado de contraseñas | Algoritmo seguro |
+| RNF-09 | Control de acceso por roles | Restringir por rol |
+| RNF-10 | Protección de datos personales | Normativa colombiana (Ley 1581) |
+| RNF-11 | Registro de auditoría | Logs de accesos y modificaciones |
+| RNF-12 | Diseño responsive | Adaptable a distintas pantallas |
+| RNF-13 | Facilidad de uso | Interfaz intuitiva |
+| RNF-14 | Consistencia visual | Interfaz uniforme en todo el sistema |
+| RNF-15 | Compatibilidad de navegadores | Chrome, Edge, Firefox |
+| RNF-16 | Integridad de datos | Consistentes, sin duplicados |
+| RNF-17 | Validación de datos | Validar antes de almacenar |
+| RNF-18 | Escalabilidad del sistema | Crecer sin degradar el rendimiento |
+| RNF-19 | Mantenibilidad del software | Arquitectura modular |
+| RNF-20 | Documentación del sistema | Técnica y de usuario |
+| RNF-21 | Exportación de datos | PDF o Excel |
+| RNF-22 | Consistencia en tiempo real (matrículas) | Bloqueo optimista/pesimista |
+| RNF-23 | Precisión en KPIs financieros | 2 decimales, sin redondeo |
+| RNF-24 | Integración segura de alertas (email/SMS) | Credenciales cifradas |
+| RNF-25 | Retención de datos financieros | Registro inmutable, trazable |
+| RNF-26 | Performance en reportes voluminosos | 500+ registros en < 10s |
 
 ---
 

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -11,7 +12,13 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Estudiante extends Model
 {
-    use HasFactory;
+    use HasFactory, Auditable;
+
+    /**
+     * RNF-10/RNF-11: la auditoria de este modelo guarda solo los NOMBRES de
+     * los campos que cambiaron, nunca sus valores (ver Auditable).
+     */
+    protected bool $auditableSoloClaves = true;
 
     protected $fillable = [
         'tipo_documento',
@@ -23,6 +30,8 @@ class Estudiante extends Model
         'telefono',
         'email',
         'direccion',
+        'acudiente_nombre',
+        'acudiente_telefono',
         'consentimiento_datos',
         'fecha_consentimiento',
         'activo',

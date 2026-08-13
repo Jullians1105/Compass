@@ -1,6 +1,6 @@
 # 📊 Estado del Proyecto Compass
 
-**Última actualización:** 2026-08-12  
+**Última actualización:** 2026-08-13  
 **Frecuencia de actualización:** Diaria (fin de día) + Fin de sprint  
 **Responsable de compilar:** Jullians Mauricio Amado Gutiérrez
 
@@ -27,8 +27,8 @@
 | **Fase actual** | Desarrollo Sprint 1 | Calificaciones (consulta) y autenticación funcionando en local |
 | **Progreso general** | 30% | Modulo 1 (Calificaciones) y auth/roles basicos construidos |
 | **Módulos iniciados** | 1/9 | Gestión de Calificaciones (consulta, RF-14). Ver README para los 9 módulos reales |
-| **RF completados** | 9/46 (RF-01 a RF-08, RF-14) | RF-13 solo tiene base construida (esquema + seeder), falta la pantalla de registro/edición |
-| **RNF completados** | 0/12 | Por validar en testing |
+| **RF completados** | 12/46 (RF-01 a RF-11, RF-14) | RF-13 solo tiene base construida (esquema + seeder), falta la pantalla de registro/edición |
+| **RNF completados** | 4/26 validados (RNF-08 a RNF-11) | Primeros con test automatizado; varios más ya implementados sin validar (RNF-07, RNF-12, RNF-14, RNF-16/17) |
 | **Riesgos activos** | 1 | Stack confirmado, pero entorno no 100% validado |
 | **Bloqueadores** | 0 | Ninguno crítico en este momento |
 
@@ -81,140 +81,172 @@
 
 ## 📋 Requisitos funcionales (RF) - Estado
 
-> ⚠️ **La numeración de este checklist es la vieja (incorrecta).** Ver README.md
-> para la numeración real contra la tesis (RF-01 a RF-08 = Autenticación/roles,
-> RF-13/RF-14 = Calificaciones, etc.). Este checklist no se reescribió todavía.
->
-> **Actualización 2026-08-13:** ya tenemos el texto exacto de los 46 RF y los
-> 26 RNF de la tesis en `docs/RF y no RF.txt`. Ya no hay excusa de "no tenemos
-> el texto" para RF-02 a RF-12 ni para el resto — falta reescribir este
-> checklist completo contra ese archivo, que sigue pendiente como tarea de
-> documentación aparte. Mientras tanto, lo que sigue abajo sirve solo como
-> conteo aproximado de avance, no como fuente de verdad de qué es cada RF.
+> Numeración real de la tesis, contra `docs/RF y no RF.txt` (fuente de verdad
+> textual completa — descripción/actor/entrada/salida de cada RF vive ahí,
+> aquí solo el título y el estado). Reescrito el 2026-08-13; hasta esa fecha
+> este checklist tenía la numeración vieja e incorrecta.
 
 **Total: 46 RF**  
-**Completados: 0 (0%)**  
+**Completados: 12 (26%)**  
 **En progreso: 0**  
-**No iniciados: 46 (100%)**
+**No iniciados: 34 (74%)**
 
-### Módulo 1: Gestión de Calificaciones
-- [ ] RF-01: Registrar calificación de estudiante
-- [ ] RF-02: Consultar promedio por período
-- [ ] RF-03: Modificar calificación registrada
-- [ ] RF-04: Exportar reporte de calificaciones
-- [ ] RF-05: Validar rango de calificaciones (0-5)
+### RF-01 a RF-08 — Autenticación, roles y gestión de usuarios
+- [x] RF-01: Autenticación de usuarios
+- [x] RF-02: Cierre de sesión del sistema
+- [x] RF-03: Recuperación de contraseña
+- [x] RF-04: Gestión de roles del sistema
+- [x] RF-05: Control de acceso según rol
+- [x] RF-06: Registro de usuarios del sistema
+- [x] RF-07: Actualización de usuarios del sistema
+- [x] RF-08: Consulta de usuarios del sistema
+
+**Subtotal:** 8/8 ✅
+
+### RF-09 a RF-12 — Estudiantes
+- [x] RF-09: Registro de estudiantes
+- [x] RF-10: Actualización de información de estudiantes
+- [x] RF-11: Consulta del perfil del estudiante
+- [ ] RF-12: Consulta del historial académico del estudiante
+
+**Subtotal:** 3/4 ✅
+
+### RF-13 a RF-14 — Calificaciones
+- [ ] RF-13: Registro de calificaciones — solo esquema de BD + datos de seeder, falta la pantalla
+- [x] RF-14: Consulta de calificaciones por estudiante
+
+**Subtotal:** 1/2 ✅
+
+### RF-15 a RF-16 — Asistencia
+- [ ] RF-15: Registro de asistencia
+- [ ] RF-16: Consulta de asistencia por estudiante
+
+**Subtotal:** 0/2 ✅
+
+### RF-17 a RF-18 — Observaciones disciplinarias
+- [ ] RF-17: Registro de observaciones disciplinarias
+- [ ] RF-18: Consulta del observador del estudiante
+
+**Subtotal:** 0/2 ✅
+
+### RF-19 a RF-20 — Boletines e informes institucionales
+- [ ] RF-19: Generación de boletines académicos
+- [ ] RF-20: Generación de informes académicos institucionales
+
+**Subtotal:** 0/2 ✅
+
+### RF-21 a RF-24 — Importación, validación y almacenamiento de datos
+- [ ] RF-21: Importación de datos académicos desde archivos
+- [ ] RF-22: Validación de datos importados
+- [ ] RF-23: Almacenamiento de datos académicos en la base de datos
+- [ ] RF-24: Actualización de registros académicos importados
+
+**Subtotal:** 0/4 ✅
+
+### RF-25 a RF-28 — Indicadores académicos y dashboard
+- [ ] RF-25: Cálculo de indicadores académicos
+- [ ] RF-26: Visualización de indicadores académicos en Dashboard
+- [ ] RF-27: Visualización del rendimiento académico por curso
+- [ ] RF-28: Visualización del rendimiento académico por estudiante
+
+**Subtotal:** 0/4 ✅
+
+### RF-29 a RF-33 — Riesgo académico (EWS)
+- [ ] RF-29: Clasificación automática de riesgo académico
+- [ ] RF-30: Visualización de estudiantes en riesgo académico
+- [ ] RF-31: Consulta de estudiantes en riesgo por curso
+- [ ] RF-32: Consulta de estudiantes en riesgo por bienestar estudiantil
+- [ ] RF-33: Seguimiento académico de estudiantes en riesgo
 
 **Subtotal:** 0/5 ✅
 
-### Módulo 2: Asistencia y Puntualidad
-- [ ] RF-06: Registrar asistencia diaria
-- [ ] RF-07: Registrar retraso
-- [ ] RF-08: Calcular porcentaje de asistencia
-- [ ] RF-09: Generar alerta si asistencia < 75%
+### RF-34 a RF-46 — Matrículas, pagos, mora y KPIs financieros
+- [ ] RF-34: Gestión de matrículas
+- [ ] RF-35: Gestión de pagos de mensualidades
+- [ ] RF-36: Inscripción de matrícula
+- [ ] RF-37: Formalización de matrícula
+- [ ] RF-38: Registro de pago de arancel
+- [ ] RF-39: Generación de comprobante de pago
+- [ ] RF-40: Consulta de estado de matrícula
+- [ ] RF-41: Filtrado de estudiantes en mora
+- [ ] RF-42: Generación de reporte de estudiantes en mora
+- [ ] RF-43: Envío de alertas de pago pendiente
+- [ ] RF-44: Cálculo de KPIs financieros
+- [ ] RF-45: Visualización de estado de matrículas en Dashboard
+- [ ] RF-46: Visualización de ingresos financieros en Dashboard
 
-**Subtotal:** 0/4 ✅
-
-### Módulo 3: Convivencia Escolar
-- [ ] RF-10: Registrar evento de convivencia
-- [ ] RF-11: Clasificar eventos (leve, moderado, grave)
-- [ ] RF-12: Consultar historial de convivencia
-- [ ] RF-13: Generar reporte de convivencia
-
-**Subtotal:** 0/4 ✅
-
-### Módulo 4: Observador Académico
-- [ ] RF-14: Registrar anotación de docente
-- [ ] RF-15: Registrar participación en clase
-- [ ] RF-16: Consultar observaciones por período
-- [ ] RF-17: Exportar observaciones
-
-**Subtotal:** 0/4 ✅
-
-### Módulo 5: Reportes de Período
-- [ ] RF-18: Consolidar datos por período
-- [ ] RF-19: Calcular promedio ponderado
-- [ ] RF-20: Generar reporte PDF
-- [ ] RF-21: Compartir reporte con acudientes
-
-**Subtotal:** 0/4 ✅
-
-### Módulo 6: Sistema de Alertas Tempranas (EWS)
-- [ ] RF-22: Definir criterios de riesgo académico
-- [ ] RF-23: Calcular score de riesgo en tiempo real
-- [ ] RF-24: Generar alerta si score > umbral
-- [ ] RF-25: Mostrar dashboard de alertas
-- [ ] RF-26: Filtrar alertas por grado/sección
-- [ ] RF-27: Registrar intervención pedagógica
-- [ ] RF-28: Validar que alertas no sean falsas alarmas
-
-**Subtotal:** 0/7 ✅
-
-### Módulo 7: Portal de Acudientes
-- [ ] RF-29: Login de acudiente con DNI/correo
-- [ ] RF-30: Visualizar calificaciones del estudiante
-- [ ] RF-31: Visualizar asistencia
-- [ ] RF-32: Visualizar alertas de riesgo (solo nivel alto)
-- [ ] RF-33: Contactar docente vía formulario
-- [ ] RF-34: Descargar reportes de período
-
-**Subtotal:** 0/6 ✅
-
-### Requisitos transversales (RF-35 a RF-46)
-- [ ] RF-35: Login de usuario (docente/coordinador)
-- [ ] RF-36: Gestión de perfiles (roles y permisos)
-- [ ] RF-37: Validación de datos de entrada
-- [ ] RF-38: Manejo de excepciones y errores
-- [ ] RF-39: Auditoría de cambios en datos sensibles
-- [ ] RF-40: Backup automático diario
-- [ ] RF-41: Importar datos desde CSV/Excel
-- [ ] RF-42: Sincronizar con sistema SIAE (si existe)
-- [ ] RF-43: Notificaciones por email
-- [ ] RF-44: Búsqueda de estudiantes
-- [ ] RF-45: Filtros avanzados en dashboards
-- [ ] RF-46: Validar reglas de riesgo según Decreto 1290
-
-**Subtotal:** 0/12 ✅
+**Subtotal:** 0/13 ✅
 
 ---
 
 ## 🎓 Requisitos no funcionales (RNF) - Estado
 
-**Total: 12 RNF**  
-**Completados: 0 (0%)**  
-**En validación: 0**  
-**No iniciados: 12 (100%)**
+> Numeración real de la tesis (26 RNF), contra `docs/RF y no RF.txt`.
+> Reescrito el 2026-08-13 — antes este documento listaba 12 RNF que no
+> coincidían con la tesis.
+
+**Total: 26 RNF**  
+**Validados con test automatizado: 4 (RNF-08, RNF-09, RNF-10, RNF-11)**  
+**Implementados sin validación formal: RNF-07, RNF-12, RNF-14, RNF-16, RNF-17, RNF-20**  
+**No iniciados: el resto (ver tabla)**
+
+> 📌 "Validado" en la columna de abajo significa que hay un test automatizado
+> (`tests/Feature/`) que lo prueba explícitamente, no solo que el código lo
+> toque de pasada. RNF-08/09/10/11 son los primeros con esa validación
+> (2026-08-13) — el resto de los 🟡 "implementados" todavía no tiene test.
 
 | ID | Requisito | Target | Estado | Validado |
 |----|-----------|--------|--------|----------|
-| RNF-1 | Responsividad móvil | 95% dispositivos | ⏳ Pendiente | No |
-| RNF-2 | Carga de dashboard | < 2 segundos | ⏳ Pendiente | No |
-| RNF-3 | Disponibilidad | 99% uptime | ⏳ Pendiente | No |
-| RNF-4 | Seguridad de datos | OWASP Top 10 | ⏳ Pendiente | No |
-| RNF-5 | Encriptación | TLS 1.2+ | ⏳ Pendiente | No |
-| RNF-6 | Auditoría | Logs de todos los accesos | ⏳ Pendiente | No |
-| RNF-7 | Escalabilidad | 500+ usuarios concurrentes | ⏳ Pendiente | No |
-| RNF-8 | Backup | Diario, 30 días retención | ⏳ Pendiente | No |
-| RNF-9 | Documentación | 100% API documentada | ⏳ Pendiente | No |
-| RNF-10 | Usabilidad | WCAG 2.1 AA | ⏳ Pendiente | No |
-| RNF-11 | Mantenibilidad | Código comentado, tests | ⏳ Pendiente | No |
-| RNF-12 | Performance ETL | Carga < 30 min | ⏳ Pendiente | No |
+| RNF-01 | Tiempo de respuesta del sistema | < 3 segundos | ⏳ Pendiente | No |
+| RNF-02 | Tiempo de carga del Dashboard | < 5 segundos | ⏳ Pendiente | No |
+| RNF-03 | Soporte de usuarios concurrentes | 10+ simultáneos | ⏳ Pendiente | No |
+| RNF-04 | Disponibilidad del sistema | 99% horario académico | ⏳ Pendiente | No |
+| RNF-05 | Copia de seguridad automática | Diaria | ⏳ Pendiente | No |
+| RNF-06 | Recuperación ante fallos | Restaurar desde backup | ⏳ Pendiente | No |
+| RNF-07 | Autenticación segura | Credenciales + HTTPS | 🟡 Parcial (falta HTTPS en prod) | No |
+| RNF-08 | Cifrado de contraseñas | Algoritmo seguro | ✅ Validado (Bcrypt, Laravel) | **Sí** — `PasswordHashingTest` |
+| RNF-09 | Control de acceso por roles | Restringir por rol | ✅ Validado (RF-04/RF-05) | **Sí** — `RoleAccessControlTest` |
+| RNF-10 | Protección de datos personales | Normativa colombiana (Ley 1581) | ✅ Validado (acceso a perfil auditado, cambios sin exponer valores) | **Sí** — `AuditLogTest` |
+| RNF-11 | Registro de auditoría | Logs de accesos/cambios | ✅ Validado (tabla `auditorias`: login/logout/login fallido/CRUD de usuarios, roles y estudiantes) | **Sí** — `AuditLogTest` |
+| RNF-12 | Diseño responsive | Adaptable a pantallas | 🟡 Implementado (sidebar/tablas) | No |
+| RNF-13 | Facilidad de uso | Interfaz intuitiva | ⏳ Pendiente | No |
+| RNF-14 | Consistencia visual | Interfaz uniforme | 🟡 Implementado (Bootstrap 5) | No |
+| RNF-15 | Compatibilidad de navegadores | Chrome, Edge, Firefox | ⏳ Pendiente | No |
+| RNF-16 | Integridad de datos | Sin duplicados, consistentes | 🟡 Parcial (constraints únicos en BD) | No |
+| RNF-17 | Validación de datos | Validar antes de almacenar | 🟡 Implementado (validación por form) | No |
+| RNF-18 | Escalabilidad del sistema | Crecer sin degradar | ⏳ Pendiente | No |
+| RNF-19 | Mantenibilidad del software | Arquitectura modular | ⏳ Pendiente | No |
+| RNF-20 | Documentación del sistema | Técnica y de usuario | 🟡 En progreso (estos documentos) | No |
+| RNF-21 | Exportación de datos | PDF o Excel | ⏳ Pendiente | No |
+| RNF-22 | Consistencia en tiempo real (matrículas) | Bloqueo optimista/pesimista | ⏳ Pendiente | No |
+| RNF-23 | Precisión en KPIs financieros | 2 decimales, sin redondeo | ⏳ Pendiente | No |
+| RNF-24 | Integración segura de alertas (email/SMS) | Credenciales cifradas | ⏳ Pendiente | No |
+| RNF-25 | Retención de datos financieros | Registro inmutable | ⏳ Pendiente | No |
+| RNF-26 | Performance en reportes voluminosos | 500+ registros en < 10s | ⏳ Pendiente | No |
 
 ---
 
 ## 🔧 Módulos - Progreso
 
+> ⚠️ Estos son los 9 módulos de UI del README (pantallas), que no coinciden
+> 1 a 1 con los bloques de RF de la tesis — por ejemplo la tesis junta
+> "Convivencia Escolar" y "Observador Académico" en un solo bloque (RF-17 a
+> RF-18), y no tiene un bloque de RF propio para "Portal de Acudientes" (los
+> acudientes aparecen como actor dentro de otros RF, no como módulo aparte).
+> Los rangos de abajo son los que sí están claros; donde no, se deja explícito
+> en vez de inventar una división que no está en `docs/RF y no RF.txt`.
+
 ### 📌 Módulo 1: Gestión de Calificaciones
-- **Estado:** ⏳ No iniciado
-- **RF asociados:** RF-01 a RF-05 (5 requisitos)
-- **% Completado:** 0%
-- **Responsable:** [Asignar en sprint]
+- **Estado:** 🟡 En progreso (consulta lista, registro pendiente)
+- **RF asociados:** RF-13 a RF-14 (2 requisitos) — RF-14 ✅, RF-13 ⏳
+- **% Completado:** 50%
+- **Responsable:** Jullians / Mateo
 - **Notas:**
-  - Requiere diseño de tabla de calificaciones en BD
-  - Validaciones según Decreto 1290
+  - Validaciones según Decreto 1290 ya implementadas en la consulta
 
 ### 📌 Módulo 2: Asistencia y Puntualidad
 - **Estado:** ⏳ No iniciado
-- **RF asociados:** RF-06 a RF-09 (4 requisitos)
+- **RF asociados:** RF-15 a RF-16 (2 requisitos)
 - **% Completado:** 0%
 - **Responsable:** [Asignar en sprint]
 - **Notas:**
@@ -223,7 +255,7 @@
 
 ### 📌 Módulo 3: Convivencia Escolar
 - **Estado:** ⏳ No iniciado
-- **RF asociados:** RF-10 a RF-13 (4 requisitos)
+- **RF asociados:** parte de RF-17 a RF-18 (ver nota de arriba — compartido con Módulo 4)
 - **% Completado:** 0%
 - **Responsable:** [Asignar en sprint]
 - **Notas:**
@@ -232,7 +264,7 @@
 
 ### 📌 Módulo 4: Observador Académico
 - **Estado:** ⏳ No iniciado
-- **RF asociados:** RF-14 a RF-17 (4 requisitos)
+- **RF asociados:** parte de RF-17 a RF-18 (ver nota de arriba — compartido con Módulo 3)
 - **% Completado:** 0%
 - **Responsable:** [Asignar en sprint]
 - **Notas:**
@@ -241,7 +273,7 @@
 
 ### 📌 Módulo 5: Reportes de Período
 - **Estado:** ⏳ No iniciado
-- **RF asociados:** RF-18 a RF-21 (4 requisitos)
+- **RF asociados:** RF-19 a RF-20 (2 requisitos)
 - **% Completado:** 0%
 - **Responsable:** [Asignar en sprint]
 - **Notas:**
@@ -250,7 +282,7 @@
 
 ### 📌 Módulo 6: Sistema de Alertas Tempranas (EWS)
 - **Estado:** ⏳ No iniciado
-- **RF asociados:** RF-22 a RF-28 (7 requisitos)
+- **RF asociados:** RF-25 a RF-33 (9 requisitos: indicadores + riesgo)
 - **% Completado:** 0%
 - **Responsable:** [Asignar en sprint]
 - **Crítico:** ⚠️ Módulo principal del proyecto
@@ -261,12 +293,24 @@
 
 ### 📌 Módulo 7: Portal de Acudientes
 - **Estado:** ⏳ No iniciado
-- **RF asociados:** RF-29 a RF-34 (6 requisitos)
+- **RF asociados:** ninguno propio (ver nota de arriba) — reutiliza RF-14, RF-16, RF-18, RF-30 desde la perspectiva del acudiente
 - **% Completado:** 0%
 - **Responsable:** [Asignar en sprint]
 - **Notas:**
   - Protección de datos: mostrar solo información del hijo/a
   - Cumplimiento Ley 1581
+
+### 📌 Módulo 8: Gestión de Matrículas
+- **Estado:** ⏳ No iniciado
+- **RF asociados:** RF-34 a RF-43 (10 requisitos)
+- **% Completado:** 0%
+- **Responsable:** [Asignar en sprint]
+
+### 📌 Módulo 9: Dashboard Financiero
+- **Estado:** ⏳ No iniciado
+- **RF asociados:** RF-44 a RF-46 (3 requisitos)
+- **% Completado:** 0%
+- **Responsable:** [Asignar en sprint]
 
 ---
 
@@ -586,6 +630,76 @@
   autenticación/roles/usuarios de hoy).
 - ⏳ Próximo: RF-13 (registrar/editar calificación), boletín académico
   (RF-19/RF-20), tests automatizados (hoy todo se probó manualmente con curl)
+
+---
+
+#### [2026-08-13] (madrugada+1) - Jullians Mauricio Amado Gutiérrez (con Claude)
+
+- ✅ Completado: **RF-09 (registro de estudiantes)** — `/estudiantes/crear`,
+  crea el estudiante y su matrícula en el curso del grado solicitado (año
+  lectivo activo); la confirmación devuelve el número de matrícula
+  preliminar (el ID de esa matrícula).
+- ✅ Completado: **RF-10 (actualización de estudiantes)** — `/estudiantes/{id}/editar`,
+  edita datos personales/contacto y reasigna grado (mueve la matrícula
+  vigente a otro curso, o crea una si no existía). El documento de
+  identidad no se edita, mismo criterio que RF-07.
+- ✅ Completado: **RF-11 (consulta de perfil)** — `/estudiantes/{id}`, con
+  todos los campos que pide la tesis (documento, nacimiento, género, grado
+  actual, acudiente, dirección, contacto, fecha de registro). Actor
+  Docente/Administrativo: agregado `/estudiantes` (listado + búsqueda) como
+  plomería necesaria para llegar al ID, no es un RF en sí.
+- 📌 Decisión de esquema: se agregaron `acudiente_nombre`/`acudiente_telefono`
+  a `estudiantes` (la tesis los pide como entrada de RF-09 y salida de RF-11).
+- 📌 Decisión de permisos: dos permisos nuevos en vez de uno — `gestion-de-estudiantes`
+  (admin+coordinador, alta/edición) y `consulta-de-estudiantes` (+docente,
+  solo lectura) — porque RF-09/RF-10 y RF-11 tienen actores distintos en la
+  tesis (Administrativo vs. Docente/Administrativo).
+- 📌 "Estudiantes" no es uno de los 9 módulos del README — es una entidad
+  compartida (como Docente), así que no vive en `App\Support\Modulos`.
+- ⏳ Próximo: RF-12 (historial académico del estudiante — reutiliza
+  `Matricula::definitiva()` que ya existe), RF-13 (registrar/editar
+  calificación), tests automatizados
+
+---
+
+#### [2026-08-13] (madrugada+2) - Jullians Mauricio Amado Gutiérrez (con Claude)
+
+- ✅ Completado: reescrita la lista de RF y RNF en `docs/estadoProyecto.md` y
+  `README.md` contra el texto real de la tesis (`docs/RF y no RF.txt`) — 46 RF
+  agrupados en los mismos bloques que ya usaba el README, 26 RNF reales
+  (antes 12 inventados). Corregida también la sección "Módulos - Progreso",
+  incluyendo los módulos 8 y 9 que faltaban (Matrículas, Dashboard Financiero).
+- ✅ Completado: **base de datos de testing separada** (`compass_test`) y
+  `phpunit.xml` apuntando a ella — antes `RefreshDatabase` habría corrido
+  `migrate:fresh` sobre `compass_dev` (el entorno de desarrollo real) porque
+  no hay extensión `sqlite` disponible para usar `:memory:`.
+- ✅ Completado: **RNF-08 (cifrado de contraseñas) y RNF-09 (control de
+  acceso por rol) validados con tests automatizados** — `PasswordHashingTest`
+  y `RoleAccessControlTest` (`tests/Feature/`), 9 tests. Antes solo se habían
+  probado a mano con curl.
+- ✅ Completado: **RNF-11 (registro de auditoría)** — tabla `auditorias`
+  (append-only, sin `updated_at`), modelo `Auditoria::registrar()`, trait
+  `Auditable` (`app/Models/Concerns/`) enganchado a `User`, `Role` y
+  `Estudiante` para loguear altas/modificaciones. `SessionController` audita
+  login/login fallido (con el email intentado)/logout. `RoleController`
+  audita los cambios de permisos aparte, porque `sync()` de una tabla pivote
+  no dispara el evento `updated` del modelo. Pantalla `/auditoria` (filtros
+  por evento/usuario/fecha), solo para el permiso `auditoria` (admin).
+- ✅ Completado: **RNF-10 (protección de datos personales, Ley 1581)** —
+  resuelto junto con RNF-11: cada vez que alguien abre el perfil de un
+  estudiante (`EstudianteController@show`) queda registrado en la auditoría,
+  que es el mecanismo de trazabilidad/accountability que pide la ley.
+- 📌 Decisión de diseño: la auditoría de `Estudiante` guarda **solo los
+  nombres de los campos que cambiaron, nunca sus valores**
+  (`$auditableSoloClaves = true` en el modelo) — evita duplicar datos
+  sensibles de un menor en una segunda tabla. `User`/`Role` sí guardan
+  valores (no son datos de menores), excepto `password`/`remember_token`,
+  que el trait excluye siempre.
+- ✅ Completado: test `AuditLogTest` (4 tests) valida login/login fallido/
+  auditoría de alta de estudiante sin exponer datos/consulta de perfil.
+  Total del proyecto: **16 tests automatizados**, todos verdes.
+- ⏳ Próximo: RF-12, RF-13, y extender `Auditable` a otros modelos si se
+  agregan más CRUD sensibles (ej. cuando exista Matrículas/Financiero)
 
 ---
 
