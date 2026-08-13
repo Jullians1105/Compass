@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -18,10 +19,15 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
-        'name',
+        'nombres',
+        'apellidos',
         'email',
         'password',
-        'role',
+        'role_id',
+        'tipo_documento',
+        'documento',
+        'telefono',
+        'activo',
     ];
 
     /**
@@ -44,18 +50,31 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'activo' => 'boolean',
         ];
     }
 
+    public function role(): BelongsTo
+    {
+        return $this->belongsTo(Role::class);
+    }
+
+    public function getNombreCompletoAttribute(): string
+    {
+        return trim("{$this->nombres} {$this->apellidos}");
+    }
+
     /**
-     * RF-05: control de acceso por rol. Solo 'admin' por ahora tiene un
-     * significado especial en la app; el resto de roles (docente,
-     * coordinador...) todavia no restringen nada porque solo existe la
-     * consulta de calificaciones (RF-14), que cualquier usuario autenticado
-     * puede ver.
+     * RF-05: el rol trae su lista de permisos (RF-04). El middleware
+     * 'permission' y el sidebar la consumen via tienePermiso().
      */
     public function esAdmin(): bool
     {
-        return $this->role === 'admin';
+        return $this->role?->slug === 'admin';
+    }
+
+    public function tienePermiso(string $slug): bool
+    {
+        return $this->role?->permissions->contains('slug', $slug) ?? false;
     }
 }

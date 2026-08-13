@@ -340,7 +340,7 @@ tail -f storage/logs/laravel.log
 |------|--------|-------|-----------|
 | **Propuesta** | ✅ Aprobada | Ago 2025 | Marco teórico, RF/RNF |
 | **Diseño** | 🟡 En curso | Sep 2025 | Prototipos UI (Sitch) |
-| **Desarrollo Sprint 1** | 🔵 Próximo | Oct 2025 | Backend + BD |
+| **Desarrollo Sprint 1** | 🟢 En curso | Oct 2025 | Backend + BD |
 | **Desarrollo Sprint 2** | ⏳ Planificado | Nov 2025 | Frontend + ETL |
 | **Testing & Validación** | ⏳ Planificado | Dic 2025 | Piloto en colegio |
 | **Entrega Final** | ⏳ Planificado | Ene 2026 | Plataforma funcional |

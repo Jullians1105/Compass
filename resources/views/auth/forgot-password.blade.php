@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Iniciar sesion - {{ config('app.name') }}</title>
+    <title>Recuperar contraseña - {{ config('app.name') }}</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
@@ -22,8 +22,16 @@
 
         <div class="card shadow-lg border-0">
             <div class="card-body p-4">
-                <h2 class="h5 fw-bold mb-1">Bienvenido</h2>
-                <p class="text-body-secondary small mb-4">Ingresa tus credenciales para continuar.</p>
+                <h2 class="h5 fw-bold mb-1">Recuperar contraseña</h2>
+                <p class="text-body-secondary small mb-4">
+                    Escribe tu correo y te enviamos un enlace para elegir una contraseña nueva.
+                </p>
+
+                @if (session('status'))
+                    <div class="alert alert-success py-2 small" role="alert">
+                        {{ session('status') }}
+                    </div>
+                @endif
 
                 @if ($errors->any())
                     <div class="alert alert-danger py-2 small" role="alert">
@@ -31,7 +39,7 @@
                     </div>
                 @endif
 
-                <form method="POST" action="{{ route('login') }}">
+                <form method="POST" action="{{ route('password.email') }}">
                     @csrf
 
                     <div class="mb-3">
@@ -40,32 +48,17 @@
                                value="{{ old('email') }}" placeholder="nombre@sjc.edu.co" required autofocus>
                     </div>
 
-                    <div class="mb-3">
-                        <label for="password" class="form-label small fw-semibold">Contraseña</label>
-                        <input type="password" class="form-control" id="password" name="password" required>
-                    </div>
-
-                    <div class="d-flex align-items-center justify-content-between mb-4">
-                        <div class="form-check mb-0">
-                            <input type="checkbox" class="form-check-input" id="recordarme" name="recordarme">
-                            <label class="form-check-label small" for="recordarme">Recordarme</label>
-                        </div>
-                        <a href="{{ route('password.request') }}" class="small text-decoration-none">
-                            ¿Olvidaste tu contraseña?
-                        </a>
-                    </div>
-
                     <button type="submit" class="btn btn-primary w-100 py-2 fw-semibold d-flex align-items-center justify-content-center gap-2">
-                        Ingresar
-                        <span class="material-symbols-outlined">login</span>
+                        Enviar enlace
+                        <span class="material-symbols-outlined">send</span>
                     </button>
                 </form>
+
+                <a href="{{ route('login') }}" class="d-block text-center small mt-3 text-decoration-none">
+                    Volver a iniciar sesion
+                </a>
             </div>
         </div>
-
-        <p class="text-center text-white opacity-75 small mt-4 mb-0">
-            Compass &mdash; Universidad Manuela Beltran | Ingenieria de Software
-        </p>
     </main>
 
 </body>

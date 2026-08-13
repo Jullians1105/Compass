@@ -34,8 +34,11 @@
                     <span class="material-symbols-outlined">dashboard</span>
                     Inicio
                 </a>
+                {{-- RF-05: un modulo solo es clicable si ya tiene pantalla Y el rol
+                     tiene el permiso; si no, se ve pero deshabilitado (igual que un
+                     modulo sin construir todavia, no distinguimos el motivo). --}}
                 @foreach (\App\Support\Modulos::todos() as $modulo)
-                    @if ($modulo['ruta'])
+                    @if ($modulo['ruta'] && auth()->user()->tienePermiso($modulo['permiso']))
                         <a class="nav-link d-flex align-items-center gap-2 py-2 px-2 @if (request()->routeIs($modulo['ruta'] . '*')) active @endif"
                            href="{{ route($modulo['ruta']) }}">
                             <span class="material-symbols-outlined">{{ $modulo['icono'] }}</span>
@@ -48,12 +51,28 @@
                         </span>
                     @endif
                 @endforeach
+
+                @if (auth()->user()->tienePermiso('gestion-de-usuarios'))
+                    <a class="nav-link d-flex align-items-center gap-2 py-2 px-2 @if (request()->routeIs('usuarios.*')) active @endif"
+                       href="{{ route('usuarios.index') }}">
+                        <span class="material-symbols-outlined">group</span>
+                        Usuarios
+                    </a>
+                @endif
+
+                @if (auth()->user()->tienePermiso('roles-y-permisos'))
+                    <a class="nav-link d-flex align-items-center gap-2 py-2 px-2 @if (request()->routeIs('roles.*')) active @endif"
+                       href="{{ route('roles.index') }}">
+                        <span class="material-symbols-outlined">admin_panel_settings</span>
+                        Roles y permisos
+                    </a>
+                @endif
             </nav>
 
             <div class="compass-sidebar-divider mt-auto pt-3 px-2">
                 <p class="mb-1 small">
-                    {{ auth()->user()->name }}
-                    <span class="compass-sidebar-muted d-block text-capitalize">{{ auth()->user()->role }}</span>
+                    {{ auth()->user()->nombre_completo }}
+                    <span class="compass-sidebar-muted d-block text-capitalize">{{ auth()->user()->role?->nombre }}</span>
                 </p>
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf

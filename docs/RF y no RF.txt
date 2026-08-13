@@ -1,0 +1,536 @@
+RF y no RF
+Tabla 1 Requerimiento funcional 1
+RF-01 Autenticación de usuarios
+Descripción	El sistema debe permitir que los usuarios accedan mediante un proceso de autenticación con credenciales válidas.
+Actor	Usuario
+Prioridad	Alta
+Entrada	Email o usuario, contraseña
+Salida	Token de sesión (JWT), ID de usuario, nombre completo, rol asignado, lista de permisos, fecha de expiración del token
+
+Tabla 2 Requerimiento funcional 2
+RF-02 Cierre de sesión del sistema
+Descripción	El sistema debe permitir que los usuarios cierren sesión de manera segura para finalizar su acceso.
+Actor	Usuario
+Prioridad	Alta
+Entrada	Token de sesión activo
+Salida	Confirmación de cierre de sesión, invalidación del token, limpieza de sesión del lado del servidor
+
+Tabla 3 Requerimiento funcional 3
+RF-03 Recuperación de contraseña
+Descripción	El sistema debe permitir que los usuarios recuperen su contraseña mediante un proceso de verificación.
+Actor	Usuario
+Prioridad	Media
+Entrada	Email del usuario registrado
+Salida	Enlace de recuperación enviado al email, token temporal de reset válido por 24 horas, confirmación de envío
+
+ 
+Tabla 4 Requerimiento funcional 4
+RF-04 Gestión de roles del sistema
+Descripción	El sistema debe permitir definir y administrar los diferentes roles de usuario dentro de la plataforma.
+Actor	Administrativo
+Prioridad	Alta
+Entrada	Nombre del rol, lista de funcionalidades/permisos asociados, descripción del rol
+Salida	ID del rol creado/actualizado, confirmación de creación, lista completa de roles del sistema
+
+Tabla 5 Requerimiento funcional 5
+RF-05 Control de acceso según rol
+Descripción	El sistema debe restringir o permitir el acceso a funcionalidades según el rol del usuario.
+Actor	Sistema
+Prioridad	Alta
+Entrada	Token de usuario, ID de funcionalidad solicitada
+Salida	Boolean indicando acceso permitido o denegado, lista de funcionalidades disponibles para el rol, mensaje de error si aplica
+
+Tabla 6 Requerimiento funcional 6
+RF-06 Registro de usuarios del sistema
+Descripción	El sistema debe permitir registrar nuevos usuarios dentro de la plataforma.
+Actor	Administrativo
+Prioridad	Alta
+Entrada	Nombre, apellido, email, documento de identidad, rol a asignar, información de contacto
+Salida	ID de usuario generado, confirmación de registro, contraseña temporal (enviada por email), estado inicial de cuenta
+Tabla 7 Requerimiento funcional 7
+RF-07 Actualización de usuarios del sistema
+Descripción	El sistema debe permitir modificar la información de los usuarios registrados.
+Actor	Administrativo
+Prioridad	Media
+Entrada	ID del usuario, campos a actualizar (nombre, email, rol, estado de cuenta)
+Salida	Confirmación de actualización, datos del usuario actualizados, historial de cambios registrado
+
+ 
+Tabla 8 Requerimiento funcional 8
+RF-08 Consulta de usuarios del sistema
+Descripción	El sistema debe permitir consultar la información de los usuarios registrados.
+Actor	Administrativo
+Prioridad	Media
+Entrada	Filtros opcionales (rol, estado, búsqueda por nombre/email), paginación
+Salida	Lista de usuarios, ID, nombre completo, email, rol asignado, estado de cuenta, fecha de creación
+
+Tabla 9 Requerimiento funcional 9
+RF-09 Registro de estudiantes
+Descripción	El sistema debe permitir registrar estudiantes dentro del sistema académico.
+Actor	Administrativo
+Prioridad	Alta
+Entrada	Nombre, apellido, documento de identidad, fecha de nacimiento, género, contacto de acudiente, dirección, grado solicitado
+Salida	ID de estudiante generado, número de matrícula preliminar, confirmación de registro, estado inicial
+
+Tabla 10 Requerimiento funcional 10
+RF-10 Actualización de información de estudiantes
+Descripción	El sistema debe permitir modificar los datos personales y académicos del estudiante.
+Actor	Administrativo
+Prioridad	Media
+Entrada	ID del estudiante, campos a actualizar (datos personales, académicos, información de contacto)
+Salida	Confirmación de actualización, datos actualizados del estudiante, fecha de modificación
+
+Tabla 11 Requerimiento funcional 11
+RF-11 Consulta del perfil del estudiante
+Descripción	El sistema debe permitir visualizar la información general del estudiante.
+Actor	Docente / Administrativo
+Prioridad	Alta
+Entrada	ID del estudiante
+Salida	Nombre, documento, fecha de nacimiento, género, grado actual, información del acudiente, dirección, teléfono, email, fecha de registro
+Tabla 12 Requerimiento funcional 12
+RF-12 Consulta del historial académico del estudiante
+Descripción	El sistema debe permitir consultar el historial académico completo del estudiante.
+Actor	Docente / Administrativo
+Prioridad	Alta
+Entrada	ID del estudiante, rango de período académico
+Salida	Lista de períodos académicos cursados, grados, calificaciones por período, asistencia, observaciones disciplinarias acumuladas
+
+Tabla 13 Requerimiento funcional 13
+RF-13 Registro de calificaciones
+Descripción	El sistema debe permitir registrar las calificaciones obtenidas por los estudiantes.
+Actor	Docente
+Prioridad	Alta
+Entrada	ID del estudiante, ID de materia/asignatura, período académico, calificación numérica, tipo de evaluación (parcial, final, etc.)
+Salida	ID del registro de calificación, confirmación de almacenamiento, promedio actualizado del estudiante
+
+Tabla 14 Requerimiento funcional 14
+RF-14 Consulta de calificaciones por estudiante
+Descripción	El sistema debe permitir consultar las calificaciones de un estudiante específico.
+Actor	Docente / Estudiante / Acudiente
+Prioridad	Alta
+Entrada	ID del estudiante, período académico, filtro de materia 
+Salida	Tabla con: materia, calificación, tipo de evaluación, fecha de registro, promedio general por período, estado de aprobación
+
+Tabla 15 Requerimiento funcional 15
+RF-15 Registro de asistencia
+Descripción	El sistema debe permitir registrar la asistencia diaria de los estudiantes.
+Actor	Docente
+Prioridad	Alta
+Entrada	ID del estudiante, fecha, estado (presente, ausente, tardío), justificación (si aplica)
+Salida	ID del registro, confirmación de almacenamiento, total de ausencias acumuladas, porcentaje de asistencia actualizado
+Tabla 16 Requerimiento funcional 16
+RF-16 Consulta de asistencia por estudiante
+Descripción	El sistema debe permitir consultar el historial de asistencia de un estudiante.
+Actor	Docente / Administrativo
+Prioridad	Alta
+Entrada	ID del estudiante, rango de fechas, período académico
+Salida	Lista de asistencias, fecha, estado, total de presentes, total de ausentes, tasa de asistencia (%), días injustificados
+
+Tabla 17 Requerimiento funcional 17
+RF-17 Registro de observaciones disciplinarias
+Descripción	El sistema debe permitir registrar observaciones disciplinarias o comportamentales del estudiante.
+Actor	Docente
+Prioridad	Media
+Entrada	ID del estudiante, tipo de observación (llamado de atención, amonestación, etc.), descripción, docente que registra, fecha
+Salida	ID de la observación, confirmación de registro, total de observaciones del estudiante, estado de la observación
+
+Tabla 18 Requerimiento funcional 18
+RF-18 Consulta del observador del estudiante
+Descripción	El sistema debe permitir consultar el historial de observaciones disciplinarias del estudiante.
+Actor	Docente / Administrativo
+Prioridad	Media
+Entrada	ID del estudiante, período académico
+Salida	Lista de observaciones, tipo, descripción, docente que registró, fecha, estado (abierta/resuelta), acciones tomadas
+
+ 
+Tabla 19 Requerimiento funcional 19
+RF-19 Generación de boletines académicos
+Descripción	El sistema debe generar boletines académicos con el desempeño del estudiante.
+Actor	Sistema
+Prioridad	Alta
+Entrada	ID del estudiante, período académico
+Salida	Documento PDF/HTML con: datos del estudiante, calificaciones por materia, promedio general, asistencia, observaciones, firma digital
+Tabla 20 Requerimiento funcional 20
+RF-20 Generación de informes académicos institucionales
+Descripción	El sistema debe generar informes académicos consolidados por curso o periodo.
+Actor	Sistema
+Prioridad	Alta
+Entrada	Período académico, grado, filtros adicionales (estado de estudiante, etc.)
+Salida	Documento PDF/Excel con: lista de estudiantes, calificaciones consolidadas, estadísticas por curso, tasa de aprobación, cantidad de estudiantes en riesgo
+
+Tabla 21 Requerimiento funcional 21
+RF-21 Importación de datos académicos desde archivos
+Descripción	El sistema debe permitir importar datos académicos desde archivos Excel o CSV.
+Actor	Administrativo
+Prioridad	Alta
+Entrada	Archivo Excel o CSV con estructura definida (ID estudiante, materia, calificación, fecha, etc.)
+Salida	Confirmación de carga, cantidad de registros leídos, lista de errores detectados, resumen de validación
+
+Tabla 22 Requerimiento funcional 22
+RF-22 Validación de datos importados
+Descripción	El sistema debe validar la consistencia de los datos importados antes de almacenarlos.
+Actor	Sistema
+Prioridad	Alta
+Entrada	Datos del archivo importado
+Salida	Reporte de validación con: registros válidos, registros inválidos, errores específicos por fila, advertencias de inconsistencia
+
+Tabla 23 Requerimiento funcional 23
+RF-23 Almacenamiento de datos académicos en la base de datos
+Descripción	El sistema debe almacenar los datos académicos importados en la base de datos.
+Actor	Sistema
+Prioridad	Alta
+Entrada	Datos validados del archivo
+Salida	Confirmación de almacenamiento exitoso, cantidad de registros insertados, ID de transacción para auditoría
+
+Tabla 24 Requerimiento funcional 24
+RF-24 Actualización de registros académicos importados
+Descripción	El sistema debe actualizar registros académicos existentes con nuevos datos importados.
+Actor	Sistema
+Prioridad	Alta
+Entrada	ID del estudiante, ID de materia, nueva calificación u otros datos académicos
+Salida	Confirmación de actualización, datos anteriores y nuevos (registro de auditoría), promedio recalculado
+
+Tabla 25 Requerimiento funcional 25
+RF-25 Cálculo de indicadores académicos
+Descripción	El sistema debe calcular indicadores académicos basados en notas, asistencia y comportamiento.
+Actor	Sistema
+Prioridad	Alta
+Entrada	ID del estudiante, período académico
+Salida	Promedio general, tasa de asistencia (%), número de observaciones, indicador de riesgo (bajo/medio/alto), factores de riesgo identificados
+
+Tabla 26 Requerimiento funcional 26
+RF-26 Visualización de indicadores académicos en Dashboard
+Descripción	El sistema debe mostrar indicadores académicos en un Dashboard visual.
+Actor	Administrativo / Docente
+Prioridad	Alta
+Entrada	Filtros: período académico, grado, rango de fechas
+Salida	Gráficos interactivos con: promedio general de curso, tasa de asistencia promedio, distribución de calificaciones (histograma), cantidad de estudiantes en riesgo
+
+Tabla 27 Requerimiento funcional 27
+RF-27 Visualización del rendimiento académico por curso
+Descripción	El sistema debe mostrar el rendimiento académico agrupado por curso.
+Actor	Administrativo / Docente
+Prioridad	Alta
+Entrada	ID de curso/grado, período académico
+Salida	Gráficos con: promedio del curso, rango de calificaciones (mínimo-máximo), tasa de aprobación (%), comparativa entre materias, evolución temporal
+
+Tabla 28 Requerimiento funcional 28
+RF-28 Visualización del rendimiento académico por estudiante
+Descripción	El sistema debe mostrar el rendimiento académico individual del estudiante.
+Actor	Docente
+Prioridad	Alta
+Entrada	ID del estudiante, período académico
+Salida	Gráfico de evolución de calificaciones, promedio por materia, comparativa con promedio del curso, línea de tendencia (mejora/estabilidad/declive)
+
+Tabla 29 Requerimiento funcional 29
+RF-29 Clasificación automática de riesgo académico
+Descripción	El sistema debe clasificar automáticamente a los estudiantes según su nivel de riesgo académico.
+Actor	Sistema
+Prioridad	Alta
+Entrada	Datos académicos del estudiante (notas, asistencia, observaciones), reglas de riesgo predefinidas
+Salida	Nivel de riesgo (bajo/medio/alto), factores que disparan el riesgo, puntuación de riesgo (0-100), recomendaciones de intervención
+
+ 
+Tabla 30 Requerimiento funcional 30
+RF-30 Visualización de estudiantes en riesgo académico
+Descripción	El sistema debe mostrar una lista de estudiantes clasificados en riesgo académico.
+Actor	Administrativo / Docente
+Prioridad	Alta
+Entrada	Período académico, filtro por nivel de riesgo (bajo/medio/alto)
+Salida	Tabla/lista de estudiantes con: nombre, ID, grado, nivel de riesgo, factores principales, promedio actual, porcentaje de asistencia, acción sugerida
+
+Tabla 31 Requerimiento funcional 31
+RF-31 Consulta de estudiantes en riesgo por curso
+Descripción	El sistema debe permitir consultar estudiantes en riesgo filtrados por curso.
+Actor	Docente
+Prioridad	Alta
+Entrada	ID de curso/grado, período académico, nivel de riesgo
+Salida	Lista de estudiantes en riesgo del curso, desglose por nivel de riesgo, acciones recomendadas por docente director
+
+Tabla 32 Requerimiento funcional 32
+RF-32 Consulta de estudiantes en riesgo por bienestar estudiantil
+Descripción	El sistema debe permitir que el área de bienestar consulte estudiantes en riesgo académico.
+Actor	Bienestar
+Prioridad	Alta
+Entrada	Filtros: período académico, nivel de riesgo, asignado a psicólogo (sí/no
+Salida	Lista de estudiantes con: nombre, riesgo, factores identificados, psicólogo/interventor asignado, estado del seguimiento, última fecha de revisión
+
+ 
+Tabla 33 Requerimiento funcional 33
+RF-33 Seguimiento académico de estudiantes en riesgo
+Descripción	El sistema debe permitir realizar seguimiento a los estudiantes identificados en riesgo.
+Actor	Bienestar / Docente
+Prioridad	Alta
+Entrada	ID del estudiante en riesgo, notas de intervención, acciones tomadas, fecha de seguimiento, responsable del seguimiento
+Salida	Registro de seguimiento almacenado, historial de intervenciones, estado actual del estudiante (riesgo resuelto/en progreso), próxima fecha de revisión
+
+Tabla 34 Requerimiento funcional 34
+RF-34 Gestión de matrículas
+Descripción	El sistema debe permitir registrar y administrar matrículas de estudiantes.
+Actor	Administrativo
+Prioridad	Alta
+Entrada	ID del estudiante, grado solicitado, período académico, valor del arancel de matrícula
+Salida	Estado de matrícula (al día/pendiente), ID de matrícula asignado, confirmación de registro, estado inicial
+
+Tabla 35 Requerimiento funcional 35
+RF-35 Gestión de pagos de mensualidades
+Descripción	El sistema debe registrar y gestionar pagos de mensualidades de estudiantes.
+Actor	Administrativo
+Prioridad	Alta
+Entrada	ID del estudiante, monto pagado, fecha de pago, método de pago (efectivo, transferencia, cheque), referencia de transacción
+Salida	Confirmación de pago registrado, saldo pendiente actualizado, estado de matrícula (al día/en mora), recibo de pago
+
+
+ 
+Tabla 36 Requerimiento funcional 36
+RF-36 Inscripción de matrícula
+Descripción	El sistema debe permitir registrar los datos de inscripción del estudiante (información personal, académica, contacto de acudiente, documento de identidad, grado solicitado).
+Actor	Administrativo
+Prioridad	Alta
+Entrada	Nombre, apellido, documento, fecha de nacimiento, género, grado solicitado, datos del acudiente, contacto, dirección
+Salida	Comprobante de inscripción, número de solicitud temporal, datos confirmados, estado: "inscrito - pendiente formalización"
+
+Tabla 37 Requerimiento funcional 37
+RF-37 Formalización de matrícula
+Descripción	El sistema debe generar automáticamente el documento oficial de matrícula formalizada con datos del estudiante, grado, período académico, firma digital y comprobante de número de matrícula.
+Actor	Sistema
+Prioridad	Alta
+Entrada	ID de inscripción, comprobante de pago de arancel
+Salida	Documento oficial de matrícula (PDF), número de matrícula permanente, firma digital, comprobante descargable/imprimible, estado: "matrícula formalizada"
+
+Tabla 38 Requerimiento funcional 38
+RF-38 Registro de pago de arancel
+Descripción	El sistema debe permitir registrar pagos de arancel de matrícula indicando fecha, monto, método de pago (efectivo, transferencia, cheque), referencia de transacción y estado de pago.
+Actor	Administrativo
+Prioridad	Alta
+Entrada	ID del estudiante, monto pagado, fecha de pago, método de pago (efectivo, transferencia, cheque), referencia de transacción
+Salida	Registro de pago almacenado, ID de transacción, saldo pagado vs adeudado, confirmación de registro
+
+
+ 
+Tabla 39 Requerimiento funcional 39
+RF-39 Generación de comprobante de pago
+Descripción	El sistema debe generar automáticamente comprobante de pago con detalles de transacción (número de recibo, monto, fecha, concepto), firma digital del administrativo y disponibilidad para descarga/impresión.
+Actor	Sistema
+Prioridad	Alta
+Entrada	ID de transacción de pago
+Salida	Documento PDF con: número de recibo, monto, fecha, concepto, firma digital del administrativo, disponibilidad para descarga/impresión
+
+Tabla 40 Requerimiento funcional 40
+RF-40 Consulta de estado de matrícula
+Descripción	El sistema debe mostrar el estado actual de matrícula del estudiante con opciones: "al día", "en mora", "pendiente formalización", "pendiente pago", incluyendo fechas relevantes.
+Actor	Administrativo
+Prioridad	Alta
+Entrada	ID del estudiante
+Salida	Estado actual de matrícula ("al día", "en mora", "pendiente formalización", "pendiente pago"), fechas relevantes, saldo adeudado
+
+Tabla 41 Requerimiento funcional 41
+RF-41 Filtrado de estudiantes en mora
+Descripción	El sistema debe permitir filtrar y visualizar lista de estudiantes con pagos pendientes, con opciones de filtro por grado, período académico, rango de días en mora (0-30, 30-60, 60+), o monto adeudado.
+Actor	Administrativo
+Prioridad	Alta
+Entrada	Grado, período académico, rango de días en mora (0-30, 30-60, 60+), monto adeudado
+Salida	Lista de estudiantes con pagos pendientes, nombre, grado, monto adeudado, días de atraso, contacto del acudiente, estado de pago
+
+ 
+Tabla 42 Requerimiento funcional 42
+RF-42 Generación de reporte de estudiantes en mora
+Descripción	El sistema debe generar reportes detallados en PDF/Excel de estudiantes en mora con información de: nombre, grado, monto adeudado, días de atraso, datos de contacto del acudiente, permitiendo exportación e impresión.
+Actor	Administrativo
+Prioridad	Alta
+Entrada	Período académico, grado (opcional), rango de días en mora, formato de salida (PDF/Excel)
+Salida	Documento PDF/Excel con: nombre, grado, monto adeudado, días de atraso, datos de contacto del acudiente, permitiendo exportación e impresión
+
+Tabla 43 Requerimiento funcional 43
+RF-43 Envío de alertas de pago pendiente
+Descripción	El sistema debe enviar automáticamente alertas (email/SMS) a acudientes cuando la matrícula está en mora o próxima a vencer, con información de monto adeudado, fecha límite y opciones de pago.
+Actor	Sistema
+Prioridad	Media
+Entrada	ID del estudiante, estado de matrícula (en mora/próxima a vencer), días para vencimiento
+Salida	Alertas email/SMS enviadas al acudiente, registro de envíos, información de monto adeudado, fecha límite de pago, opciones de pago disponibles
+
+Tabla 44 Requerimiento funcional 44
+RF-44 Cálculo de KPIs financieros
+Descripción	El sistema debe calcular automáticamente indicadores clave de desempeño financiero: (1) Total de ingresos por período, (2) Número de estudiantes al día vs en mora, (3) Tasa de morosidad (%), (4) Ingresos proyectados vs reales, (5) Días promedio de mora.
+Actor	Sistema
+Prioridad	Alta
+Entrada	Período académico, datos de pagos de estudiantes
+Salida	Total de ingresos por período, número de estudiantes al día vs en mora, tasa de morosidad (%), ingresos proyectados vs reales, días promedio de mora
+
+ 
+Tabla 45 Requerimiento funcional 45
+RF-45 Visualización de estado de matrículas en Dashboard
+Descripción	El sistema debe mostrar en el Dashboard administrativo gráficos interactivos de: (1) Distribución de estudiantes al día vs en mora (gráfico de pastel), (2) Desglose de morosos por grado, (3) Evolución temporal de morosidad en el semestre.
+Actor	Administrativo
+Prioridad	Alta
+Entrada	Período académico , grado 
+Salida	Gráficos interactivos con: distribución de estudiantes al día vs en mora (gráfico de pastel), desglose de morosos por grado, evolución temporal de morosidad en el semestre
+
+Tabla 46 Requerimiento funcional 46
+RF-46 Visualización de ingresos financieros en Dashboard
+Descripción	El sistema debe mostrar en el dashboard administrativo gráficos de: (1) Ingresos acumulados por período, (2) Comparativa de ingresos mes a mes, (3) Proyección de ingresos para el resto del período, (4) Tasa de recaudación (%), permitiendo filtros por grado o período.
+Actor	Administrativo
+Prioridad	Alta
+Entrada	Período académico, grado, rango de fechas
+Salida	Gráficos con: ingresos acumulados por período, comparativa de ingresos mes a mes, proyección de ingresos para el resto del período, tasa de recaudación (%)
+ 
+
+1.5	Requerimientos no funcionales
+Tabla 47 Requerimiento no funcional 1
+RNF-01 Tiempo de respuesta del sistema
+Descripción	El sistema debe responder a las solicitudes de los usuarios en un tiempo máximo de 3 segundos durante operaciones normales.
+Actor	Sistema
+Prioridad	Alta
+
+Tabla 48 Requerimiento no funcional 2
+RNF-02 Tiempo de carga del Dashboard
+Descripción	Los Dashboards y visualizaciones deben cargarse en un tiempo máximo de 5 segundos.
+Actor	Sistema
+Prioridad	Alta
+
+Tabla 49 Requerimiento no funcional 3
+RNF-03 Soporte de usuarios concurrentes
+Descripción	El sistema debe soportar al menos 10 usuarios conectados simultáneamente sin degradar el rendimiento.
+Actor	Sistema
+Prioridad	Media
+
+Tabla 50 Requerimiento no funcional 4
+RNF-04 Disponibilidad del sistema
+Descripción	La plataforma debe estar disponible al menos el 99% del tiempo durante el horario académico.
+Actor	Sistema
+Prioridad	Alta
+
+Tabla 51 Requerimiento no funcional 5
+RNF-05 Copia de seguridad automática
+Descripción	El sistema debe realizar copias de seguridad automáticas de la base de datos diariamente.
+Actor	Sistema
+Prioridad	Alta
+
+Tabla 52 Requerimiento no funcional 6
+RNF-06 Recuperación ante fallos
+Descripción	El sistema debe permitir restaurar la información desde copias de seguridad en caso de pérdida de datos.
+Actor	Sistema
+Prioridad	Alta
+
+Tabla 53 Requerimiento no funcional 7
+RNF-07 Autenticación segura
+Descripción	El sistema debe implementar autenticación segura mediante credenciales y conexión HTTPS.
+Actor	Sistema
+Prioridad	Alta
+
+Tabla 54 Requerimiento no funcional 8
+RNF-08 Cifrado de contraseñas
+Descripción	Las contraseñas de los usuarios deben almacenarse utilizando algoritmos de cifrado seguros.
+Actor	Sistema
+Prioridad	Alta
+
+Tabla 55 Requerimiento no funcional 9
+RNF-09 Control de acceso por roles
+Descripción	El sistema debe restringir el acceso a funcionalidades según el rol del usuario.
+Actor	Sistema
+Prioridad	Alta
+
+Tabla 56 Requerimiento no funcional 10
+RNF-10 Protección de datos personales
+Descripción	El sistema debe proteger la información personal de estudiantes conforme a la normativa colombiana.
+Actor	Sistema
+Prioridad	Alta
+
+Tabla 57 Requerimiento no funcional 11
+RNF-11 Registro de auditoría
+Descripción	El sistema debe registrar eventos importantes como accesos y modificaciones de datos.
+Actor	Sistema
+Prioridad	Media
+
+Tabla 58 Requerimiento no funcional 12
+RNF-12 Diseño responsive
+Descripción	La plataforma debe adaptarse correctamente a diferentes tamaños de pantalla.
+Actor	Sistema
+Prioridad	Alta
+
+ 
+Tabla 59 Requerimiento no funcional 13
+RNF-13 Facilidad de uso
+Descripción	La interfaz del sistema debe ser intuitiva para usuarios no técnicos.
+Actor	Sistema
+Prioridad	Alta
+
+Tabla 60 Requerimiento no funcional 14
+RNF-14 Consistencia visual
+Descripción	El sistema debe mantener una interfaz consistente en todas las secciones del sistema.
+Actor	Sistema
+Prioridad	Media
+
+Tabla 61 Requerimiento no funcional 15
+RNF-15 Compatibilidad de navegadores
+Descripción	La plataforma debe funcionar correctamente en Chrome, Edge y Firefox.
+Actor	Sistema
+Prioridad	Media
+
+Tabla 62 Requerimiento no funcional 16
+RNF-16 Integridad de datos
+Descripción	El sistema debe garantizar que los datos almacenados sean consistentes y sin duplicados.
+Actor	Sistema
+Prioridad	Alta
+
+Tabla 63 Requerimiento no funcional 17
+RNF-17 Validación de datos
+Descripción	El sistema debe validar la información ingresada o importada antes de almacenarla.
+Actor	Sistema
+Prioridad	Alta
+
+Tabla 64 Requerimiento no funcional 18
+RNF-18 Escalabilidad del sistema
+Descripción	La arquitectura debe permitir el aumento de datos y usuarios sin afectar significativamente el rendimiento.
+Actor	Sistema
+Prioridad	Media
+
+ 
+Tabla 65 Requerimiento no funcional 19
+RNF-19 Mantenibilidad del software
+Descripción	El sistema debe desarrollarse con una arquitectura modular para facilitar actualizaciones.
+Actor	Sistema
+Prioridad	Media
+
+Tabla 66 Requerimiento no funcional 20
+RNF-20 Documentación del sistema
+Descripción	El sistema debe contar con documentación técnica y de usuario para facilitar su mantenimiento.
+Actor	Sistema
+Prioridad	Media
+
+Tabla 67 Requerimiento no funcional 21
+RNF-21 Exportación de datos
+Descripción	El sistema debe permitir exportar reportes y datos académicos en formatos como PDF o Excel.
+Actor	Sistema
+Prioridad	Media
+
+Tabla 68 Requerimiento no funcional 22
+RNF-22 Consistencia de datos en tiempo real para matrículas
+Descripción	El sistema debe garantizar que las operaciones de pago y estado de matrícula sean consistentes incluso con múltiples administrativos registrando cambios simultáneamente, utilizando mecanismos de bloqueo optimista o pesimista en la base de datos.
+Actor	Sistema
+Prioridad	Alta
+
+Tabla 69 Requerimiento no funcional 23
+RNF-23 Precisión en cálculo de KPIs financieros
+Descripción	El sistema debe garantizar precisión en todos los cálculos financieros (morosidad, ingresos, promedios) manteniendo al menos 2 decimales, evitando errores de redondeo y realizando validaciones matemáticas en cada cálculo de indicador.
+Actor	Sistema
+Prioridad	Alta
+ 
+
+Tabla 70 Requerimiento no funcional 24
+RNF-24 Integración segura de canales de alerta (email/SMS)
+Descripción	El sistema debe integrar de forma segura las APIs de envío de email y SMS para alertas de pago, cifrando credenciales, registrando todos los envíos, y validando consentimiento informado de acudientes según normativa de protección de datos.
+Actor	Sistema
+Prioridad	Alta
+
+Tabla 71 Requerimiento no funcional 25
+RNF-25 Retención y compliancia de datos financieros
+Descripción	El sistema debe mantener un registro inmutable de todas las transacciones de pago con trazabilidad completa (quién, cuándo, qué), permitiendo solo marcado como anulado pero nunca borrado, cumpliendo con requisitos fiscales y legales de retención de datos.
+Actor	Sistema
+Prioridad	Alta
+
+Tabla 72 Requerimiento no funcional 26
+RNF-26 Performance en reportes voluminosos de matrículas
+Descripción	El sistema debe generar y exportar reportes de estudiantes en mora con 500+ registros en menos de 10 segundos, utilizando paginación, caché de resultados y procesamiento asincrónico para no bloquear la interfaz.
+Actor	Sistema
+Prioridad	Media

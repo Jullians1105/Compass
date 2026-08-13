@@ -27,10 +27,42 @@
 | **Fase actual** | Desarrollo Sprint 1 | Calificaciones (consulta) y autenticación funcionando en local |
 | **Progreso general** | 30% | Modulo 1 (Calificaciones) y auth/roles basicos construidos |
 | **Módulos iniciados** | 1/9 | Gestión de Calificaciones (consulta, RF-14). Ver README para los 9 módulos reales |
-| **RF completados** | 3/46 (RF-01, RF-05, RF-14) | Falta registro/edición (RF-13) y el resto de RF-02 a RF-08 |
+| **RF completados** | 9/46 (RF-01 a RF-08, RF-14) | RF-13 solo tiene base construida (esquema + seeder), falta la pantalla de registro/edición |
 | **RNF completados** | 0/12 | Por validar en testing |
 | **Riesgos activos** | 1 | Stack confirmado, pero entorno no 100% validado |
 | **Bloqueadores** | 0 | Ninguno crítico en este momento |
+
+> ⚠️ **Nota (2026-08-13):** RF-05 y RF-13 estaban marcados como completados y no lo
+> están. Verificado contra el código, no solo contra este documento:
+> - **RF-05 (roles):** existe el campo `role` en `User` y `esAdmin()`, pero
+>   ningún rol restringe nada en la práctica — lo dice el propio código
+>   (`app/Models/User.php`). Es una base, no el requisito cumplido.
+> - **RF-13 (registrar/modificar calificación):** el commit "RF-13" trajo
+>   esquema de BD, modelos y datos de seeder — no hay pantalla ni controlador
+>   para que un docente registre o edite una nota. `CalificacionController`
+>   lo marca explícitamente como pendiente.
+>
+> Completos de verdad hoy: solo **RF-01** (login/logout) y **RF-14** (consulta
+> de calificaciones).
+>
+> **Actualización 2026-08-13 (tarde):** con el texto real de la tesis se
+> construyeron **RF-02** (cierre de sesión — ya estaba cubierto por el logout
+> de RF-01), **RF-03** (recuperación de contraseña), **RF-04** (gestión de
+> roles del sistema: roles y permisos ahora son tablas reales, con CRUD para
+> el actor Administrativo en `/roles`) y **RF-05** (control de acceso según
+> rol: middleware `permission:<slug>` en `/calificaciones` y `/roles`, y el
+> sidebar/landing ocultan los módulos que el rol no puede usar). Probado con
+> los tres roles semilla (admin, coordinador, docente@sjc.edu.co/docente).
+>
+> **Actualización 2026-08-13 (noche):** se completaron también **RF-06**
+> (registro de usuarios, con contraseña temporal por notificación), **RF-07**
+> (actualización: nombre/email/rol/estado de cuenta) y **RF-08** (consulta
+> con filtros por rol/estado/búsqueda + paginación), todos en `/usuarios`,
+> solo para el actor Administrativo (permiso `gestion-de-usuarios`).
+>
+> Único pendiente de este bloque: **RF-13**, que solo tiene esquema de BD y
+> datos de seeder — falta la pantalla para que un docente registre/edite una
+> nota.
 
 ---
 
@@ -51,11 +83,14 @@
 
 > ⚠️ **La numeración de este checklist es la vieja (incorrecta).** Ver README.md
 > para la numeración real contra la tesis (RF-01 a RF-08 = Autenticación/roles,
-> RF-13/RF-14 = Calificaciones, etc.). Este checklist no se reescribió todavía
-> porque no tenemos en el repo el texto exacto de la tesis para RF-02 a RF-12 y
-> RF-15 a RF-46 — reescribirlo a ciegas seria inventar requisitos. Lo que sigue
-> sirve solo como conteo aproximado de avance, no como fuente de verdad de que
-> es cada RF.
+> RF-13/RF-14 = Calificaciones, etc.). Este checklist no se reescribió todavía.
+>
+> **Actualización 2026-08-13:** ya tenemos el texto exacto de los 46 RF y los
+> 26 RNF de la tesis en `docs/RF y no RF.txt`. Ya no hay excusa de "no tenemos
+> el texto" para RF-02 a RF-12 ni para el resto — falta reescribir este
+> checklist completo contra ese archivo, que sigue pendiente como tarea de
+> documentación aparte. Mientras tanto, lo que sigue abajo sirve solo como
+> conteo aproximado de avance, no como fuente de verdad de qué es cada RF.
 
 **Total: 46 RF**  
 **Completados: 0 (0%)**  
@@ -482,6 +517,75 @@
   tener el texto exacto de la tesis
 - ⏳ Próximo: boletín académico (RF-19/RF-20), candidato fuerte para siguiente
   pantalla porque reutiliza el cálculo de notas que ya existe
+
+---
+
+#### [2026-08-13] - Jullians Mauricio Amado Gutiérrez (con Claude)
+
+- ✅ Completado: Corregido el bug de responsive donde el sidebar se quedaba
+  siempre visible en móvil — el CSS compilado en `public/build/` estaba
+  desactualizado respecto a `resources/css/app.scss` (no había `npm run dev`
+  corriendo). Recompilado con `npm run build`.
+- ✅ Completado: Cargado `docs/RF y no RF.txt` con el texto real y completo de
+  los 46 RF y 26 RNF de la tesis — ya no hace falta adivinar el alcance de
+  RF-02 a RF-12.
+- ✅ Completado: **RF-02 (cierre de sesión)** — verificado que el logout de
+  RF-01 ya cumplía el requisito (invalida sesión, regenera token CSRF).
+- ✅ Completado: **RF-03 (recuperación de contraseña)** — flujo completo con
+  el password broker nativo de Laravel: `/forgot-password` envía el enlace
+  (MAIL_MAILER=log en local), `/reset-password/{token}` cambia la clave.
+  Probado de punta a punta con curl.
+- ✅ Completado: **RF-04 (gestión de roles del sistema)** — se reemplazó la
+  columna `users.role` (string libre) por tablas `roles`/`permissions`/
+  `permission_role`. CRUD en `/roles` (index/crear/editar), protegido con
+  middleware `admin` nuevo, solo para el actor Administrativo. Catálogo de
+  permisos derivado de `App\Support\Modulos`. Seeder `RolePermissionSeeder`
+  crea roles Administrador/Coordinador/Docente con permisos por defecto.
+- ✅ Completado: **RF-05 (control de acceso según rol)** — middleware nuevo
+  `permission:<slug>` (reemplaza al `admin` ad hoc de RF-04) aplicado a
+  `/calificaciones` (permiso `gestion-de-calificaciones`) y `/roles` (permiso
+  `roles-y-permisos`). El sidebar y la landing ahora ocultan/deshabilitan los
+  módulos que el rol no tiene permiso de ver, usando el mismo slug que ya
+  vive en `App\Support\Modulos` (`permiso`), para no duplicar la lista.
+- 📌 Decisión de datos: se agregó usuario semilla `docente@sjc.edu.co` /
+  `docente` — antes no había ningún usuario de prueba con el rol docente
+  (solo admin y coordinador), y hacía falta uno para poder probar que el
+  control de acceso realmente restringe algo.
+- ⏳ Próximo: RF-06 a RF-08 (alta/edición/consulta de usuarios — hoy solo
+  existen los 3 usuarios del seeder, no hay pantalla para crear más), RF-13
+  (registrar/editar calificación), boletín académico (RF-19/RF-20)
+
+---
+
+#### [2026-08-13] (noche) - Jullians Mauricio Amado Gutiérrez (con Claude)
+
+- ✅ Completado: **RF-06 (registro de usuarios)** — `/usuarios/crear`, genera
+  una contraseña temporal (`Str::password`) y la envía por notificación
+  (`App\Notifications\CuentaCreada`, mismo mecanismo de log local que RF-03).
+- ✅ Completado: **RF-07 (actualización de usuarios)** — `/usuarios/{id}/editar`,
+  edita nombres/apellidos/email/rol/estado de cuenta (el documento de
+  identidad no se edita después del alta, según el texto de la tesis).
+- ✅ Completado: **RF-08 (consulta de usuarios)** — `/usuarios`, filtros por
+  rol/estado + búsqueda por nombre o correo, paginado.
+- 📌 Decisión de esquema: la tabla `users` ahora tiene `nombres`/`apellidos`/
+  `tipo_documento`/`documento`/`telefono`/`activo`, replicando el mismo
+  patrón que ya usaban `Docente` y `Estudiante` — se eliminó la columna
+  `name` (un solo campo) que quedaba inconsistente con el resto del esquema.
+- ✅ Completado: el estado de cuenta (`activo`) ahora bloquea el login de
+  verdad (`SessionController::store`) — si no, el toggle de `/usuarios` no
+  serviría para nada.
+- ✅ Completado: `Paginator::useBootstrapFive()` en `AppServiceProvider` — la
+  paginación de Laravel viene en Tailwind por defecto y la app no carga ese
+  framework.
+- 📌 Nuevo permiso `gestion-de-usuarios` (RolePermissionSeeder), solo para el
+  rol admin — mismo criterio que `roles-y-permisos`, ambas son pantallas de
+  administración, no módulos académicos.
+- ✅ Completado: reescritos `docs/estadoProyectoDesarrollo.md` y
+  `.claude/NOTAS.md` para que reflejen el estado real del código (venían
+  desactualizados desde el 2026-08-12, antes de todo el trabajo de
+  autenticación/roles/usuarios de hoy).
+- ⏳ Próximo: RF-13 (registrar/editar calificación), boletín académico
+  (RF-19/RF-20), tests automatizados (hoy todo se probó manualmente con curl)
 
 ---
 

@@ -1,7 +1,11 @@
 <?php
 
+use App\Http\Controllers\Auth\NewPasswordController;
+use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\SessionController;
 use App\Http\Controllers\CalificacionController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UserController;
 use App\Support\Modulos;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
@@ -11,8 +15,17 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('guest')->group(function () {
     Route::get('/login', [SessionController::class, 'create'])->name('login');
     Route::post('/login', [SessionController::class, 'store']);
+
+    // RF-03: recuperacion de contrasena. Nombres de ruta (password.email,
+    // password.reset, password.update) son los que Laravel espera por
+    // convencion para que la notificacion ResetPassword arme el enlace sola.
+    Route::get('/forgot-password', [PasswordResetLinkController::class, 'create'])->name('password.request');
+    Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])->name('password.email');
+    Route::get('/reset-password/{token}', [NewPasswordController::class, 'create'])->name('password.reset');
+    Route::post('/reset-password', [NewPasswordController::class, 'store'])->name('password.update');
 });
 
+// RF-02: cierre de sesion.
 Route::post('/logout', [SessionController::class, 'destroy'])
     ->middleware('auth')
     ->name('logout');
@@ -28,6 +41,28 @@ Route::middleware('auth')->group(function () {
     })->name('inicio');
 
     // Modulo 1 - Gestion de Calificaciones (RF-14: consultar promedio por periodo).
+    // RF-05: solo roles con el permiso 'gestion-de-calificaciones' (ver RolePermissionSeeder).
     Route::get('/calificaciones', [CalificacionController::class, 'index'])
+        ->middleware('permission:gestion-de-calificaciones')
         ->name('calificaciones.index');
+});
+
+// RF-04: gestion de roles del sistema. RF-05: solo roles con el permiso
+// 'roles-y-permisos' (admin, por defecto — ver RolePermissionSeeder).
+Route::middleware(['auth', 'permission:roles-y-permisos'])->prefix('roles')->name('roles.')->group(function () {
+    Route::get('/', [RoleController::class, 'index'])->name('index');
+    Route::get('/crear', [RoleController::class, 'create'])->name('create');
+    Route::post('/', [RoleController::class, 'store'])->name('store');
+    Route::get('/{role}/editar', [RoleController::class, 'edit'])->name('edit');
+    Route::put('/{role}', [RoleController::class, 'update'])->name('update');
+});
+
+// RF-06 a RF-08: gestion de usuarios del sistema. RF-05: solo roles con el
+// permiso 'gestion-de-usuarios' (admin, por defecto).
+Route::middleware(['auth', 'permission:gestion-de-usuarios'])->prefix('usuarios')->name('usuarios.')->group(function () {
+    Route::get('/', [UserController::class, 'index'])->name('index');
+    Route::get('/crear', [UserController::class, 'create'])->name('create');
+    Route::post('/', [UserController::class, 'store'])->name('store');
+    Route::get('/{usuario}/editar', [UserController::class, 'edit'])->name('edit');
+    Route::put('/{usuario}', [UserController::class, 'update'])->name('update');
 });

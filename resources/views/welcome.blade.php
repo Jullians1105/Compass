@@ -20,7 +20,7 @@
                 <ul class="list-group list-group-flush">
                     @foreach ($modulos as $modulo)
                         <li class="list-group-item d-flex justify-content-between align-items-center">
-                            @if ($modulo['ruta'])
+                            @if ($modulo['ruta'] && auth()->user()->tienePermiso($modulo['permiso']))
                                 <a href="{{ route($modulo['ruta']) }}">{{ $modulo['nombre'] }}</a>
                                 <span class="badge text-bg-primary">En desarrollo</span>
                             @else
