@@ -6,7 +6,7 @@
 
     <div class="d-flex flex-wrap justify-content-between align-items-end gap-3 mb-4">
         <div>
-            <h1 class="h3 fw-bold text-primary mb-1">Gestion de Calificaciones</h1>
+            <h1 class="h3 fw-semibold compass-titulo mb-1">Gestion de Calificaciones</h1>
             <p class="text-body-secondary mb-0">
                 {{ $curso->nombre }} &middot; Ano lectivo {{ $curso->anioLectivo->anio }}
                 @if ($asignacion?->docente)
@@ -37,77 +37,28 @@
                     @endforeach
                 </select>
             </div>
+
+            {{-- Paso de la consulta (RF-14) al registro (RF-13) conservando el
+                 curso y la asignatura que ya venia mirando el usuario. --}}
+            <div class="align-self-end">
+                <a href="{{ route('calificaciones.planilla', ['curso' => $curso->id, 'asignatura' => $asignacion?->id]) }}"
+                   class="btn btn-primary btn-sm d-flex align-items-center gap-1">
+                    <span class="material-symbols-outlined" style="font-size: 1.1rem;">edit_note</span>
+                    Registrar notas
+                </a>
+            </div>
         </form>
     </div>
 
-    {{-- Bento de estadisticas del grupo (RF-14). Solo considera filas con
-         definitiva, para no diluir el % de aprobados con estudiantes que aun
-         no tienen ninguna nota registrada. --}}
-    <div class="row g-3 mb-4">
-        <div class="col-12 col-sm-6 col-xl-3">
-            <div class="card h-100 border">
-                <div class="card-body">
-                    <span class="text-uppercase text-body-secondary small fw-semibold">Promedio grupo</span>
-                    <div class="h3 text-primary fw-bold mt-2 mb-0">
-                        {{ $estadisticas['promedio'] !== null ? number_format($estadisticas['promedio'], 2) : '—' }}
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-12 col-sm-6 col-xl-3">
-            <div class="card h-100 border">
-                <div class="card-body">
-                    <span class="text-uppercase text-body-secondary small fw-semibold">% Aprobados</span>
-                    <div class="h3 text-primary fw-bold mt-2 mb-0">
-                        {{ $estadisticas['porcentajeAprobados'] !== null ? $estadisticas['porcentajeAprobados'] . '%' : '—' }}
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-12 col-sm-6 col-xl-3">
-            <div class="card h-100 border">
-                <div class="card-body">
-                    <span class="text-uppercase text-body-secondary small fw-semibold">Mejor nota</span>
-                    <div class="d-flex align-items-end justify-content-between mt-2">
-                        <span class="h3 text-success fw-bold mb-0">
-                            {{ $estadisticas['mejor'] ? number_format($estadisticas['mejor']['definitiva'], 2) : '—' }}
-                        </span>
-                        @if ($estadisticas['mejor'])
-                            <span class="text-body-secondary small fst-italic text-truncate ms-2">
-                                {{ $estadisticas['mejor']['estudiante']->nombres }}
-                            </span>
-                        @endif
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-12 col-sm-6 col-xl-3">
-            <div class="card h-100 border">
-                <div class="card-body">
-                    <span class="text-uppercase text-body-secondary small fw-semibold">Peor nota</span>
-                    <div class="d-flex align-items-end justify-content-between mt-2">
-                        <span class="h3 text-danger fw-bold mb-0">
-                            {{ $estadisticas['peor'] ? number_format($estadisticas['peor']['definitiva'], 2) : '—' }}
-                        </span>
-                        @if ($estadisticas['peor'])
-                            <span class="text-body-secondary small fst-italic text-truncate ms-2">
-                                {{ $estadisticas['peor']['estudiante']->nombres }}
-                            </span>
-                        @endif
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    {{-- Bento de estadisticas del grupo (RF-14). El marcado vive en un
+         parcial compartido con la planilla de RF-13. --}}
+    @include('calificaciones._metricas', ['estadisticas' => $estadisticas])
 
     <div class="row g-3">
         <div class="col-xl-8">
             <div class="card overflow-hidden">
                 <div class="card-header bg-body-tertiary d-flex justify-content-between align-items-center">
-                    <span class="fw-semibold text-uppercase small text-primary">
+                    <span class="fw-semibold text-uppercase small compass-rotulo">
                         {{ $asignacion?->asignatura->nombre ?? 'Sin asignatura' }}
                     </span>
                     <span class="badge rounded-pill text-bg-secondary">{{ $filas->count() }} estudiantes</span>
@@ -265,7 +216,7 @@
 
         <div class="col-xl-4">
             <div class="card mb-3">
-                <div class="card-header bg-body-tertiary fw-semibold text-uppercase small text-primary">
+                <div class="card-header bg-body-tertiary fw-semibold text-uppercase small compass-rotulo">
                     Distribucion por desempeno
                 </div>
                 <div class="card-body">
@@ -274,7 +225,7 @@
             </div>
 
             <div class="card">
-                <div class="card-header bg-body-tertiary fw-semibold text-uppercase small text-primary">
+                <div class="card-header bg-body-tertiary fw-semibold text-uppercase small compass-rotulo">
                     Escala vigente (Decreto 1290)
                 </div>
                 <ul class="list-group list-group-flush">

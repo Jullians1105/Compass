@@ -42,11 +42,22 @@ Route::middleware('auth')->group(function () {
         ]);
     })->name('inicio');
 
-    // Modulo 1 - Gestion de Calificaciones (RF-14: consultar promedio por periodo).
+    // Modulo 1 - Gestion de Calificaciones. RF-14 es la consulta de solo
+    // lectura; RF-13 es la planilla editable por periodo.
     // RF-05: solo roles con el permiso 'gestion-de-calificaciones' (ver RolePermissionSeeder).
-    Route::get('/calificaciones', [CalificacionController::class, 'index'])
-        ->middleware('permission:gestion-de-calificaciones')
-        ->name('calificaciones.index');
+    // Dentro de RF-13 hay un segundo filtro por docente, en el controller:
+    // el permiso solo dice quien entra, no que asignaturas puede calificar.
+    Route::middleware('permission:gestion-de-calificaciones')->group(function () {
+        Route::get('/calificaciones', [CalificacionController::class, 'index'])
+            ->name('calificaciones.index');
+
+        Route::get('/calificaciones/planilla', [CalificacionController::class, 'planilla'])
+            ->name('calificaciones.planilla');
+
+        Route::put('/calificaciones/planilla', [CalificacionController::class, 'guardar'])
+            ->name('calificaciones.guardar');
+    });
+
 });
 
 // RF-04: gestion de roles del sistema. RF-05: solo roles con el permiso

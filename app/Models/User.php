@@ -6,6 +6,7 @@ namespace App\Models;
 use App\Models\Concerns\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -77,5 +78,19 @@ class User extends Authenticatable
     public function tienePermiso(string $slug): bool
     {
         return $this->role?->permissions->contains('slug', $slug) ?? false;
+    }
+
+    /**
+     * Ficha de docente asociada a esta cuenta, si la hay.
+     *
+     * RF-13 la necesita para saber que asignaciones puede calificar el usuario:
+     * el permiso 'gestion-de-calificaciones' lo tienen admin, coordinador y
+     * docente por igual (RolePermissionSeeder), pero un docente solo puede
+     * escribir notas de SUS propias asignaciones. Un usuario administrativo no
+     * tiene ficha de docente y por eso las ve todas.
+     */
+    public function docente(): HasOne
+    {
+        return $this->hasOne(Docente::class);
     }
 }
