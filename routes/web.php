@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AsistenciaController;
 use App\Http\Controllers\AuditoriaController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
@@ -58,6 +59,17 @@ Route::middleware('auth')->group(function () {
             ->name('calificaciones.guardar');
     });
 
+    // Modulo 2 - Asistencia y Puntualidad (RF-15: registro diario).
+    // Igual que en calificaciones, el permiso decide quien entra y el
+    // controller decide de que cursos: un docente solo toma asistencia de los
+    // cursos que dirige.
+    Route::middleware('permission:asistencia-y-puntualidad')->group(function () {
+        Route::get('/asistencia', [AsistenciaController::class, 'index'])
+            ->name('asistencia.index');
+
+        Route::put('/asistencia', [AsistenciaController::class, 'guardar'])
+            ->name('asistencia.guardar');
+    });
 });
 
 // RF-04: gestion de roles del sistema. RF-05: solo roles con el permiso

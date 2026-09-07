@@ -19,7 +19,7 @@ class Modulos
     {
         return [
             ['nombre' => 'Gestion de Calificaciones', 'ruta' => 'calificaciones.index', 'icono' => 'school', 'permiso' => 'gestion-de-calificaciones'],
-            ['nombre' => 'Asistencia y Puntualidad', 'ruta' => null, 'icono' => 'event_available', 'permiso' => 'asistencia-y-puntualidad'],
+            ['nombre' => 'Asistencia y Puntualidad', 'ruta' => 'asistencia.index', 'icono' => 'event_available', 'permiso' => 'asistencia-y-puntualidad'],
             ['nombre' => 'Convivencia Escolar', 'ruta' => null, 'icono' => 'diversity_3', 'permiso' => 'convivencia-escolar'],
             ['nombre' => 'Observador Academico', 'ruta' => null, 'icono' => 'visibility', 'permiso' => 'observador-academico'],
             ['nombre' => 'Reportes de Periodo', 'ruta' => null, 'icono' => 'assessment', 'permiso' => 'reportes-de-periodo'],

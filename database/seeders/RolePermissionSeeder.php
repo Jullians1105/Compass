@@ -42,8 +42,15 @@ class RolePermissionSeeder extends Seeder
         ));
 
         $todos = Permission::pluck('id')->all();
-        $soloDocente = Permission::whereIn('slug', ['gestion-de-calificaciones', 'consulta-de-estudiantes'])
-            ->pluck('id')->all();
+
+        // RF-15 nombra al docente como actor del registro de asistencia, asi
+        // que el rol lo necesita ademas de calificaciones. El controller acota
+        // despues a los cursos que cada docente dirige.
+        $soloDocente = Permission::whereIn('slug', [
+            'gestion-de-calificaciones',
+            'consulta-de-estudiantes',
+            'asistencia-y-puntualidad',
+        ])->pluck('id')->all();
 
         $admin = Role::firstOrCreate(
             ['slug' => 'admin'],
