@@ -5,7 +5,7 @@
 @section('contenido')
 
     <div class="mb-4">
-        <h1 class="h3 fw-bold text-primary mb-1">Auditoría</h1>
+        <h1 class="h3 fw-semibold compass-titulo mb-1">Auditoría</h1>
         <p class="text-body-secondary mb-0">Accesos y modificaciones registrados por el sistema (RNF-11).</p>
     </div>
 

@@ -6,7 +6,7 @@
 
     <div class="d-flex flex-wrap justify-content-between align-items-end gap-3 mb-4">
         <div>
-            <h1 class="h3 fw-bold text-primary mb-1">Roles y permisos</h1>
+            <h1 class="h3 fw-semibold compass-titulo mb-1">Roles y permisos</h1>
             <p class="text-body-secondary mb-0">Define los roles del sistema y las funcionalidades que puede usar cada uno.</p>
         </div>
         <a href="{{ route('roles.create') }}" class="btn btn-primary d-flex align-items-center gap-2">

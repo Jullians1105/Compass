@@ -6,7 +6,7 @@
 
     <div class="d-flex flex-wrap justify-content-between align-items-end gap-3 mb-4">
         <div>
-            <h1 class="h3 fw-bold text-primary mb-1">{{ $estudiante->nombre_completo }}</h1>
+            <h1 class="h3 fw-semibold compass-titulo mb-1">{{ $estudiante->nombre_completo }}</h1>
             <p class="text-body-secondary mb-0">
                 @if ($estudiante->activo)
                     <span class="badge text-bg-success">Activo</span>

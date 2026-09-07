@@ -35,6 +35,22 @@ $riesgo-alto: $danger;
 $riesgo-medio: $warning;
 $riesgo-bajo: $success;
 
+// 2b. Paleta de la cascara (sidebar + topbar), tomada del prototipo de Figma
+// "Registro de Calificaciones - Docente" (nodos 1:534 y 1:267). El archivo no
+// define variables de Figma, asi que los hex salen capa por capa y se fijan
+// aqui para no repartirlos por las vistas.
+//
+// Ojo: $body-bg (#f8f9ff) y $border-color (#c3c6cf) ya coincidian con el
+// diseno antes de este cambio, asi que la topbar reusa esas y no agrega dos
+// colores nuevos que dirian lo mismo.
+$sidebar-bg: #002444; // azul marino del aside
+$sidebar-texto: #87a4cc; // texto secundario e items inactivos
+$sidebar-activo: #6bfe9c; // franja izquierda del item activo
+$sidebar-chip-bg: #1a3a5c; // fondo del badge de rol en la topbar
+$topbar-buscador-bg: #eff4ff; // relleno del campo de busqueda
+$texto-etiqueta: #43474e; // rotulos de tarjetas y textos de apoyo
+$progreso-bg: #e5eeff; // canal de la barra de % aprobados
+
 // 3. Bootstrap 5 completo
 @import 'bootstrap/scss/bootstrap';
 
@@ -43,6 +59,31 @@ $riesgo-bajo: $success;
     --compass-riesgo-alto: #{$riesgo-alto};
     --compass-riesgo-medio: #{$riesgo-medio};
     --compass-riesgo-bajo: #{$riesgo-bajo};
+
+    // El gris de apoyo del diseno (#43474e) es un poco mas oscuro que el que
+    // trae Bootstrap. Se cambia la variable en vez de repartir la clase por
+    // las vistas: asi .text-body-secondary ya queda igual en toda la app.
+    --bs-secondary-color: #{$texto-etiqueta};
+}
+
+// Titulo de pantalla (nodo 1:292): azul marino y semibold. Antes iban en
+// $primary, el azul brillante, que a partir de aqui queda reservado para
+// acciones y enlaces — que es lo que hace el diseno.
+.compass-titulo {
+    color: $sidebar-bg;
+    letter-spacing: -.28px;
+}
+
+// Rotulos de cabecera de tarjeta ("PLANILLA DE CALIFICACIONES").
+.compass-rotulo {
+    color: $sidebar-bg;
+    letter-spacing: .6px;
+}
+
+// Texto de los desplegables: el diseno los pone casi negros (#0b1c30), no en
+// el gris por defecto de Bootstrap.
+.form-select {
+    color: #0b1c30;
 }
 
 // Cascara de la app: sidebar fijo + topbar, calcada del prototipo de Stitch.
@@ -55,32 +96,35 @@ $riesgo-bajo: $success;
 .compass-sidebar {
     width: 260px;
     flex-shrink: 0;
-    background-color: $primary;
+    background-color: $sidebar-bg;
     color: #fff;
 }
 
 .compass-sidebar .compass-sidebar-muted {
-    color: rgba(255, 255, 255, .65);
+    color: $sidebar-texto;
 }
 
 .compass-sidebar-divider {
-    border-top: 1px solid rgba(255, 255, 255, .15);
+    border-top: 1px solid rgba(255, 255, 255, .1);
+}
+
+// Items del menu. El diseno los separa con 4px de aire y sin lineas
+// divisorias: las que habia antes competian con la franja verde del item
+// activo, que es la unica senal que deberia saltar a la vista.
+.compass-sidebar .nav {
+    gap: 4px;
 }
 
 .compass-sidebar .nav-link {
-    color: rgba(255, 255, 255, .75);
-    border-left: 6px solid transparent;
-    border-radius: 0 $border-radius $border-radius 0;
-}
+    color: $sidebar-texto;
+    font-size: .875rem;
+    font-weight: 600;
+    line-height: 1.25rem;
+    border-radius: $border-radius-sm;
 
-// Divisiones entre modulos: cada casilla del sidebar se separa de la
-// siguiente con una linea, en vez de flotar junta como un solo bloque.
-.compass-sidebar .nav > .nav-link {
-    border-bottom: 1px solid rgba(255, 255, 255, .12);
-}
-
-.compass-sidebar .nav > .nav-link:last-child {
-    border-bottom: none;
+    // La franja del activo mide 4px y se come ese ancho del padding
+    // izquierdo, para que el texto de todos los items quede alineado.
+    border-left: 4px solid transparent;
 }
 
 .compass-sidebar .nav-link:hover {
@@ -90,14 +134,53 @@ $riesgo-bajo: $success;
 
 .compass-sidebar .nav-link.active {
     color: #fff;
-    font-weight: 600;
-    background-color: rgba(255, 255, 255, .15);
-    border-left-color: #fff;
+    background-color: rgba(255, 255, 255, .1);
+    border-left-color: $sidebar-activo;
 }
 
 .compass-sidebar .nav-link.disabled {
-    color: rgba(255, 255, 255, .35);
+    color: rgba($sidebar-texto, .55);
     pointer-events: none;
+}
+
+// Avatar del usuario en el pie del sidebar: 40px con esquinas de 12px y aro
+// verde, igual que en el diseno. Adentro van iniciales y no una foto — la
+// tabla `estudiantes` ni `users` guardan imagenes, y para menores de edad
+// (Ley 1581) no es algo que convenga agregar solo por estetica.
+.compass-sidebar .compass-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    border: 2px solid $secondary;
+    background-color: rgba(255, 255, 255, .1);
+    font-size: .875rem;
+}
+
+// De "md" hacia arriba el sidebar se queda pegado a la ventana. Antes viajaba
+// con el scroll de la pagina: en un curso de 28 estudiantes habia que bajar
+// hasta el final de la tabla para alcanzar "Cerrar sesion".
+//
+// El menu es el que scrollea por dentro cuando no caben los 9 modulos, y el
+// bloque del usuario queda siempre visible abajo — igual que en el diseno
+// (nodo 1:534, donde el Nav lleva overflow-auto).
+@include media-breakpoint-up(md) {
+    .compass-sidebar {
+        position: sticky;
+        top: 0;
+        align-self: flex-start;
+        height: 100vh;
+    }
+
+    .compass-sidebar .nav {
+        flex: 1 1 auto;
+        min-height: 0;
+        overflow-y: auto;
+
+        // Barra de scroll discreta: la del sistema se ve muy clara sobre el
+        // azul marino y parte el bloque en dos visualmente.
+        scrollbar-width: thin;
+        scrollbar-color: rgba(255, 255, 255, .25) transparent;
+    }
 }
 
 // Sidebar como cajon deslizable en pantallas chicas (menos de "md"): oculto
@@ -131,6 +214,81 @@ $riesgo-bajo: $success;
     display: block;
 }
 
+// Barra superior (nodo 1:267). Mide 64px y comparte fondo con el cuerpo, en
+// vez del blanco que tenia antes: en el diseno la separacion la hace la linea
+// inferior, no un cambio de tono.
+.compass-topbar {
+    min-height: 64px;
+    background-color: $body-bg;
+    border-bottom: 1px solid $border-color;
+}
+
+.compass-buscador {
+    max-width: 234px;
+    background-color: $topbar-buscador-bg;
+    border: 1px solid $border-color;
+    border-radius: $border-radius-lg;
+}
+
+.compass-buscador input {
+    background: transparent;
+    border: 0;
+    font-size: .75rem;
+    font-weight: 500;
+
+    &:focus {
+        outline: none;
+        box-shadow: none;
+    }
+
+    &::placeholder {
+        color: #6b7280;
+    }
+}
+
+// Botones de campana y ayuda: 40x40 con esquinas de 12px, sin relleno hasta
+// que se les pasa el mouse encima.
+.compass-topbar-boton {
+    width: 40px;
+    height: 40px;
+    border: 0;
+    border-radius: $border-radius-lg;
+    background: transparent;
+    color: $sidebar-bg;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+        background-color: rgba($sidebar-bg, .07);
+    }
+}
+
+.compass-topbar-separador {
+    width: 1px;
+    height: 24px;
+    background-color: $border-color;
+    margin: 0 .5rem;
+}
+
+.compass-topbar-usuario {
+    color: $sidebar-bg;
+    font-size: .75rem;
+    font-weight: 700;
+    line-height: 1rem;
+}
+
+.compass-chip-rol {
+    background-color: $sidebar-chip-bg;
+    color: $sidebar-texto;
+    font-size: .625rem;
+    font-weight: 700;
+    letter-spacing: .5px;
+    text-transform: uppercase;
+    border-radius: 2px;
+    padding: 2px 8px;
+}
+
 // Flechita de "Ver periodos" (tarjetas de calificaciones en celular): gira al
 // abrir el desplegable. Bootstrap ya alterna la clase .collapsed solo.
 [data-bs-toggle="collapse"] .material-symbols-outlined {
@@ -160,4 +318,340 @@ $riesgo-bajo: $success;
     color: #fff;
     background-color: $primary;
     flex-shrink: 0;
+}
+
+// RF-13: celdas de la planilla editable. El diseno de Figma pinta el fondo de
+// cada nota segun apruebe o no, para que el docente detecte de un vistazo a
+// quien le falta subir. Se usa tinte suave y no el color pleno: con 30 filas
+// en pantalla el color saturado cansa y compite con los badges de ESTADO.
+.compass-celda-nota {
+    min-width: 4.5rem;
+    font-variant-numeric: tabular-nums;
+
+    // El spinner nativo de number roba ancho y se dispara con la rueda del
+    // mouse al hacer scroll sobre la tabla, cambiando notas sin querer.
+    appearance: textfield;
+    -moz-appearance: textfield;
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+        appearance: none;
+        margin: 0;
+    }
+
+    &:focus {
+        background-color: #fff;
+    }
+}
+
+.compass-nota-aprobada {
+    background-color: rgba($success, .12);
+    border-color: rgba($success, .35);
+    color: shade-color($success, 20%);
+    font-weight: 600;
+}
+
+.compass-nota-reprobada {
+    background-color: rgba($danger, .1);
+    border-color: rgba($danger, .35);
+    color: shade-color($danger, 10%);
+    font-weight: 600;
+}
+
+// Tarjetas de metricas del encabezado (nodo 1:324 del Figma). El diseno usa
+// #006d37 para el verde; aqui se toma $success porque el proyecto ya habia
+// aclarado ese verde a proposito (ver comentario de $secondary arriba) y tener
+// dos verdes distintos para lo mismo se nota.
+.compass-metrica {
+    padding: 25px;
+    border: 1px solid $border-color;
+    border-radius: $border-radius;
+    background-color: #fff;
+}
+
+.compass-metrica-rotulo {
+    color: $texto-etiqueta;
+    font-size: .75rem;
+    font-weight: 500;
+    line-height: 1rem;
+    letter-spacing: .6px;
+    text-transform: uppercase;
+}
+
+.compass-metrica-valor {
+    color: $sidebar-bg;
+    font-size: 1.75rem;
+    font-weight: 600;
+    line-height: 2.25rem;
+    letter-spacing: -.28px;
+    font-variant-numeric: tabular-nums;
+}
+
+.compass-metrica-valor.es-riesgo {
+    color: $danger;
+}
+
+// Nombre del estudiante al lado de la mejor/peor nota: en cursiva, para que se
+// lea como una anotacion y no compita con la cifra.
+.compass-metrica-nota {
+    color: $texto-etiqueta;
+    font-size: .75rem;
+    font-weight: 500;
+    font-style: italic;
+    line-height: 1rem;
+}
+
+.compass-metrica-tendencia {
+    font-size: .75rem;
+    font-weight: 500;
+    line-height: 1rem;
+}
+
+.compass-barra-progreso {
+    width: 64px;
+    height: 8px;
+    border-radius: $border-radius-lg;
+    background-color: $progreso-bg;
+    overflow: hidden;
+
+    span {
+        display: block;
+        height: 100%;
+        background-color: $success;
+    }
+}
+
+// Paginacion (nodo 1:514): botones cuadrados de 2px de radio, la pagina activa
+// en azul marino. Se pinta sobre el paginador de Bootstrap que trae Laravel.
+.compass-paginacion .pagination {
+    margin-bottom: 0;
+    gap: 4px;
+}
+
+.compass-paginacion .page-link {
+    border: 1px solid $border-color;
+    border-radius: 2px;
+    color: $texto-etiqueta;
+    font-size: .75rem;
+    font-weight: 500;
+    line-height: 1rem;
+    padding: 5px 13px;
+
+    &:hover {
+        background-color: $body-bg;
+        color: $sidebar-bg;
+    }
+
+    &:focus {
+        box-shadow: none;
+    }
+}
+
+.compass-paginacion .page-item.active .page-link {
+    background-color: $sidebar-bg;
+    border-color: $sidebar-bg;
+    color: #fff;
+}
+
+.compass-paginacion .page-item.disabled .page-link {
+    opacity: .5;
+    background-color: transparent;
+    color: $texto-etiqueta;
+}
+
+// ---------------------------------------------------------------------------
+// Pantalla de ingreso (nodo 1:1220 del Figma)
+// ---------------------------------------------------------------------------
+// La foto de fondo vive en public/img/ y no pasa por Vite: se descargo del
+// Figma porque las URLs de assets del MCP caducan a los 7 dias y el repo no
+// puede depender de ellas.
+.compass-login {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: $sidebar-bg;
+}
+
+// La imagen original mide 512x512, asi que estirada se ve suave. El diseno ya
+// le aplica desenfoque, lo que disimula el escalado; el scale(1.06) evita que
+// se vean los bordes claros que deja el blur.
+// Las dos capas van en `fixed` y no `absolute`: asi cubren siempre la ventana
+// sin obligar al body a llevar overflow:hidden. Con overflow oculto, en una
+// pantalla baja (o con el teclado del celular abierto) la tarjeta quedaba
+// cortada y sin forma de bajar hasta el boton de entrar.
+.compass-login-fondo {
+    position: fixed;
+    inset: 0;
+    background: url('/img/login-fondo.png') center / cover no-repeat;
+    filter: blur(2px);
+    transform: scale(1.06);
+}
+
+// Velo del diseno, con sus valores exactos (nodo 1:1223): degradado radial de
+// rgba(0,36,68,.1) en el centro a .4 en los bordes, en mezcla multiply.
+.compass-login-velo {
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(circle at center, rgba(0, 36, 68, .1) 0%, rgba(0, 36, 68, .4) 100%);
+    mix-blend-mode: multiply;
+}
+
+.compass-login-caja {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 448px;
+}
+
+.compass-login-logo {
+    width: 96px;
+    padding: 16px 10px;
+    background-color: #fff;
+    border: 2px solid rgba(26, 58, 92, .1);
+    border-radius: 12px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, .1), 0 4px 6px -4px rgba(0, 0, 0, .1);
+
+    img {
+        width: 64px;
+        height: 64px;
+        object-fit: contain;
+    }
+}
+
+.compass-login-marca {
+    font-size: 1.75rem;
+    font-weight: 600;
+    letter-spacing: -.28px;
+    line-height: 2.25rem;
+    color: #fff;
+    text-shadow: 0 2px 1px rgba(0, 0, 0, .06), 0 4px 1.5px rgba(0, 0, 0, .07);
+}
+
+.compass-login-lema {
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.5rem;
+    color: rgba(255, 255, 255, .9);
+}
+
+.compass-login-tarjeta {
+    background-color: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: $border-radius;
+    padding: 41px 33px 33px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, .25);
+}
+
+.compass-login-tarjeta .form-label {
+    color: #0b1c30;
+    font-size: .875rem;
+    font-weight: 600;
+    line-height: 1.25rem;
+}
+
+.compass-login-tarjeta .form-control {
+    height: 48px;
+    border-color: #73777f;
+    border-radius: $border-radius-sm;
+    padding: 14px 17px;
+    font-size: 1rem;
+
+    &::placeholder {
+        color: #6b7280;
+    }
+}
+
+.compass-login-tarjeta .form-check-input {
+    border-color: #73777f;
+    border-radius: 2px;
+}
+
+// Boton de mostrar/ocultar contrasena, encima del campo.
+.compass-login-ojo {
+    position: absolute;
+    top: 50%;
+    right: 8px;
+    transform: translateY(-50%);
+    border: 0;
+    background: transparent;
+    color: $texto-etiqueta;
+    line-height: 1;
+    padding: .35rem;
+    border-radius: $border-radius-sm;
+
+    &:hover {
+        color: #0b1c30;
+    }
+}
+
+.compass-login-entrar {
+    height: 56px;
+    background-color: $sidebar-chip-bg;
+    border-color: $sidebar-chip-bg;
+    border-radius: $border-radius-sm;
+    color: #fff;
+    font-size: .875rem;
+    font-weight: 600;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, .1), 0 2px 4px -2px rgba(0, 0, 0, .1);
+
+    &:hover,
+    &:focus {
+        background-color: shade-color($sidebar-chip-bg, 15%);
+        border-color: shade-color($sidebar-chip-bg, 15%);
+        color: #fff;
+    }
+}
+
+.compass-login-pie {
+    color: rgba(255, 255, 255, .7);
+    font-size: .75rem;
+    font-weight: 500;
+    line-height: 1rem;
+}
+
+// Selector de estado de asistencia (RF-15). El diseno usa tres botones que se
+// tinen segun lo elegido; sin seleccionar quedan neutros. Se arma sobre
+// .btn-check de Bootstrap para que sea un grupo de radios de verdad y funcione
+// con teclado y lectores de pantalla.
+.compass-estados .compass-estado {
+    border-color: $border-color;
+    color: $texto-etiqueta;
+    font-size: .8125rem;
+    font-weight: 500;
+    padding: .375rem .75rem;
+    background-color: #fff;
+
+    &:hover {
+        background-color: $body-bg;
+    }
+}
+
+.compass-estados .btn-check:checked + .compass-estado-presente {
+    background-color: rgba($success, .12);
+    border-color: rgba($success, .5);
+    color: shade-color($success, 20%);
+    font-weight: 600;
+}
+
+.compass-estados .btn-check:checked + .compass-estado-ausente {
+    background-color: rgba($danger, .1);
+    border-color: rgba($danger, .5);
+    color: shade-color($danger, 10%);
+    font-weight: 600;
+}
+
+.compass-estados .btn-check:checked + .compass-estado-tardanza {
+    background-color: rgba($warning, .12);
+    border-color: rgba($warning, .5);
+    color: shade-color($warning, 15%);
+    font-weight: 600;
+}
+
+// El foco del teclado tiene que verse por encima del tinte del seleccionado,
+// si no se pierde al tabular por la planilla.
+.compass-estados .btn-check:focus-visible + .compass-estado {
+    box-shadow: 0 0 0 .2rem rgba($primary, .35);
+    z-index: 2;
 }

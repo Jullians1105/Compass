@@ -4,7 +4,7 @@
 
 @section('contenido')
 
-    <h1 class="h3 fw-bold text-primary mb-4">Nuevo usuario</h1>
+    <h1 class="h3 fw-semibold compass-titulo mb-4">Nuevo usuario</h1>
 
     <div class="card border-0 shadow-sm" style="max-width: 40rem;">
         <div class="card-body p-4">

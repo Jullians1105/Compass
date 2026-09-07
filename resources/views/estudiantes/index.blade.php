@@ -6,7 +6,7 @@
 
     <div class="d-flex flex-wrap justify-content-between align-items-end gap-3 mb-4">
         <div>
-            <h1 class="h3 fw-bold text-primary mb-1">Estudiantes</h1>
+            <h1 class="h3 fw-semibold compass-titulo mb-1">Estudiantes</h1>
             <p class="text-body-secondary mb-0">Datos de menores — no se muestran fuera de esta pantalla.</p>
         </div>
         @if (auth()->user()->tienePermiso('gestion-de-estudiantes'))
