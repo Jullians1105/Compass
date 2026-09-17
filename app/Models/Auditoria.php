@@ -41,6 +41,68 @@ class Auditoria extends Model
     }
 
     /**
+     * Version legible de `detalle` para la pantalla de auditoria — evita
+     * volcar el JSON crudo, cuyas claves varian segun quien llamo a
+     * registrar() (login_fallido trae email/motivo, creado/actualizado traen
+     * atributos/cambios como lista o como mapa segun `$auditableSoloClaves`,
+     * permisos_actualizados trae una lista de slugs).
+     */
+    public function resumen(): ?string
+    {
+        $detalle = $this->detalle;
+
+        if (! $detalle) {
+            return null;
+        }
+
+        if (isset($detalle['atributos'])) {
+            return 'Campos registrados: ' . $this->formatearValores($detalle['atributos']);
+        }
+
+        if (isset($detalle['cambios'])) {
+            return 'Campos modificados: ' . $this->formatearValores($detalle['cambios']);
+        }
+
+        if (isset($detalle['permisos'])) {
+            return $detalle['permisos'] === []
+                ? 'Sin permisos asignados'
+                : 'Permisos: ' . implode(', ', $detalle['permisos']);
+        }
+
+        if (isset($detalle['email'])) {
+            $motivo = $detalle['motivo'] ?? null;
+
+            return match ($motivo) {
+                'cuenta_inactiva' => "Intento de {$detalle['email']} (cuenta inactiva)",
+                default => "Intento de {$detalle['email']}",
+            };
+        }
+
+        return $this->formatearValores($detalle);
+    }
+
+    /**
+     * Una lista simple de nombres de campo (soloClaves) se muestra separada
+     * por comas; un mapa campo => valor se muestra como "campo: valor".
+     */
+    private function formatearValores(array $valores): string
+    {
+        if (array_is_list($valores)) {
+            return implode(', ', $valores);
+        }
+
+        $partes = [];
+
+        foreach ($valores as $campo => $valor) {
+            $partes[] = $campo . ': ' . (is_scalar($valor) || $valor === null
+                ? (string) $valor
+                : json_encode($valor, JSON_UNESCAPED_UNICODE));
+        }
+
+        return implode(', ', $partes);
+    }
+
+    /**
      * Registrar un evento. `auth()->id()` puede ser null (login fallido: el
      * usuario todavia no esta autenticado).
      */

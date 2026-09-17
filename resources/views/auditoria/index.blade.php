@@ -57,8 +57,14 @@
                                     —
                                 @endif
                             </td>
-                            <td class="small text-body-secondary">
-                                {{ $evento->detalle ? json_encode($evento->detalle, JSON_UNESCAPED_UNICODE) : '—' }}
+                            <td class="small text-body-secondary" style="max-width: 22rem;">
+                                @if ($resumen = $evento->resumen())
+                                    <span class="text-truncate d-inline-block align-bottom" style="max-width: 100%;" title="{{ $resumen }}">
+                                        {{ $resumen }}
+                                    </span>
+                                @else
+                                    —
+                                @endif
                             </td>
                             <td class="text-body-secondary">{{ $evento->ip ?? '—' }}</td>
                         </tr>
